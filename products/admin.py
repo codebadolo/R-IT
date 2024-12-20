@@ -23,8 +23,19 @@ super_admin_site = SuperAdminSite(name='superadminsite')
 class ProductImages(admin.TabularInline):
     model = ProductImage
 
+class ProductInventoryInline(admin.StackedInline):  # Use StackedInline for better layout
+    model = ProductInventory
+    extra = 1
+    
 class ProductAditionalInformations(admin.TabularInline):
     model = ProductAditionalInformation
+
+
+class ProductInventoryAdmin(admin.ModelAdmin):
+    list_display = ['product', 'total_quantity', 'available_quantity', 'created_at']
+    search_fields = ['product__title']  # Search by product title
+
+super_admin_site.register(ProductInventory, ProductInventoryAdmin)
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -34,6 +45,8 @@ class ProductAdmin(admin.ModelAdmin):
 
 class CartModelAdmin(admin.ModelAdmin):
     list_display = ['product','user']
+
+
 
 super_admin_site.register(Industry)
 super_admin_site.register(Categories)

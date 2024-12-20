@@ -51,6 +51,43 @@ class SubCategories(models.Model):
     def __str__(self):
         return self.name
 
+class ProductBrand(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, blank=True)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(ProductBrand, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+class Attribute(models.Model):
+    name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+class AttributeValue(models.Model):
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+    value = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.value
+class ProductType(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 
 class Product(models.Model):
     from Vendors.models import VendorStore
@@ -63,12 +100,15 @@ class Product(models.Model):
     discounted_parcent = models.PositiveIntegerField()
     description = RichTextField(max_length=2000)
     modle = models.CharField(max_length=50)
-    categories = models.ForeignKey(Categories, on_delete=models.DO_NOTHING)
+    categories = models.ForeignKey(Categories, on_delete=models.DO_NOTHING )
     tag = models.CharField(max_length=50, help_text="Enter your tag coma separated")
     vendor_stores = models.ForeignKey(VendorStore, on_delete=models.CASCADE, null=True, blank=True)
     details_description = RichTextField(max_length=5000, 
         help_text="Details product description display in the bottom of the product Page. It's help buyer to make deceion on your product")
     created_at = models.DateTimeField(auto_now_add=True)
+    brand = models.ForeignKey(ProductBrand, on_delete=models.SET_NULL, null=True, blank=True)
+    product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, blank=True)
+    inventory = models.OneToOneField('ProductInventory', on_delete=models.CASCADE, null=True, blank=True , related_name='product_inventory')
 
     @property
     def discounted_price(self):
@@ -104,6 +144,36 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+class ProductInventory(models.Model):
+    product = models.OneToOneField("Product", on_delete=models.CASCADE , related_name='inventory_relation')
+    total_quantity = models.PositiveIntegerField()
+    available_quantity = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Inventory for {self.product.title}"
+    
+    def save(self, *args, **kwargs):
+        if self.available_quantity > self.total_quantity:
+            raise ValueError("Available quantity cannot be greater than total quantity.")
+        super(ProductInventory, self).save(*args, **kwargs)
+                
+class Stock(models.Model):
+    product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    warehouse_location = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Stock for {self.product_inventory.product.title} in {self.warehouse_location}"
+        
+class ProductTypeAttribute(models.Model):
+    product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.product_type.name} - {self.attribute.name}"
 
 class ProductImage(models.Model):
     image = models.CharField(max_length=300)

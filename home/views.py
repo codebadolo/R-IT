@@ -32,13 +32,102 @@ def home(request):
     }
     return render(request, "home/home.html", context)
 
+from django.shortcuts import render
+from django.db.models import Q
+'''
+def display_categories_post(request, category_slug):
+    products = Product.objects.filter(categories__slug=category_slug)
+
+    # Get filter parameters from the request
+    query = request.GET.get('q', '')  # For search
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+    rating = request.GET.get('rating')
+    attribute_filters = request.GET.getlist('attribute')  # Multi-select attribute values
+
+    # Apply filters
+    if query:
+        products = products.filter(Q(title__icontains=query) | Q(description__icontains=query))
+    if min_price:
+        products = products.filter(regular_price__gte=min_price)
+    if max_price:
+        products = products.filter(regular_price__lte=max_price)
+    if rating:
+        products = products.filter(rating__gte=rating)
+    if attribute_filters:
+        for attr_value_id in attribute_filters:
+            products = products.filter(productattributevalue__id=attr_value_id)
+
+    # Pass all available attributes for filtering in the context
+    attributes = Attribute.objects.prefetch_related('attributevalue_set').all()
+
+    context = {
+        'products': products,
+        'category_slug': category_slug,
+        'attributes': attributes,  # To dynamically generate the filtering options
+    }
+    return render(request, 'product_list.html', context)
+'''
+
+'''def display_categories_post(request, id):
+    categories = Categories.objects.get(id=id)
+    products = Product.objects.filter(categories=categories)
+        # Get filter parameters from the request
+    query = request.GET.get('q', '')  # For search
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+    rating = request.GET.get('rating')
+    attribute_filters = request.GET.getlist('attribute')  # Multi-select attribute values
+
+    # Apply filters
+    if query:
+        products = products.filter(Q(title__icontains=query) | Q(description__icontains=query))
+    if min_price:
+        products = products.filter(regular_price__gte=min_price)
+    if max_price:
+        products = products.filter(regular_price__lte=max_price)
+    if rating:
+        products = products.filter(rating__gte=rating)
+    if attribute_filters:
+        for attr_value_id in attribute_filters:
+            products = products.filter(productattributevalue__id=attr_value_id)
+
+    context = {"products": products}
+    return render(request, "categories-post.html", context)
+'''
+
+from django.db.models import Q
 
 def display_categories_post(request, id):
     categories = Categories.objects.get(id=id)
     products = Product.objects.filter(categories=categories)
+    attributes = request.GET.getlist("attribute")
+    # Get filter parameters from the request
+    query = request.GET.get('q', '')  # For search
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+    rating = request.GET.get('rating')
+    attribute_filters = request.GET.getlist('attribute')  # Multi-select attribute values
+
+    # Apply filters
+    if query:
+        products = products.filter(Q(title__icontains=query) | Q(description__icontains=query))
+    
+    if min_price and min_price.isdigit():
+        products = products.filter(regular_price__gte=int(min_price))
+    
+    if max_price and max_price.isdigit():
+        products = products.filter(regular_price__lte=int(max_price))
+    
+    if rating and rating.isdigit():
+        products = products.filter(rating__gte=int(rating))
+    
+    if attribute_filters:
+        for attr_value_id in attribute_filters:
+            products = products.filter(productattributevalue__id=attr_value_id)
+
     context = {"products": products}
     return render(request, "categories-post.html", context)
-
 
 def test_page(request):
     return render(request, "strip/checkout.html")

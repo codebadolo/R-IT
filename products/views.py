@@ -6,21 +6,111 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from .models import (Product, Industry, Cart, 
-                     CustomerAddress, PlacedOder, 
-                     PlacedeOderItem, CuponCodeGenaration, ProductStarRatingAndReview)
+                     CustomerAddress, PlacedOder, Attribute,
+                     PlacedeOderItem, CuponCodeGenaration, ProductStarRatingAndReview
+                     )
+from django.core.paginator import Paginator
+
 from . forms import CustomerAddressForm
 import json
 from accounts.models import CustomUser
 
 # Create your views here.
 
+from django.shortcuts import render, get_object_or_404
+from .models import ( 
+                     Product, ProductStarRatingAndReview,
+                     ProductInventory, ProductType, ProductBrand, 
+                     Industry, Cart, ProductImage , ProductAditionalInformation ,
+                     AttributeValue , Stock 
+                     )
+
+
 
 def product_details(request, slug):
+    # Get the product using slug, return 404 if not found
+    product = get_object_or_404(Product, slug=slug)
+
+    # Get related models
+    industry = Industry.objects.all()
+    product_reviews = ProductStarRatingAndReview.objects.filter(product=product)
+    product_inventory = ProductInventory.objects.filter(product=product).first()  # Assuming one inventory entry per product
+    product_type = product.product_type
+    product_brand = product.brand
+    product_images = ProductImage.objects.filter(product=product)
+    product_additional_info = ProductAditionalInformation.objects.filter(product=product)
+    attributes = AttributeValue.objects.filter(attribute__producttypeattribute__product_type=product_type)
+    stock_details = Stock.objects.filter(product_inventory=product.inventory)
+    coupons = CuponCodeGenaration.objects.all()
+    related_products = Product.objects.filter(categories=product.categories).exclude(id=product.id)[:4]
+
+    # Calculate average rating and total reviews
+    average_rating = product.avarage_review.get('avarage') if product.avarage_review.get('avarage') else 0
+    total_reviews = product.total_review_of_product.count()
+
+    # Add any additional data to context as needed
+    context = {
+        "product": product,
+        "industry": industry,
+        "product_reviews": product_reviews,
+        "product_inventory": product_inventory,
+        "product_type": product_type,
+        "product_brand": product_brand,
+        "product_images": product_images,
+        "product_additional_info": product_additional_info,
+        "attributes": attributes,
+        "stock_details": stock_details,
+        "related_products": related_products,
+        "coupons": coupons,
+        "average_rating": average_rating,
+        "total_reviews": total_reviews,
+    }
+
+    # Optional: Handle adding to the cart (if user is logged in)
+    if request.user.is_authenticated:
+        # Check if the user has the product in their cart (assuming Cart model has user and product fields)
+        cart_item = Cart.objects.filter(user=request.user, product=product).first()
+        context['cart_item'] = cart_item
+
+    return render(request, "products/product-details.html", context)
+'''def product_details(request, slug):
+    # Get the product using slug, return 404 if not found
+    product = get_object_or_404(Product, slug=slug)
+
+    # Get related models
+    industry = Industry.objects.all()
+    product_reviews = ProductStarRatingAndReview.objects.filter(product=product)
+    product_inventory = ProductInventory.objects.filter(product=product).first()  # Assuming one inventory entry per product
+    product_type = ProductType.objects.filter(product=product).first()  # Get the first matching product type
+    product_brand = ProductBrand.objects.filter(product=product).first()  # Get the first matching product brand
+
+    # Add any additional data to context as needed
+    context = {
+        "product": product,
+        "industry": industry,
+        "product_reviews": product_reviews,
+        "product_inventory": product_inventory,
+        "product_type": product_type,
+        "product_brand": product_brand,
+         "related_products": Product.objects.filter(categories__in=product.categories.all()).exclude(id=product.id)[:4],
+    }
+
+    # Optional: Handle adding to the cart (if user is logged in)
+    if request.user.is_authenticated:
+        # Check if the user has the product in their cart (assuming Cart model has user and product fields)
+        cart_item = Cart.objects.filter(user=request.user, product=product).first()
+        context['cart_item'] = cart_item
+
+    return render(request, "products/product-details.html", context)
+'''
+
+'''def product_details(request, slug):
     product = Product.objects.get(slug=slug)
     industry = Industry.objects.all()
     product_reviews = ProductStarRatingAndReview.objects.filter(product=product)
     context = {"product": product, "industry": industry,'product_reviews':product_reviews}
-    return render(request, "products/product-details.html", context)
+    return render(request, "products/product-details.html", context)'''
+
 
 
 @login_required(login_url="user_login")
@@ -102,6 +192,45 @@ def increase_cart(request):
     }
     return JsonResponse(data)
 
+
+
+
+def all_products_view(request):
+    # Fetch all products and apply filtering logic (same as above)
+    products = Product.objects.all()
+    query = request.GET.get("q", "")
+    min_price = request.GET.get("min_price", None)
+    max_price = request.GET.get("max_price", None)
+    selected_attributes = request.GET.getlist("attribute")
+
+    if query:
+        products = products.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+
+    if min_price:
+        products = products.filter(regular_price__gte=min_price)
+
+    if max_price:
+        products = products.filter(regular_price__lte=max_price)
+
+    if selected_attributes:
+        products = products.filter(attribute_values__id__in=selected_attributes).distinct()
+
+    attributes = Attribute.objects.prefetch_related("attributevalue_set").all()
+
+    # Pagination logic
+    paginator = Paginator(products, 12)  # Show 12 products per page
+    page_number = request.GET.get("page")
+    products_page = paginator.get_page(page_number)
+
+    context = {
+        "products": products_page,
+        "attributes": attributes,
+        "selected_attributes": selected_attributes,
+    }
+
+    return render(request, "products/all_products.html", context)
 
 
 
