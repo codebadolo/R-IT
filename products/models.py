@@ -64,21 +64,6 @@ class ProductBrand(models.Model):
 
     def __str__(self):
         return self.name
-
-class Attribute(models.Model):
-    name = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-
-class AttributeValue(models.Model):
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
-    value = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.value
 class ProductType(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -86,8 +71,21 @@ class ProductType(models.Model):
 
     def __str__(self):
         return self.name
+class Attribute(models.Model):
+    name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE , default=1)
+    def __str__(self):
+        return self.name
 
+class AttributeValue(models.Model):
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+   #product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE)
+    value = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.value
 
 class Product(models.Model):
     from Vendors.models import VendorStore
@@ -109,7 +107,8 @@ class Product(models.Model):
     brand = models.ForeignKey(ProductBrand, on_delete=models.SET_NULL, null=True, blank=True)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, blank=True)
     inventory = models.OneToOneField('ProductInventory', on_delete=models.CASCADE, null=True, blank=True , related_name='product_inventory')
-
+    # Add ManyToManyField for attributes
+    attributes = models.ManyToManyField(Attribute, blank=True)  # This field links the Product model to attributes
     @property
     def discounted_price(self):
         price = (
@@ -168,12 +167,13 @@ class Stock(models.Model):
         return f"Stock for {self.product_inventory.product.title} in {self.warehouse_location}"
         
 class ProductTypeAttribute(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)  # Add ForeignKey to Product
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.product_type.name} - {self.attribute.name}"
+        return f"{self.product_type.name} - {self.attribute.name} for Product {self.product.title if self.product else 'N/A'}"
 
 class ProductImage(models.Model):
     image = models.CharField(max_length=300)

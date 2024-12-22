@@ -1,0 +1,30 @@
+{% extends "admin-panel/admin-base.html" %}
+
+{% block admin-page-title %}
+    Category List
+{% endblock admin-page-title %}
+
+{% block admin-body %}
+  <h1>Category List</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Industry</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <td>{{ category.name }}</td>
+        <td>{{ category.industry }}</td>
+        <td>
+          <a href="{% url 'edit_category' category.id %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'delete_category' category.id %}" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock admin-body %}

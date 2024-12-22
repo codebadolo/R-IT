@@ -1,0 +1,36 @@
+{% extends "admin-panel/admin-base.html" %}
+
+{% block admin-page-title %}
+    Manage Attributes
+{% endblock admin-page-title %}
+
+{% block admin-body %}
+    <h1>Manage Attributes</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Attribute</button>
+    </form>
+
+    <h2>Existing Attributes</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Product Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attribute in attributes %}
+            <tr>
+                <td>{{ attribute.name }}</td>
+                <td>{{ attribute.product_type.name }}</td>
+                <td>
+                    <a href="{% url 'manage_attribute_values' attribute.id %}" class="btn btn-sm btn-info">Manage Values</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock admin-body %}

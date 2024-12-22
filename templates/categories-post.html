@@ -31,7 +31,6 @@
       <div class="col-lg-3">
         <div class="filter-section mb-30">
           <form method="get" class="filter-form">
-            <!-- Search Field -->
             <div class="mb-3">
               <input
                 type="text"
@@ -41,7 +40,6 @@
                 class="form-control"
               />
             </div>
-            <!-- Price Range -->
             <div class="mb-3">
               <label for="min_price">Min Price:</label>
               <input
@@ -64,7 +62,27 @@
                 class="form-control"
               />
             </div>
-            <!-- Attributes Section -->
+
+            <!-- Brand Filter -->
+            <h5>Filter by Brand</h5>
+            <div class="mb-3">
+              {% for brand in brands %}
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="brand"
+                    value="{{ brand.id }}"
+                    id="brand-{{ brand.id }}"
+                    {% if brand.id|stringformat:"s" in selected_brands %}checked{% endif %}
+                  />
+                  <label class="form-check-label" for="brand-{{ brand.id }}">
+                    {{ brand.name }}
+                  </label>
+                </div>
+              {% endfor %}
+            </div>
+
             <h5>Filter by Attributes</h5>
             {% for attribute in attributes %}
               <div class="mb-3">
@@ -78,8 +96,7 @@
                         name="attribute"
                         value="{{ value.id }}"
                         id="attr-{{ value.id }}"
-                        {% if value.id|stringformat:"s" in selected_attributes %}
-                        checked{% endif %}
+                        {% if value.id|stringformat:"s" in selected_attributes %}checked{% endif %}
                       />
                       <label class="form-check-label" for="attr-{{ value.id }}">
                         {{ value.value }}
@@ -91,7 +108,7 @@
                 </div>
               </div>
             {% endfor %}
-            <!-- Submit Button -->
+
             <button type="submit" class="btn btn-primary w-100">Filter</button>
           </form>
         </div>
@@ -99,10 +116,15 @@
 
       <!-- Main Content for Products -->
       <div class="col-lg-9">
-        <div class="row">
+        <div class="d-flex justify-content-end mb-3">
+          <button id="grid-view" class="btn btn-outline-secondary me-2">Grid View</button>
+          <button id="list-view" class="btn btn-outline-secondary">List View</button>
+        </div>
+
+        <div class="row" id="product-container">
           {% if products %}
             {% for product in products %}
-              <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2">
+              <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2 product-card">
                 <div class="product__item product__item-2 b-radius-2 mb-20">
                   <div class="product__thumb fix">
                     <div class="product-image w-img">
@@ -138,22 +160,17 @@
                     </h6>
                     <div class="rating mb-5 mt-10">
                       <ul>
-                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                        <li><a href="#"><i class="fal fa-star"></i></a></li>
+                        <li><i class="fal fa-star"></i></li>
+                        <li><i class="fal fa-star"></i></li>
+                        <li><i class="fal fa-star"></i></li>
+                        <li><i class="fal fa-star"></i></li>
+                        <li><i class="fal fa-star"></i></li>
                       </ul>
                       <span>(01 review)</span>
                     </div>
                     <div class="price">
                       <span>${{ product.regular_price }}</span>
                     </div>
-                  </div>
-                  <div class="product__add-cart text-center">
-                    <button type="button" class="cart-btn-3 product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
-                      Add to Cart
-                    </button>
                   </div>
                 </div>
               </div>

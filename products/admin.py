@@ -1,9 +1,8 @@
 from django.contrib import admin
-from . models import *
+from .models import *
 from django.contrib.auth.models import Group
 
 # Register your models here.
-
 
 class SuperAdminSite(admin.AdminSite):
     site_header = 'Super Admin Dashboard'
@@ -19,6 +18,11 @@ class SuperAdminSite(admin.AdminSite):
 super_admin_site = SuperAdminSite(name='superadminsite')
 
 
+class CartModelAdmin(admin.ModelAdmin):
+    list_display = ['product', 'user']
+
+# Register Cart model with CartModelAdmin
+#super_admin_site.register(Cart, CartModelAdmin)
 
 class ProductImages(admin.TabularInline):
     model = ProductImage
@@ -30,6 +34,9 @@ class ProductInventoryInline(admin.StackedInline):  # Use StackedInline for bett
 class ProductAditionalInformations(admin.TabularInline):
     model = ProductAditionalInformation
 
+class ProductTypeAttributeInline(admin.TabularInline):
+    model = ProductTypeAttribute
+    extra = 1
 
 class ProductInventoryAdmin(admin.ModelAdmin):
     list_display = ['product', 'total_quantity', 'available_quantity', 'created_at']
@@ -37,24 +44,31 @@ class ProductInventoryAdmin(admin.ModelAdmin):
 
 super_admin_site.register(ProductInventory, ProductInventoryAdmin)
 
-
 class ProductAdmin(admin.ModelAdmin):
-    inlines = (ProductImages,ProductAditionalInformations)
-    list_display = ['title','categories','regular_price','vendor_stores']
-    list_editable =['vendor_stores']
+    inlines = [
+        ProductTypeAttributeInline,
+    ]
+    list_display = ['title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
+    list_filter = ['categories', 'brand', 'product_type']
+    search_fields = ['title', 'brand__name', 'product_type__name']
+    
+    # If attributes are now a ManyToMany field
+    filter_horizontal = ('attributes',)
 
-class CartModelAdmin(admin.ModelAdmin):
-    list_display = ['product','user']
+#super_admin_site.register(Product, ProductAdmin)
 
 
+#uper_admin_site.register(Product, ProductAdmin)
 
+super_admin_site.register(Product, ProductAdmin)
+
+# Register other models
 super_admin_site.register(Industry)
 super_admin_site.register(Categories)
 super_admin_site.register(SubCategories)
-super_admin_site.register(Product,ProductAdmin)
 super_admin_site.register(ProductImage)
 super_admin_site.register(ProductAditionalInformation)
-super_admin_site.register(Cart,CartModelAdmin)
+super_admin_site.register(Cart, CartModelAdmin)
 super_admin_site.register(CustomerAddress)
 super_admin_site.register(PlacedOder)
 super_admin_site.register(PlacedeOderItem)
@@ -63,8 +77,3 @@ super_admin_site.register(CompletedOder)
 super_admin_site.register(CompletedOderItems)
 super_admin_site.register(ProductStarRatingAndReview)
 super_admin_site.register(Group)
-
-
-
-
-

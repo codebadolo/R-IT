@@ -1,0 +1,31 @@
+{% extends "admin-panel/admin-base.html" %}
+
+{% block admin-page-title %}
+    Manage Values for {{ attribute.name }}
+{% endblock admin-page-title %}
+
+{% block admin-body %}
+    <h1>Manage Values for {{ attribute.name }}</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Value</button>
+    </form>
+
+    <h2>Existing Values</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in attribute_values %}
+            <tr>
+                <td>{{ value.value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock admin-body %}

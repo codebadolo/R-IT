@@ -1,8 +1,9 @@
 from django.shortcuts import render 
 from .models import SliderArea, DisplayHotProductInCategories, PopularCategories
-from products.models import Industry, Product, Categories, Cart
+from products.models import Industry, Product, Categories, Cart 
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Categories
+from products.models  import SubCategories
 # Create your views here.
 
 
@@ -95,8 +96,51 @@ def display_categories_post(request, category_slug):
     context = {"products": products}
     return render(request, "categories-post.html", context)
 '''
+from django.db.models import Q
 
 from django.db.models import Q
+from products.models  import  ProductBrand , Attribute
+
+def display_categories_post(request, id):
+    query = request.GET.get('q', '')
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+    selected_brands = request.GET.getlist('brand')
+    selected_attributes = request.GET.getlist('attribute')
+
+    products = Product.objects.all()
+    brands = ProductBrand.objects.all()
+    attributes = Attribute.objects.prefetch_related('attributevalue_set')
+
+    if query:
+        products = products.filter(title__icontains=query)
+
+    if min_price:
+        products = products.filter(regular_price__gte=min_price)
+
+    if max_price:
+        products = products.filter(regular_price__lte=max_price)
+
+    if selected_brands:
+        products = products.filter(brand_id__in=selected_brands)
+
+    if selected_attributes:
+        products = products.filter(attributes__in=selected_attributes).distinct()
+
+    context = {
+        'products': products,
+        'brands': brands,
+        'attributes': attributes,
+        'selected_brands': selected_brands,
+        'selected_attributes': selected_attributes,
+    }
+
+    return render(request, "categories-post.html", context)
+
+
+
+
+'''from django.db.models import Q
 
 def display_categories_post(request, id):
     categories = Categories.objects.get(id=id)
@@ -127,7 +171,7 @@ def display_categories_post(request, id):
             products = products.filter(productattributevalue__id=attr_value_id)
 
     context = {"products": products}
-    return render(request, "categories-post.html", context)
+    return render(request, "categories-post.html", context)'''
 
 def test_page(request):
     return render(request, "strip/checkout.html")

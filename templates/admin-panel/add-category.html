@@ -1,0 +1,62 @@
+{% extends "admin-panel/admin-base.html" %}
+
+{% block admin-page-title %}
+    Add New Category
+{% endblock admin-page-title %}
+
+{% block admin-body %}
+  <h1>Add New Category</h1>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select id="category" name="category" class="form-control">
+        <option value="">Select Category</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="subcategory">Subcategory</label>
+      <select id="subcategory" name="subcategory" class="form-control" disabled>
+        <option value="">Select Subcategory</option>
+      </select>
+    </div>
+
+    <!-- Additional fields for other attributes like Brand and Product Type can go here -->
+
+    <button type="submit" class="btn btn-primary">Save Category</button>
+  </form>
+
+  <a href="{% url 'category_list' %}">Back to Category List</a>
+
+{% endblock admin-body %}
+
+<script>
+  document.getElementById("category").addEventListener("change", function() {
+    var categoryId = this.value;
+    var subcategorySelect = document.getElementById("subcategory");
+
+    if (categoryId) {
+      subcategorySelect.disabled = false;
+      fetch(`/get-subcategories/${categoryId}/`)
+        .then(response => response.json())
+        .then(data => {
+          subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+          data.forEach(function(subcategory) {
+            var option = document.createElement('option');
+            option.value = subcategory.id;
+            option.text = subcategory.name;
+            subcategorySelect.appendChild(option);
+          });
+        });
+    } else {
+      subcategorySelect.disabled = true;
+      subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+    }
+  });
+</script>
