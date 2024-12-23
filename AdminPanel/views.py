@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect
 from products.models import (PlacedOder, 
                              PlacedeOderItem, 
                              CustomerAddress,
@@ -10,7 +9,19 @@ from . forms import PlacedOderForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
-# Create your views here.
+import json
+from django.views import View
+from django.http import HttpResponse
+from products.models import  (Product, ProductImage , Attribute,
+                              ProductBrand ,ProductType , 
+                              ProductTypeAttribute  , Categories ,
+                              SubCategories ,AttributeValue,  Industry )
+#from vendors.models import VendorStore, Categories
+from django.http import JsonResponse
+from .forms import AttributeForm , ProductTypeForm
+from .forms import ProductForm ,CategoryForm  # You'll need to create a ProductForm
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 @login_required(login_url='user_login')
 def dashboard(request):
@@ -93,38 +104,11 @@ def show_completed_oder_item_list(request, id):
 
     return render(request,'admin-panel/completed-oder-item-details.html', context)
 
-
-
-# In views.py
-from django.shortcuts import render, redirect, get_object_or_404
-from products.models import Product
-from .forms import ProductForm ,CategoryForm  # You'll need to create a ProductForm
-from django.contrib.auth.decorators import login_required
-
 # View to list all products
 @login_required
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'admin-panel/product_list.html', {'products': products})
-
-# View to add a new product
-# views.py
-import json
-from django.views import View
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from products.models import  (Product, ProductImage , 
-                              ProductBrand ,ProductType , 
-                              ProductTypeAttribute  , Categories ,
-                              SubCategories ,AttributeValue,  Industry )
-from .forms import  ProductForm
-
-# views.py
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-
-#from vendors.models import VendorStore, Categories
-from django.http import JsonResponse
 
 @login_required
 def add_product(request):
@@ -146,7 +130,6 @@ def add_product(request):
 def view_products(request):
     # Logic for viewing the list of products
     return render(request, 'admin-panel/view_products.html')
-
 
 def add_brand(request):
     if request.method == 'POST':
@@ -221,9 +204,6 @@ def delete_category(request, category_id):
     category = get_object_or_404(Categories, id=category_id)
     category.delete()
     return redirect('category_list')
-from django.shortcuts import render, redirect
-from products.models import Attribute, ProductType
-from .forms import AttributeForm
 
 @login_required
 def manage_attributes(request):
@@ -237,7 +217,7 @@ def manage_attributes(request):
 
     attributes = Attribute.objects.all()
     return render(request, 'admin-panel/manage_attributes.html', {'form': form, 'attributes': attributes})
-from django.shortcuts import render, redirect, get_object_or_404
+
 
 from .forms import AttributeValueForm
 
@@ -255,11 +235,6 @@ def manage_attribute_values(request, attribute_id):
     
     attribute_values = AttributeValue.objects.filter(attribute=attribute)
     return render(request, 'admin-panel/manage_attribute_values.html', {'form': form, 'attribute': attribute, 'attribute_values': attribute_values})
-
-
-
-
-
 
 class DynamicProductCreateView(View):
     template_name = 'admin-panel/add_product.html'
@@ -300,3 +275,57 @@ def load_attribute_values(request):
     attribute_id = request.GET.get('attribute_id')
     values = AttributeValue.objects.filter(attribute_id=attribute_id)
     return JsonResponse(list(values.values('id', 'value')), safe=False)
+
+def create_product_type(request):
+    AttributeFormSet = inlineformset_factory(ProductType, Attribute, fields=('name',), extra=1)
+    
+    if request.method == "POST":
+        form = ProductTypeForm(request.POST)
+        formset = AttributeFormSet(request.POST)
+        
+        if form.is_valid() and formset.is_valid():
+            product_type = form.save()
+            attributes = formset.save(commit=False)
+            for attribute in attributes:
+                attribute.product_type = product_type
+                attribute.save()
+            # Stay on the same page after saving
+            return render(request, 'admin-panel/product_type_form.html', {
+                'form': ProductTypeForm(),
+                'formset': AttributeFormSet(),
+                'success': True
+            })
+    else:
+        form = ProductTypeForm()
+        formset = AttributeFormSet()
+
+    return render(request, 'admin-panel/product_type_form.html', {
+        'form': form,
+        'formset': formset
+    })
+    
+    
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        product_type_id = request.POST.get('product_type')
+        
+        if product_type_id:
+            attributes = Attribute.objects.filter(product_type_id=product_type_id)
+        
+        if form.is_valid():
+            product = form.save()
+            # Save dynamic attributes and values here (if needed)
+            return redirect('product_list')  # Redirect to product list or stay on the page
+            
+    else:
+        form = ProductForm()
+        attributes = None
+    
+    product_types = ProductType.objects.all()
+    
+    return render(request, 'admin-panel/add_product.html', {
+        'form': form,
+        'attributes': attributes,
+        'product_types': product_types
+    })    

@@ -9,8 +9,9 @@ urlpatterns = [
     path('admin-panel/completed-oder-item-list/<int:id>', views.show_completed_oder_item_list, name='show_completed_oder_item_list'),
     
      path('product-list/', views.product_list, name='product_list'),
-    path('add-product/', DynamicProductCreateView.as_view(), name='add_product'),
+    path('add-product/', views.create_product, name='add_product'),
     path('view-products/', views.view_products, name='view_products'),
+        path('view-product-type/', views.create_product_type, name='product_type'),
    # path('add-category/', views.add_category, name='add_category'),
     path('add-brand/', views.add_brand, name='add_brand'),
     path('add-product-type/', views.add_product_type, name='add_product_type'),

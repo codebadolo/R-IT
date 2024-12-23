@@ -1,0 +1,29 @@
+{% extends "admin-panel/admin-base.html" %}
+
+{% block admin-page-title %}
+    Category List
+{% endblock admin-page-title %}
+
+{% block admin-body %}
+<h1>Create Product Type</h1>
+
+{% if success %}
+    <p style="color: green;">Product Type and Attributes Created Successfully!</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <h3>Attributes</h3>
+    {{ formset.management_form }}
+    {% for form in formset %}
+        <div class="attribute-form">
+            {{ form.as_p }}
+        </div>
+    {% endfor %}
+    
+    <button type="submit">Save</button>
+</form>
+
+{% endblock admin-body %}

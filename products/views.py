@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from .models import (Product, Industry, Cart, 
-                     CustomerAddress, PlacedOder, Attribute,
+                     CustomerAddress, PlacedOder, Attribute, SubCategories,
                      PlacedeOderItem, CuponCodeGenaration, ProductStarRatingAndReview
                      )
 from django.core.paginator import Paginator
@@ -232,8 +232,28 @@ def all_products_view(request):
 
     return render(request, "products/all_products.html", context)
 
+def get_subcategories(request):
+    category_id = request.GET.get('category_id')
 
+    # Check if category_id is provided and is a valid integer
+    if not category_id or not category_id.isdigit():
+        return JsonResponse({'error': 'Invalid category_id'}, status=400)
 
+    category_id = int(category_id)
+
+    # Fetch the subcategories for the given category_id
+    subcategories = SubCategories.objects.filter(categories_id=category_id).values('id', 'name')
+
+    # Check if subcategories were found
+    if not subcategories:
+        return JsonResponse({'error': 'No subcategories found for this category'}, status=404)
+
+    return JsonResponse({'subcategories': list(subcategories)})
+'''
+def get_subcategories(request):
+    category_id = request.GET.get('category_id')
+    subcategories = SubCategories.objects.filter(categories_id=category_id).values('id', 'name')
+    return JsonResponse({'subcategories': list(subcategories)})'''
 # @login_required(login_url="user_login")
 # def check_out(request):
 #     user_cart = Cart.objects.filter(user=request.user)

@@ -40,7 +40,8 @@ class Categories(models.Model):
 class SubCategories(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
-    categories = models.ForeignKey(Categories, on_delete=models.DO_NOTHING)
+    categories = models.ForeignKey(Categories, on_delete=models.CASCADE , 
+                                   related_name='subcategories' )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
@@ -98,7 +99,7 @@ class Product(models.Model):
     discounted_parcent = models.PositiveIntegerField()
     description = RichTextField(max_length=2000)
     modle = models.CharField(max_length=50)
-    categories = models.ForeignKey(Categories, on_delete=models.DO_NOTHING )
+    categories = models.ForeignKey(Categories, on_delete=models.CASCADE )
     tag = models.CharField(max_length=50, help_text="Enter your tag coma separated")
     vendor_stores = models.ForeignKey(VendorStore, on_delete=models.CASCADE, null=True, blank=True)
     details_description = RichTextField(max_length=5000, 

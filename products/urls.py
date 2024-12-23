@@ -14,4 +14,6 @@ urlpatterns = [
     path('add-product-review/', views.add_product_review_and_rating, name='add_product_review_and_rating'),
     path('save-shipping-address/', views.save_shipping_address, name='save_shipping_address'),
     
+    
+     path('admin/get-subcategories/', views.get_subcategories, name='get_subcategories'),
 ]

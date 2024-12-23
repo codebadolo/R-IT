@@ -89,7 +89,10 @@ class CategoryForm(forms.ModelForm):
         model = Categories
         fields = ['name', 'industry']
         
-        
+class ProductTypeForm(forms.ModelForm):
+    class Meta:
+        model = ProductType
+        fields = ['name']        
 class AttributeForm(forms.ModelForm):
     class Meta:
         model = Attribute
