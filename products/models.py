@@ -75,15 +75,11 @@ class ProductType(models.Model):
 class Attribute(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    #product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE , default=1)
     def __str__(self):
         return self.name
 
-class AttributeValue(models.Model):
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
-   #product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE)
-    value = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.value
@@ -100,6 +96,7 @@ class Product(models.Model):
     description = RichTextField(max_length=2000)
     modle = models.CharField(max_length=50)
     categories = models.ForeignKey(Categories, on_delete=models.CASCADE )
+    subcategories = models.ForeignKey(SubCategories, on_delete=models.CASCADE ,  default=1 )
     tag = models.CharField(max_length=50, help_text="Enter your tag coma separated")
     vendor_stores = models.ForeignKey(VendorStore, on_delete=models.CASCADE, null=True, blank=True)
     details_description = RichTextField(max_length=5000, 
@@ -110,6 +107,8 @@ class Product(models.Model):
     inventory = models.OneToOneField('ProductInventory', on_delete=models.CASCADE, null=True, blank=True , related_name='product_inventory')
     # Add ManyToManyField for attributes
     attributes = models.ManyToManyField(Attribute, blank=True)  # This field links the Product model to attributes
+    
+    
     @property
     def discounted_price(self):
         price = (
@@ -157,7 +156,15 @@ class ProductInventory(models.Model):
         if self.available_quantity > self.total_quantity:
             raise ValueError("Available quantity cannot be greater than total quantity.")
         super(ProductInventory, self).save(*args, **kwargs)
-                
+
+
+class AttributeValue(models.Model):
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+   #product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE)
+    value = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
 class Stock(models.Model):
     product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()

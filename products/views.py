@@ -232,7 +232,7 @@ def all_products_view(request):
 
     return render(request, "products/all_products.html", context)
 
-def get_subcategories(request):
+'''def get_subcategories(request):
     category_id = request.GET.get('category_id')
 
     # Check if category_id is provided and is a valid integer
@@ -249,6 +249,12 @@ def get_subcategories(request):
         return JsonResponse({'error': 'No subcategories found for this category'}, status=404)
 
     return JsonResponse({'subcategories': list(subcategories)})
+'''
+def get_subcategories(request):
+    category_id = request.GET.get('category_id')
+    subcategories = SubCategories.objects.filter(categories_id=category_id)
+    sub_list = list(subcategories.values('id', 'name'))
+    return JsonResponse({'subcategories': sub_list})
 '''
 def get_subcategories(request):
     category_id = request.GET.get('category_id')

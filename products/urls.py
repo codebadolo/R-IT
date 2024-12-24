@@ -15,5 +15,5 @@ urlpatterns = [
     path('save-shipping-address/', views.save_shipping_address, name='save_shipping_address'),
     
     
-     path('admin/get-subcategories/', views.get_subcategories, name='get_subcategories'),
+    path('get-subcategories/', views.get_subcategories, name='get_subcategories'),
 ]
