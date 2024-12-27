@@ -98,8 +98,11 @@ def display_categories_post(request, category_slug):
 '''
 from django.db.models import Q
 
+from django.core.paginator import Paginator
+from django.shortcuts import render
 from django.db.models import Q
-from products.models  import  ProductBrand , Attribute
+from products.models import ProductBrand, Attribute, AttributeValue, Product, Categories, ProductType 
+from Vendors.models import  VendorStore
 
 def display_categories_post(request, id):
     query = request.GET.get('q', '')
@@ -107,37 +110,55 @@ def display_categories_post(request, id):
     max_price = request.GET.get('max_price')
     selected_brands = request.GET.getlist('brand')
     selected_attributes = request.GET.getlist('attribute')
+    selected_vendors = request.GET.getlist('vendor')
 
-    products = Product.objects.all()
-    brands = ProductBrand.objects.all()
-    attributes = Attribute.objects.prefetch_related('attributevalue_set')
+    # Fetch the selected category
+    category = Categories.objects.get(id=id)
 
+    # Fetch products related to the selected category
+    products = Product.objects.filter(categories=category)
+
+    # Fetch related attributes and attribute values
+    attributes = Attribute.objects.filter(product__categories=category).distinct()
+    attribute_values = AttributeValue.objects.filter(attribute__product__categories=category).distinct()
+
+    # Fetch related brands, vendors, and product types
+    brands = ProductBrand.objects.filter(product__categories=category).distinct()
+    vendors = VendorStore.objects.filter(product__categories=category).distinct()
+    product_types = ProductType.objects.filter(product__categories=category).distinct()
+
+    # Apply filters
     if query:
-        products = products.filter(title__icontains=query)
-
+        products = products.filter(Q(title__icontains=query) | Q(description__icontains=query))
     if min_price:
         products = products.filter(regular_price__gte=min_price)
-
     if max_price:
         products = products.filter(regular_price__lte=max_price)
-
     if selected_brands:
         products = products.filter(brand_id__in=selected_brands)
-
     if selected_attributes:
         products = products.filter(attributes__in=selected_attributes).distinct()
+    if selected_vendors:
+        products = products.filter(vendor_stores_id__in=selected_vendors)
+
+    # Implement pagination
+    paginator = Paginator(products, 12)  # Show 12 products per page
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
 
     context = {
         'products': products,
         'brands': brands,
+        'vendors': vendors,
         'attributes': attributes,
+        'attribute_values': attribute_values,
+        'product_types': product_types,
         'selected_brands': selected_brands,
         'selected_attributes': selected_attributes,
+        'selected_vendors': selected_vendors,
     }
 
     return render(request, "categories-post.html", context)
-
-
 
 
 '''from django.db.models import Q

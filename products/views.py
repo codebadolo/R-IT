@@ -73,43 +73,6 @@ def product_details(request, slug):
         context['cart_item'] = cart_item
 
     return render(request, "products/product-details.html", context)
-'''def product_details(request, slug):
-    # Get the product using slug, return 404 if not found
-    product = get_object_or_404(Product, slug=slug)
-
-    # Get related models
-    industry = Industry.objects.all()
-    product_reviews = ProductStarRatingAndReview.objects.filter(product=product)
-    product_inventory = ProductInventory.objects.filter(product=product).first()  # Assuming one inventory entry per product
-    product_type = ProductType.objects.filter(product=product).first()  # Get the first matching product type
-    product_brand = ProductBrand.objects.filter(product=product).first()  # Get the first matching product brand
-
-    # Add any additional data to context as needed
-    context = {
-        "product": product,
-        "industry": industry,
-        "product_reviews": product_reviews,
-        "product_inventory": product_inventory,
-        "product_type": product_type,
-        "product_brand": product_brand,
-         "related_products": Product.objects.filter(categories__in=product.categories.all()).exclude(id=product.id)[:4],
-    }
-
-    # Optional: Handle adding to the cart (if user is logged in)
-    if request.user.is_authenticated:
-        # Check if the user has the product in their cart (assuming Cart model has user and product fields)
-        cart_item = Cart.objects.filter(user=request.user, product=product).first()
-        context['cart_item'] = cart_item
-
-    return render(request, "products/product-details.html", context)
-'''
-
-'''def product_details(request, slug):
-    product = Product.objects.get(slug=slug)
-    industry = Industry.objects.all()
-    product_reviews = ProductStarRatingAndReview.objects.filter(product=product)
-    context = {"product": product, "industry": industry,'product_reviews':product_reviews}
-    return render(request, "products/product-details.html", context)'''
 
 
 
@@ -232,34 +195,13 @@ def all_products_view(request):
 
     return render(request, "products/all_products.html", context)
 
-'''def get_subcategories(request):
-    category_id = request.GET.get('category_id')
 
-    # Check if category_id is provided and is a valid integer
-    if not category_id or not category_id.isdigit():
-        return JsonResponse({'error': 'Invalid category_id'}, status=400)
-
-    category_id = int(category_id)
-
-    # Fetch the subcategories for the given category_id
-    subcategories = SubCategories.objects.filter(categories_id=category_id).values('id', 'name')
-
-    # Check if subcategories were found
-    if not subcategories:
-        return JsonResponse({'error': 'No subcategories found for this category'}, status=404)
-
-    return JsonResponse({'subcategories': list(subcategories)})
-'''
 def get_subcategories(request):
     category_id = request.GET.get('category_id')
     subcategories = SubCategories.objects.filter(categories_id=category_id)
     sub_list = list(subcategories.values('id', 'name'))
     return JsonResponse({'subcategories': sub_list})
-'''
-def get_subcategories(request):
-    category_id = request.GET.get('category_id')
-    subcategories = SubCategories.objects.filter(categories_id=category_id).values('id', 'name')
-    return JsonResponse({'subcategories': list(subcategories)})'''
+
 # @login_required(login_url="user_login")
 # def check_out(request):
 #     user_cart = Cart.objects.filter(user=request.user)

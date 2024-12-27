@@ -83,6 +83,26 @@
               {% endfor %}
             </div>
 
+            <!-- Vendor Filter -->
+            <h5>Filter by Vendor</h5>
+            <div class="mb-3">
+              {% for vendor in vendors %}
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="vendor"
+                    value="{{ vendor.id }}"
+                    id="vendor-{{ vendor.id }}"
+                    {% if vendor.id|stringformat:"s" in selected_vendors %}checked{% endif %}
+                  />
+                  <label class="form-check-label" for="vendor-{{ vendor.id }}">
+                    {{ vendor.name }}
+                  </label>
+                </div>
+              {% endfor %}
+            </div>
+
             <h5>Filter by Attributes</h5>
             {% for attribute in attributes %}
               <div class="mb-3">
@@ -124,8 +144,8 @@
         <div class="row" id="product-container">
           {% if products %}
             {% for product in products %}
-              <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2 product-card">
-                <div class="product__item product__item-2 b-radius-2 mb-20">
+              <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 product-card">
+                <div class="product__item product__item-2 b-radius-2 mb-20" style="height: 450px;">
                   <div class="product__thumb fix">
                     <div class="product-image w-img">
                       <a href="{% url 'product_details' product.slug %}">
@@ -158,6 +178,7 @@
                         {{ product.title|truncatewords:5 }}
                       </a>
                     </h6>
+                    <p>{{ product.description|truncatewords:10 }}</p>
                     <div class="rating mb-5 mt-10">
                       <ul>
                         <li><i class="fal fa-star"></i></li>
@@ -166,10 +187,19 @@
                         <li><i class="fal fa-star"></i></li>
                         <li><i class="fal fa-star"></i></li>
                       </ul>
-                      <span>(01 review)</span>
+                      <span>({{ product.total_review_of_product.count }} reviews)</span>
                     </div>
                     <div class="price">
                       <span>${{ product.regular_price }}</span>
+                    </div>
+                    <div class="stock">
+                      <span>Stock: {{ product.stoc }}</span>
+                    </div>
+                    <div class="add-to-cart">
+                      <form method="post" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -181,8 +211,47 @@
             </div>
           {% endif %}
         </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              {% if products.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% for num in products.paginator.page_range %}
+                {% if products.number == num %}
+                  <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                  <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if products.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   </div>
 </section>
 {% endblock bodycontent %}
+
+<script>
+  document.getElementById('grid-view').addEventListener('click', function() {
+    document.getElementById('product-container').classList.remove('list-view');
+  });
+
+  document.getElementById('list-view').addEventListener('click', function() {
+    document.getElementById('product-container').classList.add('list-view');
+  });
+</script>
