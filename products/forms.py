@@ -1,6 +1,7 @@
 from django import forms
-from .models import CustomerAddress , Product , SubCategories
+from .models import CustomerAddress , Product , SubCategories ,AttributeValue
 
+from .models import AttributeValue, Product ,Attribute
 
 class CustomerAddressForm(forms.ModelForm):
     class Meta:
@@ -14,32 +15,8 @@ class CustomerAddressForm(forms.ModelForm):
             'mobile': forms.NumberInput(attrs={'class':'form-control'}),
         }   
         
-        
 
 
-'''class ProductFormAdmin(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = '__all__'  # Include the relevant fields
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if self.instance and self.instance.pk:
-            category = self.instance.categories
-            if 'subcategories' in self.fields:
-                if category and hasattr(category, 'subcategories'):
-                    self.fields['subcategories'].queryset = category.subcategories.all()
-                else:
-                    self.fields['subcategories'].queryset = SubCategories.objects.none()
-            else:
-                self.fields['subcategories'] = forms.ModelChoiceField(
-                    queryset=SubCategories.objects.none(),
-                    required=False,
-                    label="Subcategory"
-                )
-'''
-from django import forms
-from .models import AttributeValue, Product ,Attribute
 
 class AttributeValueInlineForm(forms.ModelForm):
     class Meta:
@@ -60,12 +37,17 @@ class AttributeValueInlineForm(forms.ModelForm):
             self.fields['attribute'].queryset = self.instance.product.product_type.attribute_set.all()
 
 
-class ProductFormAdmin(forms.ModelForm):
+from django import forms
+from .models import Product, SubCategories
 
+class ProductFormAdmin(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__' # Adjust fields as needed
-
+        fields = [
+            'title', 'slug', 'regular_price', 'stoc', 'out_of_stoc', 'discounted_parcent', 
+            'description', 'modle', 'categories', 'subcategories', 'tag', 'vendor_stores', 
+            'details_description', 'brand', 'product_type', 'inventory', 'attributes'
+        ]  # Specify required fields
 
     def __init__(self, *args, **kwargs):
         super(ProductFormAdmin, self).__init__(*args, **kwargs)
@@ -73,10 +55,6 @@ class ProductFormAdmin(forms.ModelForm):
             self.fields['subcategories'].queryset = SubCategories.objects.filter(categories=self.instance.categories)
         else:
             self.fields['subcategories'].queryset = SubCategories.objects.none()
-    '''    subcategories = forms.ModelChoiceField(
-        queryset=SubCategories.objects.none(),
-        required=False
-    )'''
 
 
 '''    def __init__(self, *args, **kwargs):

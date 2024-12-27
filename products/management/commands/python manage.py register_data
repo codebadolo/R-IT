@@ -1,0 +1,84 @@
+from django.core.management.base import BaseCommand
+from products.models import ProductBrand, ProductType, Attribute
+
+class Command(BaseCommand):
+    help = 'Register product brands, product types, and attributes into the database'
+
+    def handle(self, *args, **kwargs):
+        # Hardcoded product brand information
+        brands_info = [
+            {
+                'name': 'Brand 1',
+                'description': 'Description for Brand 1',
+                'logo': None  # Provide a path to the logo if available
+            },
+            {
+                'name': 'Brand 2',
+                'description': 'Description for Brand 2',
+                'logo': None  # Provide a path to the logo if available
+            },
+            # Add more brands as needed
+        ]
+
+        # Hardcoded product type information
+        product_types_info = [
+            {
+                'name': 'Type 1',
+                'description': 'Description for Type 1'
+            },
+            {
+                'name': 'Type 2',
+                'description': 'Description for Type 2'
+            },
+            # Add more types as needed
+        ]
+
+        # Hardcoded attribute information
+        attributes_info = [
+            {
+                'name': 'Attribute 1',
+                'product_type': 1  # ID of the product type, update as needed
+            },
+            {
+                'name': 'Attribute 2',
+                'product_type': 2  # ID of the product type, update as needed
+            },
+            # Add more attributes as needed
+        ]
+
+        # Register product brands
+        for info in brands_info:
+            try:
+                brand = ProductBrand(
+                    name=info['name'],
+                    description=info['description'],
+                    logo=info['logo']
+                )
+                brand.save()
+                self.stdout.write(self.style.SUCCESS(f'Brand "{info["name"]}" registered successfully'))
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f'Error registering brand "{info["name"]}": {e}'))
+
+        # Register product types
+        for info in product_types_info:
+            try:
+                product_type = ProductType(
+                    name=info['name'],
+                    description=info['description']
+                )
+                product_type.save()
+                self.stdout.write(self.style.SUCCESS(f'Product Type "{info["name"]}" registered successfully'))
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f'Error registering product type "{info["name"]}": {e}'))
+
+        # Register attributes
+        for info in attributes_info:
+            try:
+                attribute = Attribute(
+                    name=info['name'],
+                    product_type_id=info['product_type']
+                )
+                attribute.save()
+                self.stdout.write(self.style.SUCCESS(f'Attribute "{info["name"]}" registered successfully'))
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f'Error registering attribute "{info["name"]}": {e}'))

@@ -1,76 +1,73 @@
-from django.core.management.base import BaseCommand
-from products.models import Product, Categories, ProductBrand, ProductType, ProductInventory, Attribute, AttributeValue, VendorStore
-from django.db import IntegrityError
-
+from django.core.management.base import BaseCommand, CommandError
+from products.models import Product, Categories, SubCategories, ProductBrand, ProductType
+from Vendors.models import  VendorStore
 class Command(BaseCommand):
-    help = 'Create multiple products with associated details'
+    help = 'Register products into the database'
 
-    def add_arguments(self, parser):
-        # Adding an optional argument for industry_id
-        parser.add_argument('--industry_id', type=int, help='ID of the industry to associate with categories')
-
-    def handle(self, *args, **options):
-        industry_id = options['industry_id']  # Retrieve the industry_id argument
-        if not industry_id:
-            self.stdout.write(self.style.ERROR('industry_id argument is required!'))
-            return
-        
-        # Sample product details (replace with your actual data)
-        products_data = [
-            {"title": "Product 1", "regular_price": 100, "discounted_price": 80, "description": "Description 1", "category_name": "Category 1", "vendor_store_name": "Vendor 1", "brand_name": "Brand 1", "product_type_name": "Type 1", "attributes": ["Color: Red"]},
-            # Add more product data here...
-        ]
-        
-        for product_data in products_data:
-            self.create_product(
-                title=product_data['title'],
-                regular_price=product_data['regular_price'],
-                discounted_price=product_data['discounted_price'],
-                description=product_data['description'],
-                category_name=product_data['category_name'],
-                vendor_store_name=product_data['vendor_store_name'],
-                brand_name=product_data['brand_name'],
-                product_type_name=product_data['product_type_name'],
-                attributes=product_data['attributes'],
-                industry_id=industry_id  # Pass the industry_id
-            )
-            
-    def create_product(self, title, regular_price, discounted_price, description, category_name, vendor_store_name, brand_name, product_type_name, attributes, industry_id):
-        # Fetch or create the necessary models
-        category, _ = Categories.objects.get_or_create(
-            name=category_name,
-            defaults={'industry_id': industry_id}  # Use the passed industry_id
+    def handle(self, *args, **kwargs):
+        # Ensure related objects exist
+        brand, created = ProductBrand.objects.get_or_create(
+            id=1,
+            defaults={'name': 'Default Brand', 'slug': 'default-brand'}
         )
-        vendor_store = VendorStore.objects.get(name=vendor_store_name)
-        brand, _ = ProductBrand.objects.get_or_create(name=brand_name)
-        product_type, _ = ProductType.objects.get_or_create(name=product_type_name)
-        
-        # Create the product
-        product = Product(
-            title=title,
-            regular_price=regular_price,
-            discounted_parcent=((regular_price - discounted_price) / regular_price) * 100,
-            description=description,
+
+        category, created = Categories.objects.get_or_create(
+            id=1,
+            defaults={'name': 'Default Category', 'slug': 'default-category'}
+        )
+
+        subcategory, created = SubCategories.objects.get_or_create(
+            id=1,
             categories=category,
-            vendor_stores=vendor_store,
-            brand=brand,
-            product_type=product_type
+            defaults={'name': 'Default SubCategory', 'slug': 'default-subcategory'}
         )
-        product.save()
 
-        # Create product inventory
-        inventory = ProductInventory(
-            product=product,
-            total_quantity=100,
-            available_quantity=100
+        vendor_store, created = VendorStore.objects.get_or_create(
+            id=1,
+            defaults={'name': 'Default Vendor Store'}
         )
-        inventory.save()
 
-        # Add attributes to the product
-        for attribute_name in attributes:
-            attribute, created = Attribute.objects.get_or_create(name=attribute_name)
-            attribute_value, created = AttributeValue.objects.get_or_create(attribute=attribute, value=attribute_name)
-            product.attributes.add(attribute)
-        
-        product.save()
-        self.stdout.write(self.style.SUCCESS(f'Product {title} created successfully!'))
+        product_type, created = ProductType.objects.get_or_create(
+            id=1,
+            defaults={'name': 'Default Product Type'}
+        )
+
+        # Hardcoded product information
+        products_info = [
+            {
+                'title': 'Product 1',
+                'regular_price': 100,
+                'discounted_parcent': 10,
+                'description': 'Description for Product 1',
+                'modle': 'Model1',
+                'categories': category,
+                'subcategories': subcategory,
+                'tag': 'tag1',
+                'vendor_stores': vendor_store,
+                'details_description': 'Detailed description for Product 1',
+                'brand': brand,
+                'product_type': product_type
+            },
+            # Add more products as needed
+        ]
+
+        for info in products_info:
+            try:
+                product = Product(
+                    title=info['title'],
+                    regular_price=info['regular_price'],
+                    discounted_parcent=info['discounted_parcent'],
+                    description=info['description'],
+                    modle=info['modle'],
+                    categories=info['categories'],
+                    subcategories=info['subcategories'],
+                    tag=info['tag'],
+                    vendor_stores=info['vendor_stores'],
+                    details_description=info['details_description'],
+                    brand=info['brand'],
+                    product_type=info['product_type']
+                )
+                product.save()
+                self.stdout.write(self.style.SUCCESS(f'Product "{info["title"]}" registered successfully'))
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f'Error registering product "{info["title"]}": {e}'))

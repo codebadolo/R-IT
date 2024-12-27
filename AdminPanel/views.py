@@ -161,11 +161,11 @@ def add_category(request):
     categories = Categories.objects.all()
     return render(request, 'admin-panel/add-category.html', {'categories': categories})
 
+
 def get_subcategories(request, category_id):
-    # Fetch the subcategories for the selected category
     subcategories = SubCategories.objects.filter(categories_id=category_id)
-    subcategories_list = [{'id': sub.id, 'name': sub.name} for sub in subcategories]
-    return JsonResponse(subcategories_list, safe=False)
+    data = [{'id': sub.id, 'name': sub.name} for sub in subcategories]
+    return JsonResponse(data, safe=False)
 
 def category_list(request):
     categories = Categories.objects.all()

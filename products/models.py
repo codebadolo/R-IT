@@ -57,7 +57,7 @@ class ProductBrand(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    logo = models.ImageField(upload_to='brand_logos/', blank=True, null=True)  # Add this line
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -65,6 +65,7 @@ class ProductBrand(models.Model):
 
     def __str__(self):
         return self.name
+    
 class ProductType(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -82,7 +83,7 @@ class Attribute(models.Model):
 
 
     def __str__(self):
-        return self.value
+        return self.name
 
 class Product(models.Model):
     from Vendors.models import VendorStore
@@ -163,7 +164,7 @@ class AttributeValue(models.Model):
    #product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE)
     value = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE , default=1)
 
 class Stock(models.Model):
     product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE)

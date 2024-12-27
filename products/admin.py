@@ -3,9 +3,8 @@ from .models import *
 from .forms import ProductFormAdmin, AttributeValueInlineForm
 from django.contrib.auth.models import Group
 from django.utils.html import format_html
-# -------------------------
+
 # Super Admin Site Customization
-# -------------------------
 class SuperAdminSite(admin.AdminSite):
     site_header = 'Super Admin Dashboard'
     site_title = 'Super Admin Panel'
@@ -16,17 +15,13 @@ class SuperAdminSite(admin.AdminSite):
 
 super_admin_site = SuperAdminSite(name='superadminsite')
 
-# -------------------------
 # Industry Management
-# -------------------------
 @admin.register(Industry)
 class IndustryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'created_at')
     prepopulated_fields = {'slug': ('name',)}
 
-# -------------------------
 # Category & Subcategory
-# -------------------------
 class SubCategoryInline(admin.TabularInline):
     model = SubCategories
     extra = 1
@@ -37,16 +32,20 @@ class CategoriesAdmin(admin.ModelAdmin):
     list_filter = ('industry',)
     prepopulated_fields = {'slug': ('name',)}
     inlines = [SubCategoryInline]
+    search_fields = ['name', 'industry__name']  # Add search fields
+
+super_admin_site.register(Categories, CategoriesAdmin)  # Register with super_admin_site
 
 @admin.register(SubCategories)
 class SubCategoriesAdmin(admin.ModelAdmin):
     list_display = ('name', 'categories', 'created_at')
     list_filter = ('categories__industry', 'categories')
     prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['name', 'categories__name']  # Add search fields
 
-# -------------------------
+super_admin_site.register(SubCategories, SubCategoriesAdmin)  # Register with super_admin_site
+
 # Product Attribute Management
-# -------------------------
 class AttributeValueInline(admin.TabularInline):
     model = AttributeValue
     extra = 1
@@ -54,7 +53,6 @@ class AttributeValueInline(admin.TabularInline):
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
     inlines = [AttributeValueInline]
-
 
 class ProductTypeAttributeInline(admin.TabularInline):
     model = ProductTypeAttribute
@@ -65,18 +63,14 @@ class ProductTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at')
     inlines = [ProductTypeAttributeInline]
 
-# -------------------------
 # Product Inventory Management
-# -------------------------
 class ProductInventoryAdmin(admin.ModelAdmin):
     list_display = ['product', 'total_quantity', 'available_quantity', 'created_at']
     search_fields = ['product__title']
 
 super_admin_site.register(ProductInventory, ProductInventoryAdmin)
 
-# -------------------------
 # Product Management
-# -------------------------
 class ProductImages(admin.TabularInline):
     model = ProductImage
     extra = 1
@@ -96,8 +90,8 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['thumbnail', 'title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
     list_filter = ['categories__industry', 'categories', 'subcategories', 'brand', 'product_type']
     search_fields = ['title', 'brand__name', 'product_type__name']
-    #filter_horizontal = ('attributes',)
     prepopulated_fields = {'slug': ('title',)}
+    autocomplete_fields = ['categories', 'subcategories']  # Ensure this line is here
 
     def thumbnail(self, obj):
         image = obj.productimage_set.first()
@@ -122,9 +116,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 super_admin_site.register(Product, ProductAdmin)
 
-# -------------------------
 # Miscellaneous
-# -------------------------
 class CartModelAdmin(admin.ModelAdmin):
     list_display = ['product', 'user']
 

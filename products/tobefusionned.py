@@ -1,263 +1,165 @@
-from django.db import models
-from django.utils.translation import gettext_lazy as _
-from mptt.models import MPTTModel, TreeForeignKey
+this is my last admin file content from django.contrib import admin
+from .models import *
+from django.contrib.auth.models import Group
+from .forms import ProductFormAdmin, AttributeValueInlineForm
+# Register your models here.
+
+class SuperAdminSite(admin.AdminSite):
+    site_header = 'Super Admin Dashboard'
+    site_title = 'Super Admin Dashboard'
+    index_title = 'Control Your Site From Here'
+
+    def has_permission(self, request):
+        # Check if the user is authenticated and has the role "Admin" (user_role == 1)
+        return request.user.is_authenticated and request.user.is_superuser
+
+    login_view = 'superadmin:login'  # The URL name for the default admin login view
+
+super_admin_site = SuperAdminSite(name='superadminsite')
+
+# Industry Admin
+@admin.register(Industry)
+class IndustryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'created_at')
+    prepopulated_fields = {'slug': ('name',)}
+    
+# SubCategories Inline (to show in Category Admin)
+class SubCategoryInline(admin.TabularInline):
+    model = SubCategories
+    extra = 1  # Number of empty forms to display
+# Categories Admin
+@admin.register(Categories)
+class CategoriesAdmin(admin.ModelAdmin):
+    list_display = ('name', 'industry', 'created_at')
+    list_filter = ('industry',)
+    search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
+    inlines = [SubCategoryInline]  # Attach SubCategories inline   
+    
+    
+# SubCategories Admin
+@admin.register(SubCategories)
+class SubCategoriesAdmin(admin.ModelAdmin):
+    list_display = ('name', 'categories', 'created_at')
+    list_filter = ('categories__industry', 'categories')
+    search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}  
+      
+class CartModelAdmin(admin.ModelAdmin):
+    list_display = ['product', 'user']
+
+# Register Cart model with CartModelAdmin
+#super_admin_site.register(Cart, CartModelAdmin)
+
+class ProductImages(admin.TabularInline):
+    model = ProductImage
+
+class ProductInventoryInline(admin.StackedInline):  # Use StackedInline for better layout
+    model = ProductInventory
+    extra = 1
+    
+class ProductAditionalInformations(admin.TabularInline):
+    model = ProductAditionalInformation
+
+class ProductTypeAttributeInline(admin.TabularInline):
+    model = ProductTypeAttribute
+    extra = 1
+
+class ProductInventoryAdmin(admin.ModelAdmin):
+    list_display = ['product', 'total_quantity', 'available_quantity', 'created_at']
+    search_fields = ['product__title']  # Search by product title
+
+super_admin_site.register(ProductInventory, ProductInventoryAdmin)
+
+class AttributeValueInline(admin.TabularInline):
+    model = AttributeValue
+    form = AttributeValueInlineForm
+    extra = 1  # Show at least one empty form by default
+
+from django.utils.html import format_html
+class ProductAdmin(admin.ModelAdmin):
+
+    form = ProductFormAdmin
+    #ProductTypeAttributeInline,
+    inlines = [
+       AttributeValueInline,
+    ]
+    list_display = ['thumbnail', 'title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
+    list_filter = ['categories__industry','categories',  'subcategories', 'brand', 'product_type']
+    search_fields = ['title', 'brand__name', 'product_type__name'] #'subcategories',
+    filter_horizontal = ('attributes',)
+    prepopulated_fields = {'slug': ('title',)}
+
+    #autocomplete_fields = ['brand', 'product_type']
+
+    def thumbnail(self, obj):
+        # Get the first image for the product or use a placeholder
+        image = obj.productimage_set.first()
+        if image:
+            return format_html('<img src="{}" width="100" height="100" style="border-radius: 5px;" />', image.image)
+        else:
+            return format_html('<img src="https://placehold.co/50x50" width="50" height="50" style="border-radius: 5px;" />')
+
+    thumbnail.short_description = 'Image'
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "subcategories":
+            if request.resolver_match.kwargs.get('object_id'):
+                product_id = request.resolver_match.kwargs['object_id']
+                product = Product.objects.get(pk=product_id)
+                kwargs["queryset"] = SubCategories.objects.filter(categories=product.categories)
+            else:
+                kwargs["queryset"] = SubCategories.objects.none()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+    class Media:
+        js = ('admin-panel/assets/js/custom_admin.js',)
+'''    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        # Filter subcategories based on selected category
+        if db_field.name == "subcategories":
+            if request.GET.get("categories__id__exact"):
+                category_id = request.GET.get("categories__id__exact")
+                kwargs["queryset"] = SubCategories.objects.filter(categories_id=category_id)
+            else:
+                kwargs["queryset"] = SubCategories.objects.none()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)'''
 
 
-class Category(MPTTModel):
-    name = models.CharField(
-        max_length=100,
-    )
-    slug = models.SlugField(max_length=150, unique=True)
-    is_active = models.BooleanField(
-        default=False,
-    )
-    parent = TreeForeignKey(
-        "self",
-        on_delete=models.PROTECT,
-        related_name="children",
-        null=True,
-        blank=True,
-    )
+'''    def categories(self, obj):
+        if obj.categories:
+            subcategories = obj.categories.subcategories.all()  # Use .subcategories if related_name exists
+            return ", ".join([sub.name for sub in subcategories])
+        return "No Category"'''
 
-    class MPTTMeta:
-        order_insertion_by = ["name"]
+ # Add custom JS for filtering subcategories dynamically
+'''class ProductAdmin(admin.ModelAdmin):
+    inlines = [
+        ProductTypeAttributeInline,
+    ]
+    list_display = ['title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
+    list_filter = ['categories', 'brand', 'product_type']
+    search_fields = ['title', 'brand__name', 'product_type__name']
+    
+    # If attributes are now a ManyToMany field
+    filter_horizontal = ('attributes',)'''
 
-    class Meta:
-        ordering = ["name"]
-        verbose_name_plural = _("categories")
-
-    def __str__(self):
-        return self.name
+#super_admin_site.register(Product, ProductAdmin)
 
 
-class Product(models.Model):
-    web_id = models.CharField(
-        max_length=50,
-        unique=True,
-    )
-    slug = models.SlugField(
-        max_length=255,
-    )
-    name = models.CharField(
-        max_length=255,
-    )
-    description = models.TextField(blank=True)
-    category = models.ForeignKey(
-        Category,
-        related_name="product",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
-    is_active = models.BooleanField(
-        default=False,
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-    )
+#uper_admin_site.register(Product, ProductAdmin)
 
-    def __str__(self):
-        return self.name
+super_admin_site.register(Product, ProductAdmin)
 
-
-class Brand(models.Model):
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class ProductAttribute(models.Model):
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-    )
-    description = models.TextField(blank=True)
-
-    def __str__(self):
-        return self.name
-
-
-class ProductType(models.Model):
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-    )
-
-    product_type_attributes = models.ManyToManyField(
-        ProductAttribute,
-        related_name="product_type_attributes",
-        through="ProductTypeAttribute",
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class ProductAttributeValue(models.Model):
-    product_attribute = models.ForeignKey(
-        ProductAttribute,
-        related_name="product_attribute",
-        on_delete=models.PROTECT,
-    )
-    attribute_value = models.CharField(
-        max_length=255,
-    )
-
-
-class ProductInventory(models.Model):
-    sku = models.CharField(
-        max_length=20,
-        unique=True,
-    )
-    upc = models.CharField(
-        max_length=12,
-        unique=True,
-    )
-    product_type = models.ForeignKey(
-        ProductType, related_name="product_type", on_delete=models.PROTECT
-    )
-    product = models.ForeignKey(
-        Product, related_name="product", on_delete=models.PROTECT
-    )
-    brand = models.ForeignKey(
-        Brand,
-        related_name="brand",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-    )
-    attribute_values = models.ManyToManyField(
-        ProductAttributeValue,
-        related_name="product_attribute_values",
-        through="ProductAttributeValues",
-    )
-    is_active = models.BooleanField(
-        default=False,
-    )
-    is_default = models.BooleanField(
-        default=False,
-    )
-    retail_price = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        error_messages={
-            "name": {
-                "max_length": _("the price must be between 0 and 999.99."),
-            },
-        },
-    )
-    store_price = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        error_messages={
-            "name": {
-                "max_length": _("the price must be between 0 and 999.99."),
-            },
-        },
-    )
-    sale_price = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        error_messages={
-            "name": {
-                "max_length": _("the price must be between 0 and 999.99."),
-            },
-        },
-    )
-    is_on_sale = models.BooleanField(
-        default=False,
-    )
-    is_digital = models.BooleanField(
-        default=False,
-    )
-    weight = models.FloatField()
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-    )
-
-    def __str__(self):
-        return self.sku
-
-
-class Media(models.Model):
-    product_inventory = models.ForeignKey(
-        ProductInventory,
-        on_delete=models.PROTECT,
-        related_name="media",
-    )
-    img_url = models.ImageField()
-    alt_text = models.CharField(
-        max_length=255,
-    )
-    is_feature = models.BooleanField(
-        default=False,
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-    )
-
-
-class Stock(models.Model):
-    product_inventory = models.OneToOneField(
-        ProductInventory,
-        related_name="product_inventory",
-        on_delete=models.PROTECT,
-    )
-    last_checked = models.DateTimeField(
-        null=True,
-        blank=True,
-    )
-    units = models.IntegerField(
-        default=0,
-    )
-    units_sold = models.IntegerField(
-        default=0,
-    )
-
-
-class ProductAttributeValues(models.Model):
-    attributevalues = models.ForeignKey(
-        "ProductAttributeValue",
-        related_name="attributevaluess",
-        on_delete=models.PROTECT,
-    )
-    productinventory = models.ForeignKey(
-        ProductInventory,
-        related_name="productattributevaluess",
-        on_delete=models.PROTECT,
-    )
-
-    class Meta:
-        unique_together = (("attributevalues", "productinventory"),)
-
-
-class ProductTypeAttribute(models.Model):
-    product_attribute = models.ForeignKey(
-        ProductAttribute,
-        related_name="productattribute",
-        on_delete=models.PROTECT,
-    )
-    product_type = models.ForeignKey(
-        ProductType,
-        related_name="producttype",
-        on_delete=models.PROTECT,
-    )
-
-    class Meta:
-        unique_together = (("product_attribute", "product_type"),)
+# Register other models
+super_admin_site.register(Industry)
+super_admin_site.register(Categories)
+super_admin_site.register(SubCategories)
+super_admin_site.register(ProductImage)
+super_admin_site.register(ProductAditionalInformation)
+super_admin_site.register(Cart, CartModelAdmin)
+super_admin_site.register(CustomerAddress)
+super_admin_site.register(PlacedOder)
+super_admin_site.register(PlacedeOderItem)
+super_admin_site.register(CuponCodeGenaration)
+super_admin_site.register(CompletedOder)
+super_admin_site.register(CompletedOderItems)
+super_admin_site.register(ProductStarRatingAndReview)
+super_admin_site.register(Group) 
