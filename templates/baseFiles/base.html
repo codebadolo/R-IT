@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
   <!-- Mirrored from themepure.net/template/dukamarket/dukamarket/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Feb 2022 17:22:33 GMT -->
@@ -223,7 +224,22 @@
               <div class="col-xl-6 col-lg-7">
                 <div class="header-inner-start">
                   <div class="header__currency border-right"></div>
-                  <div class="header__lang border-right"></div>
+                  <div class="header__lang border-right">
+                    <form action="{% url 'set_language' %}" method="post">
+                      {% csrf_token %}
+                      <input name="next" type="hidden" value="{{ redirect_to }}">
+                      <select name="language">
+                          {% get_current_language as LANGUAGE_CODE %}
+                          {% get_available_languages as LANGUAGES %}
+                          {% for lang in LANGUAGES %}
+                              <option value="{{ lang.0 }}"{% if lang.0 == LANGUAGE_CODE %} selected{% endif %}>
+                                  {{ lang.1 }}
+                              </option>
+                          {% endfor %}
+                      </select>
+                      <button type="submit">Change</button>
+                  </form>
+                  </div>
                   <div class="support d-none d-sm-block">
                     <p>
                       Need Help?
@@ -237,9 +253,7 @@
                   <div class="ovic-menu-wrapper">
                     <ul>
                       <li><a href="about.html">About Us</a></li>
-                      <li>
-                        <a href="{% url 'user_dashboard' %}">Order Tracking</a>
-                      </li>
+                      <li><a href="{% url 'user_dashboard' %}">Order Tracking</a></li>
                       <li><a href="contact.html">Contact Us</a></li>
                       <li><a href="faq.html">FAQs</a></li>
                     </ul>
