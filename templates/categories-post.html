@@ -31,36 +31,43 @@
       <div class="col-lg-3">
         <div class="filter-section mb-30">
           <form method="get" class="filter-form">
+            <!-- Categories and Subcategories Filter -->
+            <h5>Filter by Category</h5>
             <div class="mb-3">
-              <input
-                type="text"
-                name="q"
-                placeholder="Search products"
-                value="{{ request.GET.q }}"
-                class="form-control"
-              />
+              {% for category in categories %}
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="category"
+                    value="{{ category.id }}"
+                    id="category-{{ category.id }}"
+                    {% if category.id|stringformat:"s" in selected_categories %}checked{% endif %}
+                  />
+                  <label class="form-check-label" for="category-{{ category.id }}">
+                    {{ category.name }}
+                  </label>
+                </div>
+              {% endfor %}
             </div>
+
+            <h5>Filter by Subcategory</h5>
             <div class="mb-3">
-              <label for="min_price">Min Price:</label>
-              <input
-                type="number"
-                name="min_price"
-                id="min_price"
-                placeholder="Min price"
-                value="{{ request.GET.min_price }}"
-                class="form-control"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="max_price">Max Price:</label>
-              <input
-                type="number"
-                name="max_price"
-                id="max_price"
-                placeholder="Max price"
-                value="{{ request.GET.max_price }}"
-                class="form-control"
-              />
+              {% for subcategory in subcategories %}
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="subcategory"
+                    value="{{ subcategory.id }}"
+                    id="subcategory-{{ subcategory.id }}"
+                    {% if subcategory.id|stringformat:"s" in selected_subcategories %}checked{% endif %}
+                  />
+                  <label class="form-check-label" for="subcategory-{{ subcategory.id }}">
+                    {{ subcategory.name }}
+                  </label>
+                </div>
+              {% endfor %}
             </div>
 
             <!-- Brand Filter -->
@@ -103,6 +110,33 @@
               {% endfor %}
             </div>
 
+            <!-- Price Range Filter -->
+            <div class="mb-3 d-flex">
+              <div class="me-2">
+                <label for="min_price">Min Price:</label>
+                <input
+                  type="number"
+                  name="min_price"
+                  id="min_price"
+                  placeholder="Min price"
+                  value="{{ request.GET.min_price }}"
+                  class="form-control"
+                />
+              </div>
+              <div>
+                <label for="max_price">Max Price:</label>
+                <input
+                  type="number"
+                  name="max_price"
+                  id="max_price"
+                  placeholder="Max price"
+                  value="{{ request.GET.max_price }}"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <!-- Attributes Filter -->
             <h5>Filter by Attributes</h5>
             {% for attribute in attributes %}
               <div class="mb-3">
@@ -144,8 +178,8 @@
         <div class="row" id="product-container">
           {% if products %}
             {% for product in products %}
-              <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 product-card">
-                <div class="product__item product__item-2 b-radius-2 mb-20" style="height: 450px;">
+              <div class="col-sm-3 col-md-4 col-lg-3 col-xl-3 product-card">
+                <div class="product__item product__item-2 b-radius-2 mb-20 d-flex flex-column" style="height: 500px;">
                   <div class="product__thumb fix">
                     <div class="product-image w-img">
                       <a href="{% url 'product_details' product.slug %}">
@@ -172,7 +206,7 @@
                       </a>
                     </div>
                   </div>
-                  <div class="product__content product__content-2">
+                  <div class="product__content product__content-2 flex-grow-1">
                     <h6>
                       <a href="{% url 'product_details' product.slug %}">
                         {{ product.title|truncatewords:5 }}
@@ -195,12 +229,12 @@
                     <div class="stock">
                       <span>Stock: {{ product.stoc }}</span>
                     </div>
-                    <div class="add-to-cart">
-                      <form method="post" action="{% url 'add_to_cart' product.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
-                      </form>
-                    </div>
+                  </div>
+                  <div class="add-to-cart mt-auto">
+                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
+                    </form>
                   </div>
                 </div>
               </div>

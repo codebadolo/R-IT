@@ -445,46 +445,40 @@
         <div class="container">
           <div class="row g-0 align-items-center">
             <div class="col-lg-3">
-              <div class="cat__menu-wrapper side-border d-none d-lg-block">
-                <div class="cat-toggle">
-                  <button type="button" class="cat-toggle-btn cat-toggle-btn-1">
-                    <i class="fal fa-bars"></i> Shop by department
-                  </button>
-                  <div class="cat__menu">
-                    <nav id="mobile-menu" style="display: block">
-                      <ul>
-                        {% for i in industry %}
-
-                        <li>
-                          <a href=""
-                            >{{i.name}} <i class="far fa-angle-down"></i
-                          ></a>
-                          <ul class="mega-menu mega-menu-2">
-                            <li>
-                              {% for categories in i.categories_set.all %}
-                              <a
-                                href="{% url 'display_categories_post' categories.id %}"
-                                >{{categories.name}}</a
-                              >
-                              <ul class="mega-item">
-                                {% for subcate in categories.subcategories_set.all %}
-                                <li>
-                                  <a href="#">{{subcate.name}}</a>
-                                </li>
-                                {% endfor %}
-                              </ul>
-
-                              {% endfor %}
-                            </li>
-                          </ul>
-                        </li>
-
-                        {% endfor %}
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
+ <!-- templates/baseFiles/base.html -->
+<div class="cat__menu-wrapper side-border d-none d-lg-block">
+  <div class="cat-toggle">
+      <button type="button" class="cat-toggle-btn cat-toggle-btn-1">
+          <i class="fal fa-bars"></i> Shop by department
+      </button>
+   <!-- In base.html -->
+   <div class="cat__menu">
+    <nav id="mobile-menu" style="display: block">
+      <ul>
+        {% for i in industry %}
+        <li>
+          <a href="{% url 'display_categories_post' i.id %}">{{ i.name }} <i class="far fa-angle-down"></i></a>
+          <ul class="mega-menu mega-menu-2">
+            <li>
+              {% for category in i.categories_set.all %}
+              <a href="{% url 'display_categories_post' category.id %}">{{ category.name }}</a>
+              <ul class="mega-item">
+                {% for subcate in category.subcategories_set.all %}
+                <li>
+                  <a href="{% url 'display_categories_post' subcate.id %}" class="subcategory-filter" data-subcategory-id="{{ subcate.id }}">{{ subcate.name }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endfor %}
+            </li>
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  </div>
+</div>
             </div>
             <div class="col-lg-6 col-md-6 col-3">
               <div
@@ -1014,6 +1008,18 @@
     {% endblock staticfiles_js %}
       
   </body>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const subcategoryLinks = document.querySelectorAll('.subcategory-filter');
+      subcategoryLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          const subcategoryId = this.getAttribute('data-subcategory-id');
+          const categoryId = this.getAttribute('data-category-id');
+          window.location.href = `/categoris/${categoryId}?subcategory=${subcategoryId}`;
+        });
+      });
+    });
+  </script>
   <!-- Mirrored from themepure.net/template/dukamarket/dukamarket/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Feb 2022 17:22:33 GMT -->
 </html>

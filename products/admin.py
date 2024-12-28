@@ -91,7 +91,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['categories__industry', 'categories', 'subcategories', 'brand', 'product_type']
     search_fields = ['title', 'brand__name', 'product_type__name']
     prepopulated_fields = {'slug': ('title',)}
-    autocomplete_fields = ['categories', 'subcategories']  # Ensure this line is here
+    autocomplete_fields = ['categories', 'subcategories']
 
     def thumbnail(self, obj):
         image = obj.productimage_set.first()
@@ -110,12 +110,11 @@ class ProductAdmin(admin.ModelAdmin):
             else:
                 kwargs["queryset"] = SubCategories.objects.none()
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
-
     class Media:
-        js = ('admin-panel/assets/js/custom_admin.js',)
-
+        js = ('static/custom_admin/custom_admin.js')
 super_admin_site.register(Product, ProductAdmin)
 
+#super_admin_site.register(Product, ProductAdmin)
 # Miscellaneous
 class CartModelAdmin(admin.ModelAdmin):
     list_display = ['product', 'user']

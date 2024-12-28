@@ -51,11 +51,16 @@ class ProductFormAdmin(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProductFormAdmin, self).__init__(*args, **kwargs)
-        if self.instance.pk:
+        if 'categories' in self.data:
+            try:
+                category_id = int(self.data.get('categories'))
+                self.fields['subcategories'].queryset = SubCategories.objects.filter(categories_id=category_id)
+            except (ValueError, TypeError):
+                self.fields['subcategories'].queryset = SubCategories.objects.none()
+        elif self.instance.pk:
             self.fields['subcategories'].queryset = SubCategories.objects.filter(categories=self.instance.categories)
         else:
             self.fields['subcategories'].queryset = SubCategories.objects.none()
-
 
 '''    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

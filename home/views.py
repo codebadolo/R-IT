@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from products.models import Categories
 from products.models  import SubCategories
 # Create your views here.
+from django.db.models import Count
 
 
 def home(request):
@@ -17,15 +18,18 @@ def home(request):
     slider = SliderArea.objects.all()
     industry = Industry.objects.all()
     hot_products_in_cate = DisplayHotProductInCategories.objects.all()[:4]
-    # vendor_user = CustomUser.objects.filter(id=6)
     trending_product = Product.objects.all()
     trending_division_title = "Trending Product"
     popular_categories = PopularCategories.objects.all()
+    
+    # Filter categories to only include those with related products
+    industries_with_products = Industry.objects.annotate(num_products=Count('categories__product')).filter(num_products__gt=0)
+    
     context = {
         "carts": carts,
         "sub_total": format(sub_total, ".2f"),
         "slider": slider,
-        "industry": industry,
+        "industry": industries_with_products,
         "hot_products_in_cate": hot_products_in_cate,
         "trending_product": trending_product,
         "trending_division_title": trending_division_title,
@@ -97,12 +101,11 @@ def display_categories_post(request, category_slug):
     return render(request, "categories-post.html", context)
 '''
 from django.db.models import Q
-
-from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.db.models import Q
-from products.models import ProductBrand, Attribute, AttributeValue, Product, Categories, ProductType 
-from Vendors.models import  VendorStore
+from django.core.paginator import Paginator
+from products.models import ProductBrand, Attribute, AttributeValue, Product, Categories, ProductType, SubCategories
+from Vendors.models import VendorStore
 
 def display_categories_post(request, id):
     query = request.GET.get('q', '')
@@ -111,6 +114,7 @@ def display_categories_post(request, id):
     selected_brands = request.GET.getlist('brand')
     selected_attributes = request.GET.getlist('attribute')
     selected_vendors = request.GET.getlist('vendor')
+    selected_subcategories = request.GET.getlist('subcategory')
 
     # Fetch the selected category
     category = Categories.objects.get(id=id)
@@ -122,10 +126,11 @@ def display_categories_post(request, id):
     attributes = Attribute.objects.filter(product__categories=category).distinct()
     attribute_values = AttributeValue.objects.filter(attribute__product__categories=category).distinct()
 
-    # Fetch related brands, vendors, and product types
+    # Fetch related brands, vendors, product types, and subcategories
     brands = ProductBrand.objects.filter(product__categories=category).distinct()
     vendors = VendorStore.objects.filter(product__categories=category).distinct()
     product_types = ProductType.objects.filter(product__categories=category).distinct()
+    subcategories = SubCategories.objects.filter(categories=category).distinct()
 
     # Apply filters
     if query:
@@ -140,6 +145,8 @@ def display_categories_post(request, id):
         products = products.filter(attributes__in=selected_attributes).distinct()
     if selected_vendors:
         products = products.filter(vendor_stores_id__in=selected_vendors)
+    if selected_subcategories:
+        products = products.filter(subcategories_id__in=selected_subcategories)
 
     # Implement pagination
     paginator = Paginator(products, 12)  # Show 12 products per page
@@ -153,12 +160,16 @@ def display_categories_post(request, id):
         'attributes': attributes,
         'attribute_values': attribute_values,
         'product_types': product_types,
+        'subcategories': subcategories,
         'selected_brands': selected_brands,
         'selected_attributes': selected_attributes,
         'selected_vendors': selected_vendors,
+        'selected_subcategories': selected_subcategories,
     }
 
     return render(request, "categories-post.html", context)
+
+
 
 
 '''from django.db.models import Q
