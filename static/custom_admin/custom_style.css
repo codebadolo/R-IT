@@ -1,0 +1,5 @@
+/* Custom CSS styles here */
+.custom-admin .field-title {
+    font-weight: bold;
+    color: #007bff;
+}

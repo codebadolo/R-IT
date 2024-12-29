@@ -43,6 +43,18 @@ from .models import Product, SubCategories
 class ProductFormAdmin(forms.ModelForm):
     class Meta:
         model = Product
+        fields = '__all__'
+    
+    # Add custom validation or logic here
+    def clean(self):
+        cleaned_data = super().clean()
+        # Example: Ensure discounted percentage is not greater than 100
+        if cleaned_data.get('discounted_parcent') > 100:
+            self.add_error('discounted_parcent', 'Discount percentage cannot be more than 100%')
+        return cleaned_data
+'''class ProductFormAdmin(forms.ModelForm):
+    class Meta:
+        model = Product
         fields = [
             'title', 'slug', 'regular_price', 'stoc', 'out_of_stoc', 'discounted_parcent', 
             'description', 'modle', 'categories', 'subcategories', 'tag', 'vendor_stores', 
@@ -61,7 +73,7 @@ class ProductFormAdmin(forms.ModelForm):
             self.fields['subcategories'].queryset = SubCategories.objects.filter(categories=self.instance.categories)
         else:
             self.fields['subcategories'].queryset = SubCategories.objects.none()
-
+'''
 '''    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if 'category' in self.data:

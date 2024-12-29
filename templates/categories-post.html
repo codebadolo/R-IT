@@ -212,7 +212,7 @@
                         {{ product.title|truncatewords:5 }}
                       </a>
                     </h6>
-                    <p>{{ product.description|truncatewords:10 }}</p>
+                    <p>{{ product.description|truncatewords:10|safe }}</p>
                     <div class="rating mb-5 mt-10">
                       <ul>
                         <li><i class="fal fa-star"></i></li>

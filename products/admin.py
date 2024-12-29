@@ -3,7 +3,8 @@ from .models import *
 from .forms import ProductFormAdmin, AttributeValueInlineForm
 from django.contrib.auth.models import Group
 from django.utils.html import format_html
-
+from django.urls import path
+from django.http import JsonResponse
 # Super Admin Site Customization
 class SuperAdminSite(admin.AdminSite):
     site_header = 'Super Admin Dashboard'
@@ -78,8 +79,8 @@ class ProductImages(admin.TabularInline):
 class ProductAditionalInformations(admin.TabularInline):
     model = ProductAditionalInformation
     extra = 1
-
-class ProductAdmin(admin.ModelAdmin):
+    
+'''class ProductAdmin(admin.ModelAdmin):
     form = ProductFormAdmin
     inlines = [
         ProductImages,
@@ -91,7 +92,17 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['categories__industry', 'categories', 'subcategories', 'brand', 'product_type']
     search_fields = ['title', 'brand__name', 'product_type__name']
     prepopulated_fields = {'slug': ('title',)}
-    autocomplete_fields = ['categories', 'subcategories']
+    #autocomplete_fields = ['categories', 'subcategories']
+
+    fieldsets = (
+        ('Product Information', {
+            'fields': ('title', 'slug', 'regular_price', 'stoc', 'out_of_stoc', 'discounted_parcent', 'description', 'modle', 'tag', 'vendor_stores', 'details_description', 'brand', 'product_type', 'inventory', 'attributes')
+        }),
+        ('Categories', {
+            'classes': ('collapse',),
+            'fields': ('categories', 'subcategories'),
+        }),
+    )
 
     def thumbnail(self, obj):
         image = obj.productimage_set.first()
@@ -111,7 +122,40 @@ class ProductAdmin(admin.ModelAdmin):
                 kwargs["queryset"] = SubCategories.objects.none()
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
     class Media:
-        js = ('static/custom_admin/custom_admin.js')
+        js = ('static/custom_admin/custom_admin.js')'''
+        
+class ProductAdmin(admin.ModelAdmin):
+    form = ProductFormAdmin
+    inlines = [ProductImages, ProductAditionalInformations, AttributeValueInline, ProductTypeAttributeInline]
+    list_display = ['thumbnail', 'title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
+    list_filter = ['categories__industry', 'categories', 'subcategories', 'brand', 'product_type']
+    search_fields = ['title', 'brand__name', 'product_type__name']
+    prepopulated_fields = {'slug': ('title',)}
+    autocomplete_fields = ['categories', 'subcategories']
+    change_form_template = 'admin/products/product/change_form.html'
+
+    class Media:
+        js = ('custom_admin/custom_script.js',)
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('subcategories_by_category/', self.admin_site.admin_view(self.subcategories_by_category), name='subcategories_by_category')
+        ]
+        return custom_urls + urls
+
+    def subcategories_by_category(self, request):
+        category_id = request.GET.get('category_id')
+        subcategories = SubCategories.objects.filter(categories_id=category_id).values('id', 'name')
+        return JsonResponse({'subcategories': list(subcategories)})
+
+    def thumbnail(self, obj):
+        image = obj.productimage_set.first()
+        if image:
+            return format_html('<img src="{}" width="100" height="100" style="border-radius: 5px;" />', image.image)
+        return format_html('<img src="https://placehold.co/50x50" width="50" height="50" style="border-radius: 5px;" />')
+
+    thumbnail.short_description = 'Image'
 super_admin_site.register(Product, ProductAdmin)
 
 #super_admin_site.register(Product, ProductAdmin)

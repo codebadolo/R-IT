@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Vendors',
     'ckeditor',
     'payments',
+
      
     
 ]

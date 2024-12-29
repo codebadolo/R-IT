@@ -1,0 +1,7 @@
+<fieldset class="module aligned">
+    {% for fieldset in adminform %}
+        {% if fieldset.name == 'Images' %}
+            {% include "admin/includes/fieldset.html" with fieldset=fieldset %}
+        {% endif %}
+    {% endfor %}
+</fieldset>
