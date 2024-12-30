@@ -5,8 +5,8 @@ from ckeditor.fields import RichTextField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import PermissionDenied
 import time
-# Create your models here.
 
+# Create your models here.
 
 class Industry(models.Model):
     name = models.CharField(max_length=100)
@@ -21,7 +21,6 @@ class Industry(models.Model):
     def __str__(self):
         return self.name
 
-
 class Categories(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
@@ -35,7 +34,6 @@ class Categories(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class SubCategories(models.Model):
     name = models.CharField(max_length=100)
@@ -57,7 +55,7 @@ class ProductBrand(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    logo = models.ImageField(upload_to='brand_logos/', blank=True, null=True)  # Add this line
+    logo = models.ImageField(upload_to='brand_logos/', blank=True, null=True)
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -73,14 +71,11 @@ class ProductType(models.Model):
 
     def __str__(self):
         return self.name
+
 class Attribute(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    #product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE , default=1)
-    def __str__(self):
-        return self.name
-
 
     def __str__(self):
         return self.name
@@ -106,16 +101,13 @@ class Product(models.Model):
     brand = models.ForeignKey(ProductBrand, on_delete=models.SET_NULL, null=True, blank=True)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, blank=True)
     inventory = models.OneToOneField('ProductInventory', on_delete=models.CASCADE, null=True, blank=True , related_name='product_inventory')
-    # Add ManyToManyField for attributes
-    attributes = models.ManyToManyField(Attribute, blank=True)  # This field links the Product model to attributes
-    
-    
+    attributes = models.ManyToManyField(Attribute, blank=True)
+
     @property
     def discounted_price(self):
         price = (
             self.regular_price - (self.regular_price * self.discounted_parcent) / 100
         )
-        # format(price, ".2f")
         return price
     
     @property
@@ -123,7 +115,6 @@ class Product(models.Model):
         all_reviews = ProductStarRatingAndReview.objects.filter(product=self.id).aggregate(avarage=Avg('stars'))
         print(all_reviews)
         return all_reviews
-    
 
     @property
     def total_review_of_product(self):
@@ -158,10 +149,8 @@ class ProductInventory(models.Model):
             raise ValueError("Available quantity cannot be greater than total quantity.")
         super(ProductInventory, self).save(*args, **kwargs)
 
-
 class AttributeValue(models.Model):
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
-   #product_type = models.ForeignKey(ProductType, related_name='attributes', on_delete=models.CASCADE)
     value = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE , default=1)
@@ -176,7 +165,7 @@ class Stock(models.Model):
         return f"Stock for {self.product_inventory.product.title} in {self.warehouse_location}"
         
 class ProductTypeAttribute(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)  # Add ForeignKey to Product
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -191,7 +180,6 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.product.title
-
 
 class ProductAditionalInformation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -215,18 +203,12 @@ class ProductStarRatingAndReview(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
-        # if self.review_message[10]:
-        #     return self.user.email + self.review_message[10]
         return self.user.email
     
-
-
     def save(self, *args, **kwargs):
         if self.user.user_role != '1': # if not Customer 
             raise PermissionDenied('Only Customer can Add Review')
         super().save(*args, **kwargs)
-    
-
 
 class CuponCodeGenaration(models.Model):
     name = models.CharField(max_length=50)
@@ -247,11 +229,12 @@ class CustomerAddress(models.Model):
     mobile = models.PositiveIntegerField()
     is_billing = models.BooleanField(default=True)
     is_shipping = models.BooleanField(default=True)
+    country = models.CharField(max_length=60, null=True, blank=True)
+    apartment_number = models.CharField(max_length=20, null=True, blank=True)
+    address_line2 = models.CharField(max_length=250, null=True, blank=True)
 
     def __str__(self):
-        # return f"{self.state}"
         return f"{self.street_address}, {self.zip_code}, {self.city}, {self.state}"
-
 
 class Cart(models.Model):
     user = models.ForeignKey(
@@ -275,7 +258,6 @@ class Cart(models.Model):
     @property
     def total_product_price(self):
         price = self.product.discounted_price * self.quantity
-        # price = f"{price:.2f}"
         return price
 
     @classmethod
@@ -290,29 +272,38 @@ class Cart(models.Model):
                 subtotal_price = subtotal_price - (
                     cart_item.cupon_code.discoun_parcent * subtotal_price / 100
                 )
-
         return subtotal_price
 
     def __str__(self):
         return self.product.title
 
-
-
-
 class PlacedOder(models.Model):
     STATUS = [
-        ("Oder Recived", "Oder Recived"),
-        ("Oder Packed", "Oder Packed"),
-        ("Oder OnTheWay", "Oder OnTheWay"),
-        ("Oder Shipped", "Oder Shipped"),
+        ("Order Received", "Order Received"),
+        ("Order Packed", "Order Packed"),
+        ("Order On The Way", "Order On The Way"),
+        ("Order Shipped", "Order Shipped"),
     ]
-    # order_number = models.BigAutoField()
+    SHIPPING_STATUS = [
+        ("In Transit", "In Transit"),
+        ("Out for Delivery", "Out for Delivery"),
+        ("Delivered", "Delivered"),
+    ]
+    SHIPPING_METHODS = [
+        ("Standard", "Standard"),
+        ("Express", "Express"),
+    ]
     user = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE)
     shipping_address = models.ForeignKey(
         CustomerAddress, on_delete=models.DO_NOTHING, related_name="shipping_address"
     )
     sub_total_price = models.FloatField(blank=True, null=True)
-    status = models.CharField(max_length=50, choices=STATUS, default="Oder Recived")
+    shipping_cost = models.FloatField(blank=True, null=True)
+    status = models.CharField(max_length=50, choices=STATUS, default="Order Received")
+    shipping_status = models.CharField(max_length=50, choices=SHIPPING_STATUS, default="In Transit")
+    shipping_method = models.CharField(max_length=50, choices=SHIPPING_METHODS, default="Standard")
+    tracking_number = models.CharField(max_length=50, blank=True, null=True)
+    estimated_delivery_date = models.DateField(blank=True, null=True)
     paid = models.BooleanField(default=False)
     placed_date = models.DateTimeField(auto_now_add=True)
     order_number = models.CharField(max_length=12, blank=True, null=True)
@@ -335,7 +326,12 @@ class PlacedOder(models.Model):
 
             placed_oder_details = {}
             placed_oder_details["sub_total_price"] = oder.sub_total_price
+            placed_oder_details["shipping_cost"] = oder.shipping_cost
             placed_oder_details["status"] = oder.status
+            placed_oder_details["shipping_status"] = oder.shipping_status
+            placed_oder_details["shipping_method"] = oder.shipping_method
+            placed_oder_details["tracking_number"] = oder.tracking_number
+            placed_oder_details["estimated_delivery_date"] = oder.estimated_delivery_date
             placed_oder_details["placed_date"] = oder.placed_date
             placed_oder_details["paid"] = oder.paid
             placed_oder_list.append(placed_oder_details)
@@ -344,14 +340,11 @@ class PlacedOder(models.Model):
 
             for item in oder_items:
                 oder_items_list = []
-                # print(item.product.title)
-                # Checking if product image exists before accessing it
                 product_image = item.product.productimage_set.first()
                 if product_image:
                     image = product_image.image
                     oder_items_list.append(image)
                 else:
-                    # Append None or any default image if no image is found
                     oder_items_list.append('https://placehold.co/200x200')
                 title = item.product.title
                 quantity = item.quantity
@@ -363,11 +356,9 @@ class PlacedOder(models.Model):
 
             placed_oder_items_dict[oder.oder_id] = placed_oder_list
         return placed_oder_items_dict
-        # return 'fg'
 
     def __str__(self):
         return self.order_number
-
 
 class PlacedeOderItem(models.Model):
     placed_oder = models.ForeignKey(
@@ -384,7 +375,6 @@ class PlacedeOderItem(models.Model):
     def __str__(self):
         return f"{self.placed_oder.user.first_name}--{str(self.placed_oder.id)}--{str(self.placed_oder.placed_date)}"
 
-
 class CompletedOder(models.Model):
     user = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE)
     shipping_address = models.ForeignKey(CustomerAddress, on_delete=models.CASCADE)
@@ -396,7 +386,6 @@ class CompletedOder(models.Model):
 
     def __str__(self):
         return self.oder_number
-
 
 class CompletedOderItems(models.Model):
     completed_oder = models.ForeignKey(

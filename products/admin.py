@@ -158,10 +158,40 @@ class ProductAdmin(admin.ModelAdmin):
     thumbnail.short_description = 'Image'
 super_admin_site.register(Product, ProductAdmin)
 
-#super_admin_site.register(Product, ProductAdmin)
 # Miscellaneous
 class CartModelAdmin(admin.ModelAdmin):
-    list_display = ['product', 'user']
+    list_display = ['product_thumbnail', 'product', 'user']
+    readonly_fields = ['product_thumbnail','product', 'user']
+
+    def product_thumbnail(self, obj):
+        image = obj.product.productimage_set.first()
+        if image:
+            return format_html('<img src="{}" width="50" height="50" style="border-radius: 5px;" />', image.image)
+        return format_html('<img src="https://placehold.co/50x50" width="50" height="50" style="border-radius: 5px;" />')
+
+    product_thumbnail.short_description = 'Product Image'
+
+from django.contrib import admin
+from .models import *
+
+# Customize the Admin panel
+class CustomerAddressAdmin(admin.ModelAdmin):
+    list_display = ['user', 'street_address', 'city', 'state', 'zip_code', 'country', 'mobile', 'is_shipping', 'is_billing']
+    search_fields = ['user__username', 'city', 'state']
+    list_filter = ['is_shipping', 'is_billing']
+
+class PlacedOderAdmin(admin.ModelAdmin):
+    list_display = ['order_number', 'user', 'status', 'shipping_status', 'shipping_method', 'tracking_number', 'estimated_delivery_date', 'sub_total_price', 'shipping_cost', 'paid', 'placed_date']
+    search_fields = ['order_number', 'user__username', 'status', 'shipping_status']
+    list_filter = ['status', 'shipping_status', 'shipping_method', 'paid']
+
+# Register models to the super admin site
+#super_admin_site.register(CustomerAddress, CustomerAddressAdmin)
+#super_admin_site.register(PlacedOder, PlacedOderAdmin)
+#super_admin_site.register(Cart, CartModelAdmin)
+#super_admin_site.register(Cart, CartModelAdmin)
+
+#super_admin_site.register(Cart, CartModelAdmin)
 
 super_admin_site.register(Cart, CartModelAdmin)
 super_admin_site.register(ProductImage)
