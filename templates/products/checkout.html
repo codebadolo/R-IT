@@ -127,14 +127,15 @@
                                         <div class="modal-body">
                                             <div class="addresses">
                                                 
-                                                {% if all_shipping_address %}                              
-                                                {% for shipping_address in all_shipping_address %}
-                                                    <div class="pb-2 pt-2">
-                                                        <input type="radio" id="address{{ shipping_address.id }}" name="selected_address_id" value="{{ shipping_address.id }}">
-                                                        <label for="address{{ shipping_address.id }}" class="h6">{{ shipping_address }}</label>
-                                                    </div>
-                                                {% endfor %}
-                                                {% endif %}
+                                          <!-- Add shipping details to checkout page -->
+<div>
+    <h3>Shipping Details</h3>
+    {% if selected_shipping_address %}
+        <p>{{ selected_shipping_address.street_address }}, {{ selected_shipping_address.city }}, {{ selected_shipping_address.state }}, {{ selected_shipping_address.zip_code }}, {{ selected_shipping_address.country }}</p>
+    {% else %}
+        <p>No shipping address selected.</p>
+    {% endif %}
+</div>
                                                 
                                                 
                                             </div>

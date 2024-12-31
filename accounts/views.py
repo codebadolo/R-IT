@@ -62,12 +62,25 @@ def user_dashboard(request):
     }
     return render(request,'accounts/user/user-dashboard.html', context)
 
+def wishlist(request):
+    # Your logic to handle the wishlist view
+    return render(request, 'accounts/user/wishlist.html')
+
+def notifications(request):
+    # Your logic to handle the notifications view
+    return render(request, 'accounts/user/notifications.html')
 @login_required(login_url='user_login')
 def user_logout(request):
     logout(request)
     return redirect('home')
 
+def order_history(request):
+    # Your logic to handle the order history view
+    return render(request, 'accounts/user/order_history.html')
 
+def payment_history(request):
+    # Your logic to handle the payment history view
+    return render(request, 'accounts/user/payment_history.html')
 @login_required(login_url='user_login')
 def user_profile(request):
     

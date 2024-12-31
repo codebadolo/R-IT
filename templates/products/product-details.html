@@ -169,6 +169,15 @@
                     </div>
                 </div>
             </div>
+            <!-- Add shipping details to product details page -->
+<div>
+    <h3>Shipping Details</h3>
+    {% if shipping_address %}
+        <p>{{ shipping_address.street_address }}, {{ shipping_address.city }}, {{ shipping_address.state }}, {{ shipping_address.zip_code }}, {{ shipping_address.country }}</p>
+    {% else %}
+        <p>No shipping address available.</p>
+    {% endif %}
+</div>
         </div>
     </div>
     <!-- product-details-end -->

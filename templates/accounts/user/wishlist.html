@@ -1,0 +1,13 @@
+{% extends "accounts/user/dashboard-base.html" %}
+
+{% load static %}
+
+
+{% block bodycontent %}
+<h1>My Wishlist</h1>
+<ul>
+    {% for item in wishlist_items %}
+        <li>{{ item.product.title }} - ${{ item.product.price }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

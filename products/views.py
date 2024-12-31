@@ -43,6 +43,7 @@ def product_details(request, slug):
     stock_details = Stock.objects.filter(product_inventory=product.inventory)
     coupons = CuponCodeGenaration.objects.all()
     related_products = Product.objects.filter(categories=product.categories).exclude(id=product.id)[:4]
+    shipping_address = CustomerAddress.objects.filter(user=request.user).last() if request.user.is_authenticated else None
 
     # Calculate average rating and total reviews
     average_rating = product.avarage_review.get('avarage') if product.avarage_review.get('avarage') else 0
@@ -64,6 +65,7 @@ def product_details(request, slug):
         "coupons": coupons,
         "average_rating": average_rating,
         "total_reviews": total_reviews,
+        "shipping_address": shipping_address,  # Add shipping address to context
     }
 
     # Optional: Handle adding to the cart (if user is logged in)
@@ -73,7 +75,6 @@ def product_details(request, slug):
         context['cart_item'] = cart_item
 
     return render(request, "products/product-details.html", context)
-
 
 
 @login_required(login_url="user_login")
@@ -325,12 +326,8 @@ def check_out(request):
     
     if user_shipping_address and first_cart_item.shipping_address:
         selected_shipping_address = first_cart_item.shipping_address
-        #saveing the address to the first cart item
-        # user_cart[0].shipping_address = selected_shipping_address
-        # user_cart.save()
     elif user_shipping_address:
         selected_shipping_address = user_shipping_address.last()
-        #saveing the address to the first cart item
         first_cart_item.shipping_address = selected_shipping_address
         first_cart_item.save()
     else:
@@ -341,7 +338,6 @@ def check_out(request):
         if request.method == 'POST':
             selected_shipping_address_id = request.POST.get('selected_address_id')
             selected_shipping_address = CustomerAddress.objects.get(id=selected_shipping_address_id)
-            #saveing the address to the first cart item
             first_cart_item = user_cart.first()
             first_cart_item.shipping_address = selected_shipping_address
             first_cart_item.save()
@@ -358,25 +354,25 @@ def check_out(request):
         if user_cart and user_cart[0].cupon_applaied:
             cupon = True
 
-        #Calculate the subtotal after Removing the cupon code
+        # Calculate the subtotal after Removing the cupon code
         sub_total = Cart.subtotal_product_price(user=request.user)
 
-        #checking the existing address and retur it to the template as form      
+        # Checking the existing address and return it to the template as form      
         address_form = CustomerAddressForm()
 
-        context ={'address_form':address_form,'cupon':cupon,'carts':user_cart,
-                'sub_total':sub_total,
-                'industry':industry,
-                'all_shipping_address':all_shipping_address,
-                'selected_shipping_address':selected_shipping_address
-                }
+        context ={
+            'address_form':address_form,
+            'cupon':cupon,
+            'carts':user_cart,
+            'sub_total':sub_total,
+            'industry':industry,
+            'all_shipping_address':all_shipping_address,
+            'selected_shipping_address':selected_shipping_address,
+        }
         return render(request,'products/checkout.html',context)
     else:
         messages.info(request,'You have no product in your Cart')
         return redirect('home')
-
-
-
 @login_required(login_url="user_login")
 def placed_oder(request):
 

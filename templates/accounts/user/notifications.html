@@ -1,0 +1,12 @@
+{% extends "accounts/user/user-dashboard.html" %}
+{% load static %}
+
+
+{% block bodycontent %}
+<h1>Notifications</h1>
+<ul>
+    {% for notification in notifications %}
+        <li>{{ notification.message }} - {{ notification.date }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -226,16 +226,15 @@ class CustomerAddress(models.Model):
     city = models.CharField(max_length=60)
     zip_code = models.PositiveIntegerField()
     street_address = models.CharField(max_length=250)
+    apartment_number = models.CharField(max_length=10, blank=True, null=True)  # New field
+    address_line_2 = models.CharField(max_length=250,default='unknown')  # New field
+    country = models.CharField(max_length=60)  # New field
     mobile = models.PositiveIntegerField()
     is_billing = models.BooleanField(default=True)
     is_shipping = models.BooleanField(default=True)
-    country = models.CharField(max_length=60, null=True, blank=True)
-    apartment_number = models.CharField(max_length=20, null=True, blank=True)
-    address_line2 = models.CharField(max_length=250, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.street_address}, {self.zip_code}, {self.city}, {self.state}"
-
+        return f"{self.street_address}, {self.zip_code}, {self.city}, {self.state}, {self.country}"
 class Cart(models.Model):
     user = models.ForeignKey(
         "accounts.CustomUser",

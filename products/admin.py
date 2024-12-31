@@ -180,11 +180,22 @@ class CustomerAddressAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'city', 'state']
     list_filter = ['is_shipping', 'is_billing']
 
+@admin.register(PlacedOder)
 class PlacedOderAdmin(admin.ModelAdmin):
-    list_display = ['order_number', 'user', 'status', 'shipping_status', 'shipping_method', 'tracking_number', 'estimated_delivery_date', 'sub_total_price', 'shipping_cost', 'paid', 'placed_date']
-    search_fields = ['order_number', 'user__username', 'status', 'shipping_status']
-    list_filter = ['status', 'shipping_status', 'shipping_method', 'paid']
+    list_display = ['order_number', 'user', 'status', 'shipping_address', 'tracking_number', 'estimated_delivery_date', 'sub_total_price', 'paid', 'placed_date']
+    search_fields = ['order_number', 'user__username', 'status', 'tracking_number']
+    list_filter = ['status', 'paid']
 
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('update_shipping_status/<int:order_id>/', self.admin_site.admin_view(self.update_shipping_status), name='update_shipping_status')
+        ]
+        return custom_urls + urls
+
+    def update_shipping_status(self, request, order_id):
+        # Implement functionality to update shipping status
+        pass
 # Register models to the super admin site
 #super_admin_site.register(CustomerAddress, CustomerAddressAdmin)
 #super_admin_site.register(PlacedOder, PlacedOderAdmin)
