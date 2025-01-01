@@ -23,28 +23,23 @@ vendor_admin_site = CustomVendorAdminSite(name='vendor_admin_site')
 
 
 # ModelAdmin For VendorStore
-class VebdorStoreModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'user','created_at')
-    
-    # For creting New Instance -> Using these sields
+class VendorStoreModelAdmin(admin.ModelAdmin):
+    list_display = ('name', 'user', 'created_at')
     fieldsets = (
-        (
-            (None,{'fields':('name', 'slug','logo', 'cover_photo')})
-        ),
+        (None, {'fields': ('name', 'slug', 'logo', 'cover_photo')}),
     )
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        queryset = queryset.filter(user=request.user)
-        return queryset
+        return queryset.filter(user=request.user)
 
     def save_model(self, request, obj, form, change):
-        if VendorStore.objects.filter(user=request.user).__len__ () < 3:
+        if VendorStore.objects.filter(user=request.user).count() < 3:
             obj.user = request.user
             obj.save()
-            return super().save_model(request, obj, form, change)
+            super().save_model(request, obj, form, change)
         else:
-            messages.info(request, f"{request.user} cant create more than 3 Store")
+            messages.info(request, f"{request.user} can't create more than 3 Stores")
             return redirect('/vendor-dashboard/Vendors/vendorstore/')
 
 
@@ -133,7 +128,7 @@ class ProductModelAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
     
 
-vendor_admin_site.register(VendorStore, VebdorStoreModelAdmin)
+vendor_admin_site.register(VendorStore, VendorStoreModelAdmin)
 vendor_admin_site.register(Product, ProductModelAdmin)
 
 admin.site.register(VendorStore)
