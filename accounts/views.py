@@ -41,6 +41,16 @@ def login_view(request):
 
     return render(request,'accounts/user/login.html',context)
 
+@login_required(login_url='user_login')
+def customer_dashboard(request):
+    user_orders = PlacedOder.objects.filter(user=request.user)
+    context = {
+        'orders': user_orders,
+        'payment_history_url': 'payment_history',
+        'shipping_info_url': 'shipping_info',
+        'order_detail_url': 'order_detail'
+    }
+    return render(request, 'accounts/user/dashboard.html', context)
 
 
 @login_required(login_url='user_login')

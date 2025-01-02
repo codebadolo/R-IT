@@ -1,9 +1,9 @@
-{% extends "accounts/user/dashboard-base.html" %}
+{% extends "accounts/user/dashboard.html" %}
 
 {% load static %}
 
 
-{% block bodycontent %}
+{% block dashcontent %}
 <h1>Payment History</h1>
 <ul>
     {% for payment in payment_details %}

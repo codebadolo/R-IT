@@ -1,13 +1,11 @@
-{% extends "accounts/user/dashboard-base.html" %}
-
+{% extends "accounts/user/dashboard.html" %}
 {% load static %}
 
-
-{% block bodycontent %}
+{% block dashcontent %}
 <h1>Order History</h1>
-<div class="order-details">
-    {% for order in orders %}
-        <p>Order ID: {{ order.id }} - Total: ${{ order.total }} - Date: {{ order.date }}</p>
+<ul>
+    {% for order in order_details %}
+        <li>Order ID: {{ order.id }} - Date: {{ order.date }}</li>
     {% endfor %}
-</div>
+</ul>
 {% endblock %}

@@ -1,0 +1,25 @@
+<!-- In templates/admin/vendor_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vendor Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to {{ vendor_store.name }} Dashboard</h1>
+    <h2>Statistics</h2>
+    <ul>
+        <li>Customers with products in their cart: {{ customers_with_cart }}</li>
+        <li>Total orders placed: {{ total_orders }}</li>
+        <li>Total completed orders: {{ total_completed_orders }}</li>
+        <li>Orders completed in the last 30 days: {{ orders_last_30_days }}</li>
+        <li>Total revenue: ${{ total_revenue }}</li>
+    </ul>
+    <h2>Products</h2>
+    <ul>
+        {% for product in products %}
+        <li>{{ product.title }} - {{ product.formated_stoc }} in stock</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
