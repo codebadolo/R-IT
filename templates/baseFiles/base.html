@@ -42,6 +42,84 @@
 
     {% block header-style %} {% endblock header-style %}
   </head>
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+    
+    .close-btn {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    .close-btn:hover,
+    .close-btn:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .parent-categories,
+    .sub-categories,
+    .sub-sub-categories {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .parent-category > a,
+    .sub-category > a,
+    .sub-sub-category > a {
+      text-decoration: none;
+      color: #333;
+    }
+    
+    .parent-category > a {
+      font-weight: bold;
+    }
+    
+    .sub-categories {
+      margin-left: 20px;
+    }
+    
+    .sub-sub-categories {
+      margin-left: 20px;
+    }
+    
+    /* Add styles for the megamenu */
+    .mega-menu {
+      display: none;
+      position: absolute;
+      background-color: white;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .parent-category:hover .mega-menu {
+      display: block;
+    }
+  </style>
   <body>
     <!--[if lte IE 9]>
       <p class="browserupgrade">
@@ -445,41 +523,38 @@
         <div class="container">
           <div class="row g-0 align-items-center">
             <div class="col-lg-3">
- <!-- templates/baseFiles/base.html -->
-<div class="cat__menu-wrapper side-border d-none d-lg-block">
-  <div class="cat-toggle">
-      <button type="button" class="cat-toggle-btn cat-toggle-btn-1">
-          <i class="fal fa-bars"></i> Shop by department
-      </button>
-   <!-- In base.html -->
-   <div class="cat__menu">
-    <nav id="mobile-menu" style="display: block">
-      <ul>
-        {% for i in industry %}
-        <li>
-          <a href="{% url 'display_categories_post' i.id %}">{{ i.name }} <i class="far fa-angle-down"></i></a>
-          <ul class="mega-menu mega-menu-2">
-            <li>
-              {% for category in i.categories_set.all %}
-              <a href="{% url 'display_categories_post' category.id %}">{{ category.name }}</a>
-              <ul class="mega-item">
-                {% for subcate in category.subcategories_set.all %}
-                <li>
-                  <a href="{% url 'display_categories_post' subcate.id %}" class="subcategory-filter" data-subcategory-id="{{ subcate.id }}">{{ subcate.name }}</a>
-                </li>
-                {% endfor %}
-              </ul>
+             <!-- Add this button where you want it to appear -->
+<button id="toggle-categories" class="toggle-btn">Show Categories</button>
+
+<!-- Modal structure -->
+<div id="categories-modal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <ul class="parent-categories">
+      {% for parent in industry %}
+      <li class="parent-category">
+        <a href="#">{{ parent.name }}</a>
+        <ul class="sub-categories">
+          {% for category in parent.categories_set.all %}
+          <li class="sub-category">
+            <a href="{% url 'display_categories_post' category.id %}">{{ category.name }}</a>
+            <ul class="sub-sub-categories">
+              {% for subcategory in category.subcategories_set.all %}
+              <li class="sub-sub-category">
+                <a href="#">{{ subcategory.name }}</a>
+              </li>
               {% endfor %}
-            </li>
-          </ul>
-        </li>
-        {% endfor %}
-      </ul>
-    </nav>
-  </div>
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
 </div>
-            </div>
+          </div>
+    
             <div class="col-lg-6 col-md-6 col-3">
               <div
                 class="header__bottom-left d-flex d-xl-block align-items-center"
@@ -1008,17 +1083,23 @@
     {% endblock staticfiles_js %}
       
   </body>
+ 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const subcategoryLinks = document.querySelectorAll('.subcategory-filter');
-      subcategoryLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-          event.preventDefault();
-          const subcategoryId = this.getAttribute('data-subcategory-id');
-          const categoryId = this.getAttribute('data-category-id');
-          window.location.href = `/categoris/${categoryId}?subcategory=${subcategoryId}`;
-        });
-      });
+    document.getElementById('toggle-categories').addEventListener('click', function() {
+      var modal = document.getElementById('categories-modal');
+      modal.classList.toggle('hidden');
+    });
+  
+    document.querySelector('.close-btn').addEventListener('click', function() {
+      var modal = document.getElementById('categories-modal');
+      modal.classList.add('hidden');
+    });
+  
+    window.addEventListener('click', function(event) {
+      var modal = document.getElementById('categories-modal');
+      if (event.target === modal) {
+        modal.classList.add('hidden');
+      }
     });
   </script>
   <!-- Mirrored from themepure.net/template/dukamarket/dukamarket/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Feb 2022 17:22:33 GMT -->

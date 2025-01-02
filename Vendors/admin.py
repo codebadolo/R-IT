@@ -1,20 +1,17 @@
 from django.contrib import admin
+from django.db import models  # Add this import
 from .models import VendorStore
 from products.models import Product, ProductImage, ProductAditionalInformation, PlacedOder, CompletedOder, PlacedeOderItem, CompletedOderItems
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.html import format_html
 from .adminForms import ProductModelAdminForm
-# Vendor Admin Site
-# In Vendors/admin.py
-
-# In Vendors/admin.py
-
 from django.urls import path
 from django.template.response import TemplateResponse
 from datetime import datetime, timedelta
 from products.models import Cart, PlacedOder, CompletedOder
 
+# Vendor Admin Site# Vendor Admin Site
 class CustomVendorAdminSite(admin.AdminSite):
     site_header = 'MVEC Seller Dashboard'
     site_title = 'Seller Dashboard'
@@ -54,6 +51,7 @@ class CustomVendorAdminSite(admin.AdminSite):
             'total_revenue': total_revenue,
         }
         return TemplateResponse(request, 'admin/vendor_dashboard.html', context)
+
 
 vendor_admin_site = CustomVendorAdminSite(name='vendor_admin_site')
 

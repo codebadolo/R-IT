@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 
 from .models import VendorStore
-from products.models import Product
+from products.models import Product ,PlacedOder , CompletedOder , Cart
 # Create your views here.
 
 
