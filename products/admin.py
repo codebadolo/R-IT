@@ -80,49 +80,7 @@ class ProductAditionalInformations(admin.TabularInline):
     model = ProductAditionalInformation
     extra = 1
     
-'''class ProductAdmin(admin.ModelAdmin):
-    form = ProductFormAdmin
-    inlines = [
-        ProductImages,
-        ProductAditionalInformations,
-        AttributeValueInline,
-        ProductTypeAttributeInline
-    ]
-    list_display = ['thumbnail', 'title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
-    list_filter = ['categories__industry', 'categories', 'subcategories', 'brand', 'product_type']
-    search_fields = ['title', 'brand__name', 'product_type__name']
-    prepopulated_fields = {'slug': ('title',)}
-    #autocomplete_fields = ['categories', 'subcategories']
 
-    fieldsets = (
-        ('Product Information', {
-            'fields': ('title', 'slug', 'regular_price', 'stoc', 'out_of_stoc', 'discounted_parcent', 'description', 'modle', 'tag', 'vendor_stores', 'details_description', 'brand', 'product_type', 'inventory', 'attributes')
-        }),
-        ('Categories', {
-            'classes': ('collapse',),
-            'fields': ('categories', 'subcategories'),
-        }),
-    )
-
-    def thumbnail(self, obj):
-        image = obj.productimage_set.first()
-        if image:
-            return format_html('<img src="{}" width="100" height="100" style="border-radius: 5px;" />', image.image)
-        return format_html('<img src="https://placehold.co/50x50" width="50" height="50" style="border-radius: 5px;" />')
-
-    thumbnail.short_description = 'Image'
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "subcategories":
-            if request.resolver_match.kwargs.get('object_id'):
-                product_id = request.resolver_match.kwargs['object_id']
-                product = Product.objects.get(pk=product_id)
-                kwargs["queryset"] = SubCategories.objects.filter(categories=product.categories)
-            else:
-                kwargs["queryset"] = SubCategories.objects.none()
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
-    class Media:
-        js = ('static/custom_admin/custom_admin.js')'''
         
 class ProductAdmin(admin.ModelAdmin):
     form = ProductFormAdmin
@@ -202,7 +160,7 @@ class PlacedOderAdmin(admin.ModelAdmin):
 #super_admin_site.register(Cart, CartModelAdmin)
 #super_admin_site.register(Cart, CartModelAdmin)
 
-#super_admin_site.register(Cart, CartModelAdmin)
+super_admin_site.register(Industry)
 
 super_admin_site.register(Cart, CartModelAdmin)
 super_admin_site.register(ProductImage)

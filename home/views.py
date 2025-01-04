@@ -24,7 +24,11 @@ def home(request):
     
     # Filter categories to only include those with related products
     industries_with_products = Industry.objects.annotate(num_products=Count('categories__product')).filter(num_products__gt=0)
-    
+      # Fetch the industries with the highest number of categories and brands
+    top_industries = Industry.objects.annotate(
+        num_categories=Count('categories'),
+        num_brands=Count('categories__product__brand')
+    ).order_by('-num_categories', '-num_brands')[:4]
     context = {
         "carts": carts,
         "sub_total": format(sub_total, ".2f"),
@@ -34,6 +38,8 @@ def home(request):
         "trending_product": trending_product,
         "trending_division_title": trending_division_title,
         "popular_categories": popular_categories,
+          "industries": industry,  # Add industries to the context
+          "top_industries": top_industries,
     }
     return render(request, "home/home.html", context)
 

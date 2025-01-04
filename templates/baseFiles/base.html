@@ -525,7 +525,7 @@
        
               <div class="col-lg-6 col-md-6 col-3">
                 <div class="header__bottom-left d-flex d-xl-block align-items-center">
-                  <div class="side-menu d-lg-none mr-20">
+                  <div class="side-menu d-lg-none ">
                     <button type="button" class="side-menu-btn offcanvas-toggle-btn">
                       <i class="fas fa-bars"></i>
                     </button>
@@ -561,11 +561,14 @@
                           </li>
                         </ul>
                       </li>
-                      <!-- Additional buttons on the left -->
-                      <li><a href="about.html">About Us</a></li>
-                      <li><a href="contact.html">Contact Us</a></li>
-                      <li><a href="faq.html">FAQs</a></li>
-                    </ul>
+                       
+                    <!--
+                           List six industries with the most categories and brands -->
+                        {% for industry in top_industries %}
+                        <li><a href="#">{{ industry.name }} </a></li>
+                        {% endfor %}
+                        
+                      </ul>
                   </div>
                 </div>
               </div>
