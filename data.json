@@ -1,0 +1,2619 @@
+{
+  "industries": [
+      {
+          "name": "Electronics"
+      },
+      {
+          "name": "Software"
+      },
+      {
+          "name": "Electrical"
+      }
+  ],
+  "categories": [
+      {
+          "name": "Laptops",
+          "industry": "Electronics"
+      },
+      {
+          "name": "Operating Systems",
+          "industry": "Software"
+      },
+      {
+          "name": "Smartphones",
+          "industry": "Electronics"
+      },
+      {
+          "name": "Software Development",
+          "industry": "Software"
+      },
+      {
+          "name": "Power Tools",
+          "industry": "Electrical"
+      },
+      {
+          "name": "Cables & Wires",
+          "industry": "Electrical"
+      }
+  ],
+  "subcategories": [
+      {
+          "name": "Gaming Laptops",
+          "category": "Laptops"
+      },
+      {
+          "name": "Business Laptops",
+          "category": "Laptops"
+      },
+      {
+          "name": "Android Smartphones",
+          "category": "Smartphones"
+      },
+      {
+          "name": "iOS Smartphones",
+          "category": "Smartphones"
+      },
+      {
+          "name": "Web Development Software",
+          "category": "Software Development"
+      },
+      {
+          "name": "Mobile Development Software",
+          "category": "Software Development"
+      },
+      {
+          "name": "Cordless Tools",
+          "category": "Power Tools"
+      },
+      {
+          "name": "Wires",
+          "category": "Cables & Wires"
+      }
+  ],
+  "product_types": [
+      {
+          "name": "Laptop",
+          "description": "Different types of laptops"
+      },
+      {
+          "name": "Smartphone",
+          "description": "Different types of smartphones"
+      },
+      {
+          "name": "Software",
+          "description": "Different types of software"
+      },
+      {
+          "name": "Power Tool",
+          "description": "Different types of power tools"
+      },
+      {
+          "name": "Cable",
+          "description": "Different types of cables and wires"
+      }
+  ],
+"brands": [
+    {
+      "name": "Apple",
+      "description": "Apple Inc.",
+      "logo": "https://link-to-apple-logo.png"
+    },
+    {
+      "name": "Microsoft",
+      "description": "Microsoft Corporation",
+      "logo": "https://link-to-microsoft-logo.png"
+    },
+    {
+      "name": "Samsung",
+      "description": "Samsung Electronics",
+      "logo": "https://link-to-samsung-logo.png"
+    },
+    {
+      "name": "Bosch",
+      "description": "Bosch Power Tools",
+      "logo": "https://link-to-bosch-logo.png"
+    },
+    {
+      "name": "Sony",
+      "description": "Sony Corporation",
+      "logo": "https://link-to-sony-logo.png"
+    },
+    {
+      "name": "Dell",
+      "description": "Dell Inc.",
+      "logo": "https://link-to-dell-logo.png"
+    },
+    {
+      "name": "Lenovo",
+      "description": "Lenovo Group Ltd.",
+      "logo": "https://link-to-lenovo-logo.png"
+    },
+    {
+      "name": "HP",
+      "description": "HP Inc.",
+      "logo": "https://link-to-hp-logo.png"
+    },
+    {
+      "name": "Adobe",
+      "description": "Adobe Inc.",
+      "logo": "https://link-to-adobe-logo.png"
+    },
+    {
+      "name": "Google",
+      "description": "Google LLC",
+      "logo": "https://link-to-google-logo.png"
+    },
+    {
+      "name": "Bose",
+      "description": "Bose Corporation",
+      "logo": "https://link-to-bose-logo.png"
+    },
+    {
+      "name": "JBL",
+      "description": "JBL Corporation",
+      "logo": "https://link-to-jbl-logo.png"
+    },
+    {
+      "name": "AmazonBasics",
+      "description": "AmazonBasics",
+      "logo": "https://link-to-amazonbasics-logo.png"
+    },
+    {
+      "name": "Philips",
+      "description": "Philips",
+      "logo": "https://link-to-philips-logo.png"
+    },
+    {
+      "name": "Nest",
+      "description": "Nest Labs",
+      "logo": "https://link-to-nest-logo.png"
+    },
+    {
+      "name": "Raspberry Pi",
+      "description": "Raspberry Pi Foundation",
+      "logo": "https://link-to-raspberry-pi-logo.png"
+    },
+    {
+      "name": "Arduino",
+      "description": "Arduino AG",
+      "logo": "https://link-to-arduino-logo.png"
+    },
+    {
+      "name": "Anker",
+      "description": "Anker Innovations",
+      "logo": "https://link-to-anker-logo.png"
+    },
+    {
+      "name": "TP-Link",
+      "description": "TP-Link Technologies",
+      "logo": "https://link-to-tplink-logo.png"
+    },
+    {
+      "name": "Netgear",
+      "description": "Netgear Inc.",
+      "logo": "https://link-to-netgear-logo.png"
+    },
+    {
+      "name": "Logitech",
+      "description": "Logitech International S.A.",
+      "logo": "https://link-to-logitech-logo.png"
+    },
+    {
+      "name": "Razer",
+      "description": "Razer Inc.",
+      "logo": "https://link-to-razer-logo.png"
+    },
+    {
+      "name": "Corsair",
+      "description": "Corsair Gaming, Inc.",
+      "logo": "https://link-to-corsair-logo.png"
+    },
+    {
+      "name": "NVIDIA",
+      "description": "NVIDIA Corporation",
+      "logo": "https://link-to-nvidia-logo.png"
+    },
+    {
+      "name": "Seagate",
+      "description": "Seagate Technology",
+      "logo": "https://link-to-seagate-logo.png"
+    },
+    {
+      "name": "Belkin",
+      "description": "Belkin International",
+      "logo": "https://link-to-belkin-logo.png"
+    }
+  ],
+
+  "products": [
+    {
+        "title": "MacBook Pro",
+        "regular_price": 1500,
+        "stock": 10,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Apple MacBook Pro with M1 chip.",
+        "model": "MacBookPro2021",
+        "category": "Laptops",
+        "subcategory": "Business Laptops",
+        "tag": "apple, laptop, macbook",
+
+        "vendor_store": 1,  
+        "brand": "Apple",
+        "product_type": "Laptop",
+        "attributes": [
+            {"name": "RAM", "value": "16GB"},
+            {"name": "Storage", "value": "512GB"}
+        ],
+        "images": [
+            "https://link-to-macbook-pro-image1.png",
+            "https://link-to-macbook-pro-image2.png"
+        ]
+        ,"details_description": "Detailed description of MacBook Pro.",
+        
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Dell XPS 13",
+        "regular_price": 1200,
+        "stock": 15,
+        "out_of_stock": false,
+        "discounted_percent": 5,
+        "description": "Dell XPS 13, 11th Gen Intel Core.",
+        "model": "XPS13-2021",
+        "category": "Laptops",
+        "subcategory": "Business Laptops",
+        "tag": "dell, laptop, xps",
+        "vendor_store": 1,  
+        "brand": "Dell",
+        "product_type": "Laptop",
+        "details_description": "Detailed description of MacBook Pro.",
+        
+        "attributes": [
+            {"name": "RAM", "value": "16GB"},
+            {"name": "Storage", "value": "1TB"}
+        ],
+        "images": [
+            "https://link-to-dell-xps-image1.png",
+            "https://link-to-dell-xps-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Lenovo ThinkPad X1 Carbon",
+        "regular_price": 1400,
+        "stock": 8,
+        "out_of_stock": false,
+        "discounted_percent": 8,
+        "description": "Lenovo ThinkPad X1 Carbon, lightweight business laptop.",
+        "model": "ThinkPadX1",
+        "category": "Laptops",
+        "subcategory": "Business Laptops",
+        "tag": "lenovo, laptop, thinkpad",
+        "vendor_store": 1,  
+        "details_description": "Detailed description of MacBook Pro.",
+        "brand": "Lenovo",
+        "product_type": "Laptop",
+        "attributes": [
+            {"name": "RAM", "value": "16GB"},
+            {"name": "Storage", "value": "512GB"}
+        ],
+        "images": [
+            "https://link-to-lenovo-thinkpad-image1.png",
+            "https://link-to-lenovo-thinkpad-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Microsoft Surface Laptop 4",
+        "regular_price": 1300,
+        "stock": 12,
+        "out_of_stock": false,
+        "discounted_percent": 7,
+        "description": "Microsoft Surface Laptop 4 with latest Intel processors.",
+        "model": "SurfaceLaptop4",
+        "category": "Laptops",
+        "subcategory": "Business Laptops",
+        "tag": "microsoft, laptop, surface",
+        "vendor_store": 1,  
+        "brand": "Microsoft",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Laptop",
+        "attributes": [
+            {"name": "RAM", "value": "16GB"},
+            {"name": "Storage", "value": "512GB"}
+        ],
+        "images": [
+            "https://link-to-surface-laptop-image1.png",
+            "https://link-to-surface-laptop-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "HP Spectre x360",
+        "regular_price": 1400,
+        "stock": 5,
+        "out_of_stock": false,
+        "discounted_percent": 6,
+        "description": "HP Spectre x360 convertible laptop.",
+        "model": "SpectreX360",
+        "category": "Laptops",
+        "subcategory": "Business Laptops",
+        "tag": "hp, laptop, spectre",
+        "vendor_store": 1,  
+        "brand": "HP",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Laptop",
+        "attributes": [
+            {"name": "RAM", "value": "16GB"},
+            {"name": "Storage", "value": "1TB"}
+        ],
+        "images": [
+            "https://link-to-hp-spectre-image1.png",
+            "https://link-to-hp-spectre-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Windows 10 Pro",
+        "regular_price": 120,
+        "stock": 50,
+        "out_of_stock": false,
+        "discounted_percent": 5,
+        "description": "Microsoft Windows 10 Pro Operating System.",
+        "model": "Windows10Pro",
+        "category": "Operating Systems",
+        "subcategory": "Operating Systems",
+        "tag": "microsoft, windows, os",
+        "vendor_store": 1,  
+        "brand": "Microsoft",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Software",
+        "attributes": [
+            {"name": "Version", "value": "Pro"},
+            {"name": "License", "value": "Retail"}
+        ],
+        "images": [
+            "https://link-to-windows10-image1.png",
+            "https://link-to-windows10-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Windows 11 Home",
+        "regular_price": 139,
+        "stock": 30,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Microsoft Windows 11 Home Operating System.",
+        "model": "Windows11Home",
+        "category": "Operating Systems",
+        "subcategory": "Operating Systems",
+        "tag": "microsoft, windows, os",
+        "vendor_store": 1,  
+        "brand": "Microsoft",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Software",
+        "attributes": [
+            {"name": "Version", "value": "Home"},
+            {"name": "License", "value": "Retail"}
+        ],
+        "images": [
+            "https://link-to-windows11-image1.png",
+            "https://link-to-windows11-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Adobe Photoshop 2022",
+        "regular_price": 199,
+        "stock": 40,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Adobe Photoshop 2022 for photo editing.",
+        "model": "Photoshop2022",
+        "category": "Software Development",
+        "subcategory": "Photo Editing",
+        "tag": "adobe, software, photo editing",
+        "vendor_store": 1,  
+        "brand": "Adobe",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Software",
+        "attributes": [
+            {"name": "Version", "value": "2022"},
+            {"name": "License", "value": "Subscription"}
+        ],
+        "images": [
+            "https://link-to-photoshop-image1.png",
+            "https://link-to-photoshop-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Visual Studio 2019",
+        "regular_price": 299,
+        "stock": 20,
+        "out_of_stock": false,
+        "discounted_percent": 15,
+        "description": "Microsoft Visual Studio 2019 for software development.",
+        "model": "VS2019",
+        "category": "Software Development",
+        "subcategory": "Development Tools",
+        "tag": "microsoft, software, development",
+        "vendor_store": 1,  
+        "brand": "Microsoft",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Software",
+        "attributes": [
+            {"name": "Version", "value": "2019"},
+            {"name": "License", "value": "Professional"}
+        ],
+        "images": [
+            "https://link-to-visual-studio-image1.png",
+            "https://link-to-visual-studio-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Samsung Galaxy S21",
+        "regular_price": 999,
+        "stock": 20,
+        "out_of_stock": false,
+        "discounted_percent": 15,
+        "description": "Samsung Galaxy S21 with 5G capability.",
+        "model": "GalaxyS21",
+        "category": "Smartphones",
+        "subcategory": "Android Smartphones",
+        "tag": "samsung, smartphone, galaxy",
+        "vendor_store": 1,  
+        "brand": "Samsung",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Smartphone",
+        "attributes": [
+            {"name": "Camera", "value": "12MP"},
+            {"name": "Battery Capacity", "value": "4000mAh"}
+        ],
+        "images": [
+            "https://link-to-samsung-galaxy-s21-image1.png",
+            "https://link-to-samsung-galaxy-s21-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "iPhone 12",
+        "regular_price": 799,
+        "stock": 25,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Apple iPhone 12 with Retina display.",
+        "model": "iPhone12",
+        "category": "Smartphones",
+        "subcategory": "iOS Smartphones",
+        "tag": "apple, smartphone, iphone",
+        "vendor_store": 1,  
+        "brand": "Apple",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Smartphone",
+        "attributes": [
+            {"name": "Camera", "value": "12MP"},
+            {"name": "Battery Capacity", "value": "2815mAh"}
+        ],
+        "images": [
+            "https://link-to-iphone12-image1.png",
+            "https://link-to-iphone12-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Google Pixel 5",
+        "regular_price": 699,
+        "stock": 15,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Google Pixel 5 with incredible camera.",
+        "model": "Pixel5",
+        "category": "Smartphones",
+        "subcategory": "Android Smartphones",
+        "tag": "google, smartphone, pixel",
+        "vendor_store": 1,  
+        "brand": "Google",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Smartphone",
+        "attributes": [
+            {"name": "Camera", "value": "16MP"},
+            {"name": "Battery Capacity", "value": "4080mAh"}
+        ],
+        "images": [
+            "https://link-to-pixel5-image1.png",
+            "https://link-to-pixel5-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "OnePlus 9",
+        "regular_price": 729,
+        "stock": 18,
+        "out_of_stock": false,
+        "discounted_percent": 5,
+        "description": "OnePlus 9 with Snapdragon 888.",
+        "model": "OnePlus9",
+        "category": "Smartphones",
+        "subcategory": "Android Smartphones",
+        "tag": "oneplus, smartphone, 9",
+        "vendor_store": 1,  
+        "brand": "OnePlus",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Smartphone",
+        "attributes": [
+            {"name": "Camera", "value": "48MP"},
+            {"name": "Battery Capacity", "value": "4500mAh"}
+        ],
+        "images": [
+            "https://link-to-oneplus9-image1.png",
+            "https://link-to-oneplus9-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Sony WH-1000XM4",
+        "regular_price": 349,
+        "stock": 30,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Sony WH-1000XM4 Wireless Noise Cancelling Headphones.",
+        "model": "WH1000XM4",
+        "category": "Electronics",
+        "subcategory": "Audio",
+        "tag": "sony, headphones, audio",
+        "vendor_store": 1,  
+        "brand": "Sony",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Headphones",
+        "attributes": [
+            {"name": "Battery Life", "value": "30 hours"},
+            {"name": "Noise Cancellation", "value": "Yes"}
+        ],
+        "images": [
+            "https://link-to-sony-headphones-image1.png",
+            "https://link-to-sony-headphones-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Bose QuietComfort 35 II",
+        "regular_price": 299,
+        "stock": 20,
+        "out_of_stock": false,
+        "discounted_percent": 15,
+        "description": "Bose QuietComfort 35 II Wireless Headphones.",
+        "model": "QC35II",
+        "category": "Electronics",
+        "subcategory": "Audio",
+        "tag": "bose, headphones, audio",
+        "vendor_store": 1,  
+        "brand": "Bose",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Headphones",
+        "attributes": [
+            {"name": "Battery Life", "value": "20 hours"},
+            {"name": "Noise Cancellation", "value": "Yes"}
+        ],
+        "images": [
+            "https://link-to-bose-headphones-image1.png",
+            "https://link-to-bose-headphones-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "JBL Flip 5",
+        "regular_price": 99,
+        "stock": 50,
+        "out_of_stock": false,
+        "discounted_percent": 20,
+        "description": "JBL Flip 5 Waterproof Portable Bluetooth Speaker.",
+        "model": "Flip5",
+        "category": "Electronics",
+        "subcategory": "Audio",
+        "tag": "jbl, speaker, audio",
+        "vendor_store": 1,  
+        "brand": "JBL",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Speaker",
+        "attributes": [
+            {"name": "Battery Life", "value": "12 hours"},
+            {"name": "Waterproof", "value": "Yes"}
+        ],
+        "images": [
+            "https://link-to-jbl-flip5-image1.png",
+            "https://link-to-jbl-flip5-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Amazon Echo Dot (4th Gen)",
+        "regular_price": 49,
+        "stock": 100,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Amazon Echo Dot smart speaker with Alexa.",
+        "model": "EchoDot4thGen",
+        "category": "Electronics",
+        "subcategory": "Smart Home",
+        "tag": "amazon, echo, smart home",
+        "vendor_store": 1,  
+        "brand": "Amazon",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Smart Speaker",
+        "attributes": [
+            {"name": "Voice Assistant", "value": "Alexa"},
+            {"name": "Connectivity", "value": "Wi-Fi, Bluetooth"}
+        ],
+        "images": [
+            "https://link-to-echo-dot-image1.png",
+            "https://link-to-echo-dot-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Philips Hue White and Color Ambiance Bulb",
+        "regular_price": 49,
+        "stock": 80,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Philips Hue smart bulb that can change colors.",
+        "model": "HueBulb",
+        "category": "Electronics",
+        "subcategory": "Smart Home",
+        "tag": "philips, smart bulb, home automation",
+        "vendor_store": 1,  
+        "brand": "Philips",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Smart Bulb",
+        "attributes": [
+            {"name": "Color", "value": "RGB"},
+            {"name": "Connectivity", "value": "Wi-Fi"}
+        ],
+        "images": [
+            "https://link-to-philips-hue-image1.png",
+            "https://link-to-philips-hue-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Nest Learning Thermostat",
+        "regular_price": 249,
+        "stock": 25,
+        "out_of_stock": false,
+        "discounted_percent": 5,
+        "description": "Nest Learning Thermostat for smart temperature control.",
+        "model": "NestThermostat",
+        "category": "Electronics",
+        "subcategory": "Smart Home",
+        "tag": "nest, thermostat, smart home",
+        "vendor_store": 1,  
+        "brand": "Nest",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Smart Thermostat",
+        "attributes": [
+            {"name": "Compatibility", "value": "Wi-Fi"},
+            {"name": "Learning Capability", "value": "Yes"}
+        ],
+        "images": [
+            "https://link-to-nest-thermostat-image1.png",
+            "https://link-to-nest-thermostat-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Raspberry Pi 4 Model B",
+        "regular_price": 55,
+        "stock": 60,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Raspberry Pi 4 Model B, a small computer for DIY projects.",
+        "model": "RaspberryPi4",
+        "category": "Electronics",
+        "subcategory": "Development Boards",
+        "tag": "raspberry pi, development, electronics",
+        "vendor_store": 1,  
+        "brand": "Raspberry Pi",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Development Board",
+        "attributes": [
+            {"name": "RAM", "value": "4GB"},
+            {"name": "Connectivity", "value": "Wi-Fi, Bluetooth"}
+        ],
+        "images": [
+            "https://link-to-raspberry-pi-image1.png",
+            "https://link-to-raspberry-pi-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Arduino Uno Rev3",
+        "regular_price": 25,
+        "stock": 100,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Arduino Uno Rev3 microcontroller board.",
+        "model": "ArduinoUno",
+        "category": "Electronics",
+        "subcategory": "Development Boards",
+        "tag": "arduino, development, electronics",
+        "vendor_store": 1,  
+        "brand": "Arduino",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Development Board",
+        "attributes": [
+            {"name": "Microcontroller", "value": "ATmega328P"},
+            {"name": "Connectivity", "value": "USB"}
+        ],
+        "images": [
+            "https://link-to-arduino-uno-image1.png",
+            "https://link-to-arduino-uno-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Anker PowerCore 20100mAh",
+        "regular_price": 39,
+        "stock": 70,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Anker PowerCore portable charger with 20100mAh capacity.",
+        "model": "PowerCore20100",
+        "category": "Electronics",
+        "subcategory": "Chargers",
+        "tag": "anker, charger, portable",
+        "vendor_store": 1,  
+        "brand": "Anker",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Power Bank",
+        "attributes": [
+            {"name": "Capacity", "value": "20100mAh"},
+            {"name": "Ports", "value": "2"}
+        ],
+        "images": [
+            "https://link-to-anker-powercore-image1.png",
+            "https://link-to-anker-powercore-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Belkin Surge Protector",
+        "regular_price": 29,
+        "stock": 50,
+        "out_of_stock": false,
+        "discounted_percent": 5,
+        "description": "Belkin Surge Protector with 12 outlets.",
+        "model": "BelkinSurge",
+        "category": "Electronics",
+        "subcategory": "Surge Protectors",
+        "tag": "belkin, surge protector, electronics",
+        "vendor_store": 1,  
+        "brand": "Belkin",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Surge Protector",
+        "attributes": [
+            {"name": "Outlets", "value": "12"},
+            {"name": "USB Ports", "value": "3"}
+        ],
+        "images": [
+            "https://link-to-belkin-surge-image1.png",
+            "https://link-to-belkin-surge-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Logitech MX Master 3",
+        "regular_price": 99,
+        "stock": 40,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "Logitech MX Master 3 wireless mouse.",
+        "model": "MXMaster3",
+        "category": "Electronics",
+        "subcategory": "Input Devices",
+        "tag": "logitech, mouse, wireless",
+        "vendor_store": 1,  
+        "brand": "Logitech",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Mouse",
+        "attributes": [
+            {"name": "Connectivity", "value": "Bluetooth, USB"},
+            {"name": "Battery Life", "value": "70 days"}
+        ],
+        "images": [
+            "https://link-to-logitech-mx-image1.png",
+            "https://link-to-logitech-mx-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Razer BlackWidow V3",
+        "regular_price": 129,
+        "stock": 25,
+        "out_of_stock": false,
+        "discounted_percent": 15,
+        "description": "Razer BlackWidow V3 mechanical gaming keyboard.",
+        "model": "BlackWidowV3",
+        "category": "Electronics",
+        "subcategory": "Input Devices",
+        "tag": "razer, keyboard, gaming",
+        "vendor_store": 1,  
+        "brand": "Razer",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Keyboard",
+        "attributes": [
+            {"name": "Switch Type", "value": "Green"},
+            {"name": "Lighting", "value": "RGB"}
+        ],
+        "images": [
+            "https://link-to-razer-blackwidow-image1.png",
+            "https://link-to-razer-blackwidow-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Corsair Vengeance LPX 16GB RAM",
+        "regular_price": 79,
+        "stock": 60,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Corsair Vengeance LPX 16GB DDR4 RAM.",
+        "model": "VengeanceLPX16GB",
+        "category": "Electronics",
+        "subcategory": "Computer Components",
+        "tag": "corsair, ram, computer",
+        "vendor_store": 1,  
+        "brand": "Corsair",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "RAM",
+        "attributes": [
+            {"name": "Capacity", "value": "16GB"},
+            {"name": "Type", "value": "DDR4"}
+        ],
+        "images": [
+            "https://link-to-corsair-vengeance-image1.png",
+            "https://link-to-corsair-vengeance-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "NVIDIA GeForce RTX 3070",
+        "regular_price": 499,
+        "stock": 10,
+        "out_of_stock": false,
+        "discounted_percent": 15,
+        "description": "NVIDIA GeForce RTX 3070 graphics card.",
+        "model": "RTX3070",
+        "category": "Electronics",
+        "subcategory": "Computer Components",
+        "tag": "nvidia, graphics card, gaming",
+        "vendor_store": 1,  
+        "brand": "NVIDIA",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Graphics Card",
+        "attributes": [
+            {"name": "Memory", "value": "8GB"},
+            {"name": "Architecture", "value": "Ampere"}
+        ],
+        "images": [
+            "https://link-to-nvidia-rtx-image1.png",
+            "https://link-to-nvidia-rtx-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Seagate Barracuda 2TB HDD",
+        "regular_price": 59,
+        "stock": 100,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Seagate Barracuda 2TB Hard Disk Drive.",
+        "model": "Barracuda2TB",
+        "category": "Electronics",
+        "subcategory": "Computer Components",
+        "tag": "seagate, hdd, storage",
+        "vendor_store": 1,  
+        "brand": "Seagate",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Hard Disk Drive",
+        "attributes": [
+            {"name": "Capacity", "value": "2TB"},
+            {"name": "Type", "value": "HDD"}
+        ],
+        "images": [
+            "https://link-to-seagate-barracuda-image1.png",
+            "https://link-to-seagate-barracuda-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "TP-Link Archer A7",
+        "regular_price": 59,
+        "stock": 50,
+        "out_of_stock": false,
+        "discounted_percent": 10,
+        "description": "TP-Link Archer A7 AC1750 Smart Wi-Fi Router.",
+        "model": "ArcherA7",
+        "category": "Electronics",
+        "subcategory": "Networking",
+        "tag": "tplink, router, networking",
+        "vendor_store": 1,  
+        "brand": "TP-Link",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Router",
+        "attributes": [
+            {"name": "Speed", "value": "1750 Mbps"},
+            {"name": "Ports", "value": "4"}
+        ],
+        "images": [
+            "https://link-to-tplink-archer-image1.png",
+            "https://link-to-tplink-archer-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Netgear Nighthawk RAX200",
+        "regular_price": 349,
+        "stock": 20,
+        "out_of_stock": false,
+        "discounted_percent": 5,
+        "description": "Netgear Nighthawk RAX200 Wi-Fi 6 Router.",
+        "model": "NighthawkRAX200",
+        "category": "Electronics",
+        "subcategory": "Networking",
+        "tag": "netgear, router, wifi",
+        "vendor_store": 1,  
+        "brand": "Netgear",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Router",
+        "attributes": [
+            {"name": "Speed", "value": "10.8 Gbps"},
+            {"name": "Ports", "value": "5"}
+        ],
+        "images": [
+            "https://link-to-netgear-nighthawk-image1.png",
+            "https://link-to-netgear-nighthawk-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Belkin USB-C to HDMI Adapter",
+        "regular_price": 25,
+        "stock": 100,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Belkin USB-C to HDMI Adapter for video output.",
+        "model": "USB-CtoHDMI",
+        "category": "Electronics",
+        "subcategory": "Cables & Wires",
+        "tag": "belkin, adapter, usb-c",
+        "vendor_store": 1,  
+        "brand": "Belkin",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Adapter",
+        "attributes": [
+            {"name": "Connectivity", "value": "USB-C to HDMI"}
+        ],
+        "images": [
+            "https://link-to-belkin-adapter-image1.png",
+            "https://link-to-belkin-adapter-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "AmazonBasics Lightning to USB A Cable",
+        "regular_price": 10,
+        "stock": 200,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "AmazonBasics Lightning to USB A 6-foot cable.",
+        "model": "LightningUSB",
+        "category": "Electronics",
+        "subcategory": "Cables & Wires",
+        "tag": "amazonbasics, cable, lightning",
+        "vendor_store": 1,  
+        "brand": "AmazonBasics",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Cable",
+        "attributes": [
+            {"name": "Length", "value": "6 feet"}
+        ],
+        "images": [
+            "https://link-to-amazonbasics-cable-image1.png",
+            "https://link-to-amazonbasics-cable-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Anker PowerLine III USB-C to USB-C 2.0 Cable",
+        "regular_price": 15,
+        "stock": 150,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Anker PowerLine III USB-C to USB-C 2.0 cable.",
+        "model": "PowerLineUSB-C",
+        "category": "Electronics",
+        "subcategory": "Cables & Wires",
+        "tag": "anker, usb-c, cable",
+        "vendor_store": 1,  
+        "brand": "Anker",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Cable",
+        "attributes": [
+            {"name": "Length", "value": "3 feet"}
+        ],
+        "images": [
+            "https://link-to-anker-usb-c-image1.png",
+            "https://link-to-anker-usb-c-image2.png"
+        ]
+        ,
+        "aditional_information": [ 
+            {"specification": "Processor", "details": "M1 Chip"},
+            {"specification": "Battery Life", "details": "Up to 18 hours"}
+        ],
+        "inventory": {
+            "total_quantity": 50,
+            "available_quantity": 45
+        }
+    },
+    {
+        "title": "TP-Link 50ft Ethernet Cable",
+        "regular_price": 10,
+        "stock": 250,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "TP-Link 50ft Cat6 Ethernet cable.",
+        "model": "EthernetCable50ft",
+        "category": "Electronics",
+        "subcategory": "Cables & Wires",
+        "tag": "tplink, ethernet, cable",
+        "vendor_store": 1,  
+        "brand": "TP-Link",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Cable",
+        "attributes": [
+            {"name": "Length", "value": "50 feet"},
+            {"name": "Type", "value": "Cat6"}
+        ],
+        "images": [
+            "https://link-to-tplink-ethernet-image1.png",
+            "https://link-to-tplink-ethernet-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    },
+    {
+        "title": "Belkin 8-Outlet Power Strip",
+        "regular_price": 25,
+        "stock": 100,
+        "out_of_stock": false,
+        "discounted_percent": 0,
+        "description": "Belkin 8-Outlet Power Strip with surge protection.",
+        "model": "PowerStrip8Outlet",
+        "category": "Electronics",
+        "subcategory": "Surge Protectors",
+        "tag": "belkin, power strip, surge",
+        "vendor_store": 1,  
+        "brand": "Belkin",
+        "details_description": "Detailed description of MacBook Pro.",
+        "product_type": "Power Strip",
+        "attributes": [
+            {"name": "Outlets", "value": "8"},
+            {"name": "Surge Protection", "value": "Yes"}
+        ],
+        "images": [
+            "https://link-to-belkin-power-strip-image1.png",
+            "https://link-to-belkin-power-strip-image2.png"
+        ]
+        ,
+      "aditional_information": [ 
+          {"specification": "Processor", "details": "M1 Chip"},
+          {"specification": "Battery Life", "details": "Up to 18 hours"}
+      ],
+      "inventory": {
+          "total_quantity": 50,
+          "available_quantity": 45
+      }
+    }
+],
+  "attributes": [
+      {
+          "name": "RAM",
+          "product_type": "Laptop"
+      },
+      {
+          "name": "Storage",
+          "product_type": "Laptop"
+      },
+      {
+          "name": "Version",
+          "product_type": "Software"
+      },
+      {
+          "name": "License",
+          "product_type": "Software"
+      },
+      {
+          "name": "Camera",
+          "product_type": "Smartphone"
+      },
+      {
+          "name": "Battery Capacity",
+          "product_type": "Smartphone"
+      },
+      {
+          "name": "Voltage",
+          "product_type": "Power Tool"
+      },
+      {
+          "name": "Length",
+          "product_type": "Cable"
+      }
+  ],
+  "attribute_values": [
+      {
+          "attribute": "RAM",
+          "value": "8GB",
+          "product": 1
+      },
+      {
+          "attribute": "RAM",
+          "value": "16GB",
+          "product": 1
+      },
+      {
+          "attribute": "Storage",
+          "value": "256GB",
+          "product": 1
+      },
+      {
+          "attribute": "Storage",
+          "value": "512GB",
+          "product": 1
+      },
+      {
+          "attribute": "Camera",
+          "value": "12MP",
+          "product": 3
+      },
+      {
+          "attribute": "Battery Capacity",
+          "value": "4000mAh",
+          "product": 3
+      },
+      {
+          "attribute": "Voltage",
+          "value": "18V",
+          "product": 7
+      },
+      {
+          "attribute": "Length",
+          "value": "5m",
+          "product": 10
+      }
+  ],
+
+  
+  
+      "products": [
+          {
+              "title": "MacBook Pro",
+              "regular_price": 1500,
+              "stock": 10,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Apple MacBook Pro with M1 chip.",
+              "model": "MacBookPro2021",
+              "category": "Laptops",
+              "subcategory": "Business Laptops",
+              "tag": "apple, laptop, macbook",
+
+              "vendor_store": 1,  
+              "brand": "Apple",
+              "product_type": "Laptop",
+              "attributes": [
+                  {"name": "RAM", "value": "16GB"},
+                  {"name": "Storage", "value": "512GB"}
+              ],
+              "images": [
+                  "https://link-to-macbook-pro-image1.png",
+                  "https://link-to-macbook-pro-image2.png"
+              ]
+              ,"details_description": "Detailed description of MacBook Pro.",
+              
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Dell XPS 13",
+              "regular_price": 1200,
+              "stock": 15,
+              "out_of_stock": false,
+              "discounted_percent": 5,
+              "description": "Dell XPS 13, 11th Gen Intel Core.",
+              "model": "XPS13-2021",
+              "category": "Laptops",
+              "subcategory": "Business Laptops",
+              "tag": "dell, laptop, xps",
+              "vendor_store": 1,  
+              "brand": "Dell",
+              "product_type": "Laptop",
+              "details_description": "Detailed description of MacBook Pro.",
+              
+              "attributes": [
+                  {"name": "RAM", "value": "16GB"},
+                  {"name": "Storage", "value": "1TB"}
+              ],
+              "images": [
+                  "https://link-to-dell-xps-image1.png",
+                  "https://link-to-dell-xps-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Lenovo ThinkPad X1 Carbon",
+              "regular_price": 1400,
+              "stock": 8,
+              "out_of_stock": false,
+              "discounted_percent": 8,
+              "description": "Lenovo ThinkPad X1 Carbon, lightweight business laptop.",
+              "model": "ThinkPadX1",
+              "category": "Laptops",
+              "subcategory": "Business Laptops",
+              "tag": "lenovo, laptop, thinkpad",
+              "vendor_store": 1,  
+              "details_description": "Detailed description of MacBook Pro.",
+              "brand": "Lenovo",
+              "product_type": "Laptop",
+              "attributes": [
+                  {"name": "RAM", "value": "16GB"},
+                  {"name": "Storage", "value": "512GB"}
+              ],
+              "images": [
+                  "https://link-to-lenovo-thinkpad-image1.png",
+                  "https://link-to-lenovo-thinkpad-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Microsoft Surface Laptop 4",
+              "regular_price": 1300,
+              "stock": 12,
+              "out_of_stock": false,
+              "discounted_percent": 7,
+              "description": "Microsoft Surface Laptop 4 with latest Intel processors.",
+              "model": "SurfaceLaptop4",
+              "category": "Laptops",
+              "subcategory": "Business Laptops",
+              "tag": "microsoft, laptop, surface",
+              "vendor_store": 1,  
+              "brand": "Microsoft",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Laptop",
+              "attributes": [
+                  {"name": "RAM", "value": "16GB"},
+                  {"name": "Storage", "value": "512GB"}
+              ],
+              "images": [
+                  "https://link-to-surface-laptop-image1.png",
+                  "https://link-to-surface-laptop-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "HP Spectre x360",
+              "regular_price": 1400,
+              "stock": 5,
+              "out_of_stock": false,
+              "discounted_percent": 6,
+              "description": "HP Spectre x360 convertible laptop.",
+              "model": "SpectreX360",
+              "category": "Laptops",
+              "subcategory": "Business Laptops",
+              "tag": "hp, laptop, spectre",
+              "vendor_store": 1,  
+              "brand": "HP",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Laptop",
+              "attributes": [
+                  {"name": "RAM", "value": "16GB"},
+                  {"name": "Storage", "value": "1TB"}
+              ],
+              "images": [
+                  "https://link-to-hp-spectre-image1.png",
+                  "https://link-to-hp-spectre-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Windows 10 Pro",
+              "regular_price": 120,
+              "stock": 50,
+              "out_of_stock": false,
+              "discounted_percent": 5,
+              "description": "Microsoft Windows 10 Pro Operating System.",
+              "model": "Windows10Pro",
+              "category": "Operating Systems",
+              "subcategory": "Operating Systems",
+              "tag": "microsoft, windows, os",
+              "vendor_store": 1,  
+              "brand": "Microsoft",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Software",
+              "attributes": [
+                  {"name": "Version", "value": "Pro"},
+                  {"name": "License", "value": "Retail"}
+              ],
+              "images": [
+                  "https://link-to-windows10-image1.png",
+                  "https://link-to-windows10-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Windows 11 Home",
+              "regular_price": 139,
+              "stock": 30,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Microsoft Windows 11 Home Operating System.",
+              "model": "Windows11Home",
+              "category": "Operating Systems",
+              "subcategory": "Operating Systems",
+              "tag": "microsoft, windows, os",
+              "vendor_store": 1,  
+              "brand": "Microsoft",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Software",
+              "attributes": [
+                  {"name": "Version", "value": "Home"},
+                  {"name": "License", "value": "Retail"}
+              ],
+              "images": [
+                  "https://link-to-windows11-image1.png",
+                  "https://link-to-windows11-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Adobe Photoshop 2022",
+              "regular_price": 199,
+              "stock": 40,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Adobe Photoshop 2022 for photo editing.",
+              "model": "Photoshop2022",
+              "category": "Software Development",
+              "subcategory": "Photo Editing",
+              "tag": "adobe, software, photo editing",
+              "vendor_store": 1,  
+              "brand": "Adobe",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Software",
+              "attributes": [
+                  {"name": "Version", "value": "2022"},
+                  {"name": "License", "value": "Subscription"}
+              ],
+              "images": [
+                  "https://link-to-photoshop-image1.png",
+                  "https://link-to-photoshop-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Visual Studio 2019",
+              "regular_price": 299,
+              "stock": 20,
+              "out_of_stock": false,
+              "discounted_percent": 15,
+              "description": "Microsoft Visual Studio 2019 for software development.",
+              "model": "VS2019",
+              "category": "Software Development",
+              "subcategory": "Development Tools",
+              "tag": "microsoft, software, development",
+              "vendor_store": 1,  
+              "brand": "Microsoft",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Software",
+              "attributes": [
+                  {"name": "Version", "value": "2019"},
+                  {"name": "License", "value": "Professional"}
+              ],
+              "images": [
+                  "https://link-to-visual-studio-image1.png",
+                  "https://link-to-visual-studio-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Samsung Galaxy S21",
+              "regular_price": 999,
+              "stock": 20,
+              "out_of_stock": false,
+              "discounted_percent": 15,
+              "description": "Samsung Galaxy S21 with 5G capability.",
+              "model": "GalaxyS21",
+              "category": "Smartphones",
+              "subcategory": "Android Smartphones",
+              "tag": "samsung, smartphone, galaxy",
+              "vendor_store": 1,  
+              "brand": "Samsung",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Smartphone",
+              "attributes": [
+                  {"name": "Camera", "value": "12MP"},
+                  {"name": "Battery Capacity", "value": "4000mAh"}
+              ],
+              "images": [
+                  "https://link-to-samsung-galaxy-s21-image1.png",
+                  "https://link-to-samsung-galaxy-s21-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "iPhone 12",
+              "regular_price": 799,
+              "stock": 25,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Apple iPhone 12 with Retina display.",
+              "model": "iPhone12",
+              "category": "Smartphones",
+              "subcategory": "iOS Smartphones",
+              "tag": "apple, smartphone, iphone",
+              "vendor_store": 1,  
+              "brand": "Apple",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Smartphone",
+              "attributes": [
+                  {"name": "Camera", "value": "12MP"},
+                  {"name": "Battery Capacity", "value": "2815mAh"}
+              ],
+              "images": [
+                  "https://link-to-iphone12-image1.png",
+                  "https://link-to-iphone12-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Google Pixel 5",
+              "regular_price": 699,
+              "stock": 15,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Google Pixel 5 with incredible camera.",
+              "model": "Pixel5",
+              "category": "Smartphones",
+              "subcategory": "Android Smartphones",
+              "tag": "google, smartphone, pixel",
+              "vendor_store": 1,  
+              "brand": "Google",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Smartphone",
+              "attributes": [
+                  {"name": "Camera", "value": "16MP"},
+                  {"name": "Battery Capacity", "value": "4080mAh"}
+              ],
+              "images": [
+                  "https://link-to-pixel5-image1.png",
+                  "https://link-to-pixel5-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "OnePlus 9",
+              "regular_price": 729,
+              "stock": 18,
+              "out_of_stock": false,
+              "discounted_percent": 5,
+              "description": "OnePlus 9 with Snapdragon 888.",
+              "model": "OnePlus9",
+              "category": "Smartphones",
+              "subcategory": "Android Smartphones",
+              "tag": "oneplus, smartphone, 9",
+              "vendor_store": 1,  
+              "brand": "OnePlus",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Smartphone",
+              "attributes": [
+                  {"name": "Camera", "value": "48MP"},
+                  {"name": "Battery Capacity", "value": "4500mAh"}
+              ],
+              "images": [
+                  "https://link-to-oneplus9-image1.png",
+                  "https://link-to-oneplus9-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Sony WH-1000XM4",
+              "regular_price": 349,
+              "stock": 30,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Sony WH-1000XM4 Wireless Noise Cancelling Headphones.",
+              "model": "WH1000XM4",
+              "category": "Electronics",
+              "subcategory": "Audio",
+              "tag": "sony, headphones, audio",
+              "vendor_store": 1,  
+              "brand": "Sony",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Headphones",
+              "attributes": [
+                  {"name": "Battery Life", "value": "30 hours"},
+                  {"name": "Noise Cancellation", "value": "Yes"}
+              ],
+              "images": [
+                  "https://link-to-sony-headphones-image1.png",
+                  "https://link-to-sony-headphones-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Bose QuietComfort 35 II",
+              "regular_price": 299,
+              "stock": 20,
+              "out_of_stock": false,
+              "discounted_percent": 15,
+              "description": "Bose QuietComfort 35 II Wireless Headphones.",
+              "model": "QC35II",
+              "category": "Electronics",
+              "subcategory": "Audio",
+              "tag": "bose, headphones, audio",
+              "vendor_store": 1,  
+              "brand": "Bose",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Headphones",
+              "attributes": [
+                  {"name": "Battery Life", "value": "20 hours"},
+                  {"name": "Noise Cancellation", "value": "Yes"}
+              ],
+              "images": [
+                  "https://link-to-bose-headphones-image1.png",
+                  "https://link-to-bose-headphones-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "JBL Flip 5",
+              "regular_price": 99,
+              "stock": 50,
+              "out_of_stock": false,
+              "discounted_percent": 20,
+              "description": "JBL Flip 5 Waterproof Portable Bluetooth Speaker.",
+              "model": "Flip5",
+              "category": "Electronics",
+              "subcategory": "Audio",
+              "tag": "jbl, speaker, audio",
+              "vendor_store": 1,  
+              "brand": "JBL",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Speaker",
+              "attributes": [
+                  {"name": "Battery Life", "value": "12 hours"},
+                  {"name": "Waterproof", "value": "Yes"}
+              ],
+              "images": [
+                  "https://link-to-jbl-flip5-image1.png",
+                  "https://link-to-jbl-flip5-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Amazon Echo Dot (4th Gen)",
+              "regular_price": 49,
+              "stock": 100,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Amazon Echo Dot smart speaker with Alexa.",
+              "model": "EchoDot4thGen",
+              "category": "Electronics",
+              "subcategory": "Smart Home",
+              "tag": "amazon, echo, smart home",
+              "vendor_store": 1,  
+              "brand": "Amazon",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Smart Speaker",
+              "attributes": [
+                  {"name": "Voice Assistant", "value": "Alexa"},
+                  {"name": "Connectivity", "value": "Wi-Fi, Bluetooth"}
+              ],
+              "images": [
+                  "https://link-to-echo-dot-image1.png",
+                  "https://link-to-echo-dot-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Philips Hue White and Color Ambiance Bulb",
+              "regular_price": 49,
+              "stock": 80,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Philips Hue smart bulb that can change colors.",
+              "model": "HueBulb",
+              "category": "Electronics",
+              "subcategory": "Smart Home",
+              "tag": "philips, smart bulb, home automation",
+              "vendor_store": 1,  
+              "brand": "Philips",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Smart Bulb",
+              "attributes": [
+                  {"name": "Color", "value": "RGB"},
+                  {"name": "Connectivity", "value": "Wi-Fi"}
+              ],
+              "images": [
+                  "https://link-to-philips-hue-image1.png",
+                  "https://link-to-philips-hue-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Nest Learning Thermostat",
+              "regular_price": 249,
+              "stock": 25,
+              "out_of_stock": false,
+              "discounted_percent": 5,
+              "description": "Nest Learning Thermostat for smart temperature control.",
+              "model": "NestThermostat",
+              "category": "Electronics",
+              "subcategory": "Smart Home",
+              "tag": "nest, thermostat, smart home",
+              "vendor_store": 1,  
+              "brand": "Nest",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Smart Thermostat",
+              "attributes": [
+                  {"name": "Compatibility", "value": "Wi-Fi"},
+                  {"name": "Learning Capability", "value": "Yes"}
+              ],
+              "images": [
+                  "https://link-to-nest-thermostat-image1.png",
+                  "https://link-to-nest-thermostat-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Raspberry Pi 4 Model B",
+              "regular_price": 55,
+              "stock": 60,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Raspberry Pi 4 Model B, a small computer for DIY projects.",
+              "model": "RaspberryPi4",
+              "category": "Electronics",
+              "subcategory": "Development Boards",
+              "tag": "raspberry pi, development, electronics",
+              "vendor_store": 1,  
+              "brand": "Raspberry Pi",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Development Board",
+              "attributes": [
+                  {"name": "RAM", "value": "4GB"},
+                  {"name": "Connectivity", "value": "Wi-Fi, Bluetooth"}
+              ],
+              "images": [
+                  "https://link-to-raspberry-pi-image1.png",
+                  "https://link-to-raspberry-pi-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Arduino Uno Rev3",
+              "regular_price": 25,
+              "stock": 100,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Arduino Uno Rev3 microcontroller board.",
+              "model": "ArduinoUno",
+              "category": "Electronics",
+              "subcategory": "Development Boards",
+              "tag": "arduino, development, electronics",
+              "vendor_store": 1,  
+              "brand": "Arduino",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Development Board",
+              "attributes": [
+                  {"name": "Microcontroller", "value": "ATmega328P"},
+                  {"name": "Connectivity", "value": "USB"}
+              ],
+              "images": [
+                  "https://link-to-arduino-uno-image1.png",
+                  "https://link-to-arduino-uno-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Anker PowerCore 20100mAh",
+              "regular_price": 39,
+              "stock": 70,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Anker PowerCore portable charger with 20100mAh capacity.",
+              "model": "PowerCore20100",
+              "category": "Electronics",
+              "subcategory": "Chargers",
+              "tag": "anker, charger, portable",
+              "vendor_store": 1,  
+              "brand": "Anker",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Power Bank",
+              "attributes": [
+                  {"name": "Capacity", "value": "20100mAh"},
+                  {"name": "Ports", "value": "2"}
+              ],
+              "images": [
+                  "https://link-to-anker-powercore-image1.png",
+                  "https://link-to-anker-powercore-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Belkin Surge Protector",
+              "regular_price": 29,
+              "stock": 50,
+              "out_of_stock": false,
+              "discounted_percent": 5,
+              "description": "Belkin Surge Protector with 12 outlets.",
+              "model": "BelkinSurge",
+              "category": "Electronics",
+              "subcategory": "Surge Protectors",
+              "tag": "belkin, surge protector, electronics",
+              "vendor_store": 1,  
+              "brand": "Belkin",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Surge Protector",
+              "attributes": [
+                  {"name": "Outlets", "value": "12"},
+                  {"name": "USB Ports", "value": "3"}
+              ],
+              "images": [
+                  "https://link-to-belkin-surge-image1.png",
+                  "https://link-to-belkin-surge-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Logitech MX Master 3",
+              "regular_price": 99,
+              "stock": 40,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "Logitech MX Master 3 wireless mouse.",
+              "model": "MXMaster3",
+              "category": "Electronics",
+              "subcategory": "Input Devices",
+              "tag": "logitech, mouse, wireless",
+              "vendor_store": 1,  
+              "brand": "Logitech",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Mouse",
+              "attributes": [
+                  {"name": "Connectivity", "value": "Bluetooth, USB"},
+                  {"name": "Battery Life", "value": "70 days"}
+              ],
+              "images": [
+                  "https://link-to-logitech-mx-image1.png",
+                  "https://link-to-logitech-mx-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Razer BlackWidow V3",
+              "regular_price": 129,
+              "stock": 25,
+              "out_of_stock": false,
+              "discounted_percent": 15,
+              "description": "Razer BlackWidow V3 mechanical gaming keyboard.",
+              "model": "BlackWidowV3",
+              "category": "Electronics",
+              "subcategory": "Input Devices",
+              "tag": "razer, keyboard, gaming",
+              "vendor_store": 1,  
+              "brand": "Razer",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Keyboard",
+              "attributes": [
+                  {"name": "Switch Type", "value": "Green"},
+                  {"name": "Lighting", "value": "RGB"}
+              ],
+              "images": [
+                  "https://link-to-razer-blackwidow-image1.png",
+                  "https://link-to-razer-blackwidow-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Corsair Vengeance LPX 16GB RAM",
+              "regular_price": 79,
+              "stock": 60,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Corsair Vengeance LPX 16GB DDR4 RAM.",
+              "model": "VengeanceLPX16GB",
+              "category": "Electronics",
+              "subcategory": "Computer Components",
+              "tag": "corsair, ram, computer",
+              "vendor_store": 1,  
+              "brand": "Corsair",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "RAM",
+              "attributes": [
+                  {"name": "Capacity", "value": "16GB"},
+                  {"name": "Type", "value": "DDR4"}
+              ],
+              "images": [
+                  "https://link-to-corsair-vengeance-image1.png",
+                  "https://link-to-corsair-vengeance-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "NVIDIA GeForce RTX 3070",
+              "regular_price": 499,
+              "stock": 10,
+              "out_of_stock": false,
+              "discounted_percent": 15,
+              "description": "NVIDIA GeForce RTX 3070 graphics card.",
+              "model": "RTX3070",
+              "category": "Electronics",
+              "subcategory": "Computer Components",
+              "tag": "nvidia, graphics card, gaming",
+              "vendor_store": 1,  
+              "brand": "NVIDIA",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Graphics Card",
+              "attributes": [
+                  {"name": "Memory", "value": "8GB"},
+                  {"name": "Architecture", "value": "Ampere"}
+              ],
+              "images": [
+                  "https://link-to-nvidia-rtx-image1.png",
+                  "https://link-to-nvidia-rtx-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Seagate Barracuda 2TB HDD",
+              "regular_price": 59,
+              "stock": 100,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Seagate Barracuda 2TB Hard Disk Drive.",
+              "model": "Barracuda2TB",
+              "category": "Electronics",
+              "subcategory": "Computer Components",
+              "tag": "seagate, hdd, storage",
+              "vendor_store": 1,  
+              "brand": "Seagate",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Hard Disk Drive",
+              "attributes": [
+                  {"name": "Capacity", "value": "2TB"},
+                  {"name": "Type", "value": "HDD"}
+              ],
+              "images": [
+                  "https://link-to-seagate-barracuda-image1.png",
+                  "https://link-to-seagate-barracuda-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "TP-Link Archer A7",
+              "regular_price": 59,
+              "stock": 50,
+              "out_of_stock": false,
+              "discounted_percent": 10,
+              "description": "TP-Link Archer A7 AC1750 Smart Wi-Fi Router.",
+              "model": "ArcherA7",
+              "category": "Electronics",
+              "subcategory": "Networking",
+              "tag": "tplink, router, networking",
+              "vendor_store": 1,  
+              "brand": "TP-Link",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Router",
+              "attributes": [
+                  {"name": "Speed", "value": "1750 Mbps"},
+                  {"name": "Ports", "value": "4"}
+              ],
+              "images": [
+                  "https://link-to-tplink-archer-image1.png",
+                  "https://link-to-tplink-archer-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Netgear Nighthawk RAX200",
+              "regular_price": 349,
+              "stock": 20,
+              "out_of_stock": false,
+              "discounted_percent": 5,
+              "description": "Netgear Nighthawk RAX200 Wi-Fi 6 Router.",
+              "model": "NighthawkRAX200",
+              "category": "Electronics",
+              "subcategory": "Networking",
+              "tag": "netgear, router, wifi",
+              "vendor_store": 1,  
+              "brand": "Netgear",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Router",
+              "attributes": [
+                  {"name": "Speed", "value": "10.8 Gbps"},
+                  {"name": "Ports", "value": "5"}
+              ],
+              "images": [
+                  "https://link-to-netgear-nighthawk-image1.png",
+                  "https://link-to-netgear-nighthawk-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Belkin USB-C to HDMI Adapter",
+              "regular_price": 25,
+              "stock": 100,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Belkin USB-C to HDMI Adapter for video output.",
+              "model": "USB-CtoHDMI",
+              "category": "Electronics",
+              "subcategory": "Cables & Wires",
+              "tag": "belkin, adapter, usb-c",
+              "vendor_store": 1,  
+              "brand": "Belkin",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Adapter",
+              "attributes": [
+                  {"name": "Connectivity", "value": "USB-C to HDMI"}
+              ],
+              "images": [
+                  "https://link-to-belkin-adapter-image1.png",
+                  "https://link-to-belkin-adapter-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "AmazonBasics Lightning to USB A Cable",
+              "regular_price": 10,
+              "stock": 200,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "AmazonBasics Lightning to USB A 6-foot cable.",
+              "model": "LightningUSB",
+              "category": "Electronics",
+              "subcategory": "Cables & Wires",
+              "tag": "amazonbasics, cable, lightning",
+              "vendor_store": 1,  
+              "brand": "AmazonBasics",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Cable",
+              "attributes": [
+                  {"name": "Length", "value": "6 feet"}
+              ],
+              "images": [
+                  "https://link-to-amazonbasics-cable-image1.png",
+                  "https://link-to-amazonbasics-cable-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Anker PowerLine III USB-C to USB-C 2.0 Cable",
+              "regular_price": 15,
+              "stock": 150,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Anker PowerLine III USB-C to USB-C 2.0 cable.",
+              "model": "PowerLineUSB-C",
+              "category": "Electronics",
+              "subcategory": "Cables & Wires",
+              "tag": "anker, usb-c, cable",
+              "vendor_store": 1,  
+              "brand": "Anker",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Cable",
+              "attributes": [
+                  {"name": "Length", "value": "3 feet"}
+              ],
+              "images": [
+                  "https://link-to-anker-usb-c-image1.png",
+                  "https://link-to-anker-usb-c-image2.png"
+              ]
+              ,
+              "aditional_information": [ 
+                  {"specification": "Processor", "details": "M1 Chip"},
+                  {"specification": "Battery Life", "details": "Up to 18 hours"}
+              ],
+              "inventory": {
+                  "total_quantity": 50,
+                  "available_quantity": 45
+              }
+          },
+          {
+              "title": "TP-Link 50ft Ethernet Cable",
+              "regular_price": 10,
+              "stock": 250,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "TP-Link 50ft Cat6 Ethernet cable.",
+              "model": "EthernetCable50ft",
+              "category": "Electronics",
+              "subcategory": "Cables & Wires",
+              "tag": "tplink, ethernet, cable",
+              "vendor_store": 1,  
+              "brand": "TP-Link",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Cable",
+              "attributes": [
+                  {"name": "Length", "value": "50 feet"},
+                  {"name": "Type", "value": "Cat6"}
+              ],
+              "images": [
+                  "https://link-to-tplink-ethernet-image1.png",
+                  "https://link-to-tplink-ethernet-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          },
+          {
+              "title": "Belkin 8-Outlet Power Strip",
+              "regular_price": 25,
+              "stock": 100,
+              "out_of_stock": false,
+              "discounted_percent": 0,
+              "description": "Belkin 8-Outlet Power Strip with surge protection.",
+              "model": "PowerStrip8Outlet",
+              "category": "Electronics",
+              "subcategory": "Surge Protectors",
+              "tag": "belkin, power strip, surge",
+              "vendor_store": 1,  
+              "brand": "Belkin",
+              "details_description": "Detailed description of MacBook Pro.",
+              "product_type": "Power Strip",
+              "attributes": [
+                  {"name": "Outlets", "value": "8"},
+                  {"name": "Surge Protection", "value": "Yes"}
+              ],
+              "images": [
+                  "https://link-to-belkin-power-strip-image1.png",
+                  "https://link-to-belkin-power-strip-image2.png"
+              ]
+              ,
+            "aditional_information": [ 
+                {"specification": "Processor", "details": "M1 Chip"},
+                {"specification": "Battery Life", "details": "Up to 18 hours"}
+            ],
+            "inventory": {
+                "total_quantity": 50,
+                "available_quantity": 45
+            }
+          }
+      ]
+}

@@ -154,7 +154,8 @@ class AttributeValue(models.Model):
     value = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE , default=1)
-
+    class Meta:
+        unique_together = ('attribute', 'value', 'product')
 class Stock(models.Model):
     product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()

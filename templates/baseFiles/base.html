@@ -119,6 +119,8 @@
       .parent-category:hover .mega-menu {
         display: block;
       }
+
+     
     </style>
     <body>
       <!--[if lte IE 9]>
@@ -523,8 +525,8 @@
           <div class="container">
             <div class="row g-0 align-items-center">
        
-              <div class="col-lg-6 col-md-6 col-3">
-                <div class="header__bottom-left d-flex d-xl-block align-items-center">
+              <div class="col-lg-12">
+                <div class="header__bottom-left d-flex align-items-center">
                   <div class="side-menu d-lg-none ">
                     <button type="button" class="side-menu-btn offcanvas-toggle-btn">
                       <i class="fas fa-bars"></i>
@@ -537,7 +539,7 @@
                         <ul class="megamenu-1">
                           <li>
                             <a href="#">Categories</a>
-                            <ul class="mega-item">
+                            <ul class="mega-item industry-list d-flex flex-wrap">
                               {% for parent in industry %}
                               <li>
                                 <a href="#">{{ parent.name }}</a>
@@ -562,13 +564,13 @@
                         </ul>
                       </li>
                        
-                    <!--
-                           List six industries with the most categories and brands -->
+                
                         {% for industry in top_industries %}
-                        <li><a href="#">{{ industry.name }} </a></li>
+                        <li class="industry-item"><a href="#">{{ industry.name }}</a></li>
                         {% endfor %}
-                        
                       </ul>
+               
+              
                   </div>
                 </div>
               </div>
