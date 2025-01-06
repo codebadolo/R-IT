@@ -203,6 +203,7 @@ def get_subcategories(request):
     sub_list = list(subcategories.values('id', 'name'))
     return JsonResponse({'subcategories': sub_list})
 
+ # Redirect to the home page after signup
 # @login_required(login_url="user_login")
 # def check_out(request):
 #     user_cart = Cart.objects.filter(user=request.user)

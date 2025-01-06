@@ -10,65 +10,85 @@
           "name": "Electrical"
       }
   ],
-  "categories": [
-      {
-          "name": "Laptops",
-          "industry": "Electronics"
-      },
-      {
-          "name": "Operating Systems",
-          "industry": "Software"
-      },
-      {
-          "name": "Smartphones",
-          "industry": "Electronics"
-      },
-      {
-          "name": "Software Development",
-          "industry": "Software"
-      },
-      {
-          "name": "Power Tools",
-          "industry": "Electrical"
-      },
-      {
-          "name": "Cables & Wires",
-          "industry": "Electrical"
-      }
+"categories": [
+    {
+      "name": "Laptops",
+      "industry": "Electronics"
+    },
+    {
+      "name": "Operating Systems",
+      "industry": "Software"
+    },
+    {
+      "name": "Smartphones",
+      "industry": "Electronics"
+    },
+    {
+      "name": "Software Development",
+      "industry": "Software"
+    },
+    {
+      "name": "Electronics",
+      "industry": "Electronics"
+    },
+    {
+      "name": "Chargers",
+      "industry": "Electronics"
+    },
+    {
+      "name": "Surge Protectors",
+      "industry": "Electronics"
+    },
+    {
+      "name": "Input Devices",
+      "industry": "Electronics"
+    },
+    {
+      "name": "Networking",
+      "industry": "Electronics"
+    },
+    {
+      "name": "Cables & Wires",
+      "industry": "Electrical"
+    }
   ],
   "subcategories": [
-      {
-          "name": "Gaming Laptops",
-          "category": "Laptops"
-      },
-      {
-          "name": "Business Laptops",
-          "category": "Laptops"
-      },
-      {
-          "name": "Android Smartphones",
-          "category": "Smartphones"
-      },
-      {
-          "name": "iOS Smartphones",
-          "category": "Smartphones"
-      },
-      {
-          "name": "Web Development Software",
-          "category": "Software Development"
-      },
-      {
-          "name": "Mobile Development Software",
-          "category": "Software Development"
-      },
-      {
-          "name": "Cordless Tools",
-          "category": "Power Tools"
-      },
-      {
-          "name": "Wires",
-          "category": "Cables & Wires"
-      }
+    {
+      "name": "Business Laptops",
+      "category": "Laptops"
+    },
+    {
+      "name": "Android Smartphones",
+      "category": "Smartphones"
+    },
+    {
+      "name": "iOS Smartphones",
+      "category": "Smartphones"
+    },
+    {
+      "name": "Photo Editing",
+      "category": "Software Development"
+    },
+    {
+      "name": "Development Tools",
+      "category": "Software Development"
+    },
+    {
+      "name": "Audio",
+      "category": "Electronics"
+    },
+    {
+      "name": "Smart Home",
+      "category": "Electronics"
+    },
+    {
+      "name": "Development Boards",
+      "category": "Electronics"
+    },
+    {
+      "name": "Computer Components",
+      "category": "Electronics"
+    }
   ],
   "product_types": [
       {
@@ -92,7 +112,7 @@
           "description": "Different types of cables and wires"
       }
   ],
-"brands": [
+  "brands": [
     {
       "name": "Apple",
       "description": "Apple Inc.",

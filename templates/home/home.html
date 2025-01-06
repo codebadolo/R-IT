@@ -1,8 +1,7 @@
 {% extends "baseFiles/base.html" %}
-{% load i18n %}
 
 {% block pagetitle %}
-    ROH Store
+    Multi Vendor E - Commerce
 {% endblock pagetitle %}
     
 
@@ -10,6 +9,11 @@
     {% include 'baseFiles/messages.html' %}
     {% include 'home/front-slider.html' %}
     {% include 'home/trending-product.html' %}
+    {% include 'home/new-arrivals.html' %}
+    {% include 'home/flash-sales.html' %}
+    {% include 'home/customer-reviews.html' %}
+    {% include 'home/featured-categories.html' %}
+    {% include 'home/blog-highlights.html' %}
+    {% include 'home/newsletter-signup.html' %}
     {% include 'home/bottom-area.html' %}
 {% endblock bodycontent %}
-    

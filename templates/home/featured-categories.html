@@ -1,0 +1,33 @@
+{% load static %}
+<section class="featured-categories light-bg-s pt-25 pb-15">
+  <div class="container custom-conatiner">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="section__head d-flex justify-content-between mb-30">
+          <div class="section__title section__title-2">
+            <h5 class="st-titile">Featured Categories</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% if featured_categories %}
+        {% for category in featured_categories %}
+          <div class="col-6 col-md-4 col-lg-2 col-xl-2 category-card">
+            <div class="category__item b-radius-2 mb-20">
+              <div class="category__content">
+                <h6>
+                  <a href="#">{{ category.category.name }}</a>
+                </h6>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12">
+          <p>No featured categories available.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

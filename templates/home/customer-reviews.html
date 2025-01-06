@@ -1,0 +1,32 @@
+{% load static %}
+<section class="customer-reviews light-bg-s pt-25 pb-15">
+  <div class="container custom-conatiner">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="section__head d-flex justify-content-between mb-30">
+          <div class="section__title section__title-2">
+            <h5 class="st-titile">Customer Reviews</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% if customer_reviews %}
+        {% for review in customer_reviews %}
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="review-card">
+              <h6>{{ review.product.title }}</h6>
+              <p>{{ review.review }}</p>
+              <p>Rating: {{ review.rating }} / 5</p>
+              <p>By: {{ review.user.email }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12">
+          <p>No customer reviews available.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

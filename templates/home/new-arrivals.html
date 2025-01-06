@@ -1,0 +1,50 @@
+{% load static %}
+<section class="new-arrivals light-bg-s pt-25 pb-15">
+  <div class="container custom-conatiner">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="section__head d-flex justify-content-between mb-30">
+          <div class="section__title section__title-2">
+            <h5 class="st-titile">New Arrivals</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% if new_arrivals %}
+        {% for arrival in new_arrivals %}
+          <div class="col-6 col-md-4 col-lg-2 col-xl-2 product-card">
+            <div class="product__item product__item-2 b-radius-2 mb-20 d-flex flex-column" style="height: 500px;">
+              <div class="product__thumb fix">
+                <div class="product-image w-img">
+                  <a href="{% url 'product_details' arrival.product.slug %}">
+                    <img src="{{ arrival.product.productimage_set.first.image|default:'/path/to/default-image.jpg' }}" alt="{{ arrival.product.title }}" />
+                  </a>
+                </div>
+                <div class="product__content product__content-2 flex-grow-1">
+                  <h6>
+                    <a href="{% url 'product_details' arrival.product.slug %}">{{ arrival.product.title|truncatewords:5 }}</a>
+                  </h6>
+                  <p>{{ arrival.product.description|truncatewords:10|safe }}</p>
+                  <div class="price">
+                    <span>${{ arrival.product.regular_price }}</span>
+                  </div>
+                </div>
+                <div class="add-to-cart mt-auto">
+                  <form method="post" action="{% url 'add_to_cart' arrival.product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12">
+          <p>No new arrivals available.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

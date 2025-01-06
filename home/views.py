@@ -16,7 +16,9 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from products.models import ProductBrand, Attribute, AttributeValue, Product, Categories, ProductType, SubCategories
 from Vendors.models import VendorStore
-
+from django.shortcuts import render
+from .models import SliderArea, DisplayHotProductInCategories, PopularCategories, NewArrival, CustomerReview, FlashSale, FeaturedCategory, BlogHighlight, NewsletterSignup
+from products.models import Industry, Product, Categories, Cart
 
 def home(request):
     sub_total = 0.00
@@ -25,14 +27,20 @@ def home(request):
         carts = Cart.objects.filter(user=request.user)
         if carts:
             sub_total = Cart.subtotal_product_price(user=request.user)
+    
     slider = SliderArea.objects.all()
     industry = Industry.objects.all()
     hot_products_in_cate = DisplayHotProductInCategories.objects.all()[:4]
     trending_product = Product.objects.all()
     trending_division_title = "Trending Product"
     popular_categories = PopularCategories.objects.all()
-    
-    # Filter categories to only include those with related products
+    new_arrivals = NewArrival.objects.all()[:10]  # Fetch the latest 10 new arrivals
+    customer_reviews = CustomerReview.objects.all()[:10]  # Fetch the latest 10 customer reviews
+    flash_sales = FlashSale.objects.all()  # Fetch all ongoing flash sales
+    featured_categories = FeaturedCategory.objects.all()
+    blog_highlights = BlogHighlight.objects.all()[:5]  # Fetch the latest 5 blog highlights
+    newsletter_signup = NewsletterSignup.objects.all()  # Fetch all newsletter signups (for admin purposes)
+        # Filter categories to only include those with related products
     industries_with_products = Industry.objects.annotate(num_products=Count('categories__product')).filter(num_products__gt=0)
       # Fetch the industries with the highest number of categories and brands
     top_industries = Industry.objects.annotate(
@@ -43,17 +51,30 @@ def home(request):
         "carts": carts,
         "sub_total": format(sub_total, ".2f"),
         "slider": slider,
-        "industry": industries_with_products,
+        "industry": industry,
         "hot_products_in_cate": hot_products_in_cate,
         "trending_product": trending_product,
         "trending_division_title": trending_division_title,
         "popular_categories": popular_categories,
-          "industries": industry,  # Add industries to the context
+        "new_arrivals": new_arrivals,
+        "customer_reviews": customer_reviews,
+        "flash_sales": flash_sales,
+        "featured_categories": featured_categories,
+        "blog_highlights": blog_highlights,
+        "newsletter_signup": newsletter_signup,
           "top_industries": top_industries,
     }
     return render(request, "home/home.html", context)
-
-
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+def newsletter_signup(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            # Save the email to the NewsletterSignup model
+            NewsletterSignup.objects.create(email=email)
+            return HttpResponse('Thank you for signing up!')
+    return redirect('home') 
 def display_categories_post(request, id):
     query = request.GET.get('q', '')
     min_price = request.GET.get('min_price')
