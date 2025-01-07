@@ -1,24 +1,17 @@
-from django.shortcuts import render 
-from .models import SliderArea, DisplayHotProductInCategories, PopularCategories
-from products.models import Industry, Product, Categories, Cart 
+from .models import  (
+    SliderArea, DisplayHotProductInCategories, PopularCategories , 
+    NewArrival, CustomerReview, FlashSale, FeaturedCategory, BlogHighlight, NewsletterSignup 
+)
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from products.models import (
+    ProductBrand, Attribute, AttributeValue,
+    Product, Categories, ProductType, SubCategories ,Industry, Cart  )
 from django.views.decorators.csrf import csrf_exempt
-from products.models import Categories
-from products.models  import SubCategories
-# Create your views here.
 from django.db.models import Count
-from django.shortcuts import render
-from django.db.models import Q
-
-
-from django.db.models import Q
-from django.shortcuts import render
 from django.db.models import Q
 from django.core.paginator import Paginator
-from products.models import ProductBrand, Attribute, AttributeValue, Product, Categories, ProductType, SubCategories
 from Vendors.models import VendorStore
-from django.shortcuts import render
-from .models import SliderArea, DisplayHotProductInCategories, PopularCategories, NewArrival, CustomerReview, FlashSale, FeaturedCategory, BlogHighlight, NewsletterSignup
-from products.models import Industry, Product, Categories, Cart
 
 def home(request):
     sub_total = 0.00
@@ -62,11 +55,10 @@ def home(request):
         "featured_categories": featured_categories,
         "blog_highlights": blog_highlights,
         "newsletter_signup": newsletter_signup,
-          "top_industries": top_industries,
+        "top_industries": top_industries,
     }
     return render(request, "home/home.html", context)
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+
 def newsletter_signup(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -75,6 +67,7 @@ def newsletter_signup(request):
             NewsletterSignup.objects.create(email=email)
             return HttpResponse('Thank you for signing up!')
     return redirect('home') 
+
 def display_categories_post(request, id):
     query = request.GET.get('q', '')
     min_price = request.GET.get('min_price')
@@ -139,45 +132,8 @@ def display_categories_post(request, id):
 
 
 
-
-'''from django.db.models import Q
-
-def display_categories_post(request, id):
-    categories = Categories.objects.get(id=id)
-    products = Product.objects.filter(categories=categories)
-    attributes = request.GET.getlist("attribute")
-    # Get filter parameters from the request
-    query = request.GET.get('q', '')  # For search
-    min_price = request.GET.get('min_price')
-    max_price = request.GET.get('max_price')
-    rating = request.GET.get('rating')
-    attribute_filters = request.GET.getlist('attribute')  # Multi-select attribute values
-
-    # Apply filters
-    if query:
-        products = products.filter(Q(title__icontains=query) | Q(description__icontains=query))
-    
-    if min_price and min_price.isdigit():
-        products = products.filter(regular_price__gte=int(min_price))
-    
-    if max_price and max_price.isdigit():
-        products = products.filter(regular_price__lte=int(max_price))
-    
-    if rating and rating.isdigit():
-        products = products.filter(rating__gte=int(rating))
-    
-    if attribute_filters:
-        for attr_value_id in attribute_filters:
-            products = products.filter(productattributevalue__id=attr_value_id)
-
-    context = {"products": products}
-    return render(request, "categories-post.html", context)'''
-
 def test_page(request):
     return render(request, "strip/checkout.html")
-
-
-
 
 def calculate_order_amount(items):
     # Replace this constant with a calculation of the order's amount
