@@ -97,7 +97,7 @@
                                             {{ form.business_name.label_tag }} {{ form.business_name }}
                                         </div>
                                         <div class="form-group">
-                                            {{ form.business_address.label_tag }} {{ form.business_address }}
+                                            <p class="text-muted mb-0">{{ request.user.business_address|default:"N/A" }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">

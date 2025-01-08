@@ -103,12 +103,13 @@ def user_profile(request):
         form = CustomUserEditForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('user_profile')  # Change 'profile' to the appropriate redirect URL
+            return redirect('user_profile')
     else:
         form = CustomUserEditForm(instance=request.user)
 
-    context={
-        "form":form
+    context = {
+        "form": form,
+        "user": request.user
     }
     
     return render(request, 'accounts/user/user-profile.html', context)
