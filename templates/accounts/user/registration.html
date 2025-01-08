@@ -1,10 +1,32 @@
 {% extends "baseFiles/base.html" %}
 {% load static %}
 
-
 {% block bodycontent %}
-<main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const accountTypeField = document.querySelector('#id_account_type');
+        const particularFields = document.getElementById('particular-fields');
+        const businessFields = document.getElementById('business-fields');
 
+        function toggleFields() {
+            const accountType = accountTypeField.querySelector('input[type="radio"]:checked').value;
+            if (accountType === 'particular') {
+                particularFields.style.display = 'block';
+                businessFields.style.display = 'none';
+            } else if (accountType === 'business') {
+                particularFields.style.display = 'none';
+                businessFields.style.display = 'block';
+            } else {
+                particularFields.style.display = 'none';
+                businessFields.style.display = 'none';
+            }
+        }
+
+        accountTypeField.addEventListener('change', toggleFields);
+        toggleFields();  // Initial call to set the correct fields on load
+    });
+</script>
+<main>
     <!-- page-banner-area-start -->
     <div class="page-banner-area page-banner-height-2" data-background="{% static 'assets/img/banner/page-banner-4.jpg' %}">
         <div class="container">
@@ -13,17 +35,15 @@
                     <div class="page-banner-content text-center">
                         <h4 class="breadcrumb-title">My account</h4>
                         <div class="breadcrumb-two">
-                            <nav>
-                               <nav class="breadcrumb-trail breadcrumbs">
-                                  <ul class="breadcrumb-menu">
-                                     <li class="breadcrumb-trail">
-                                        <a href="index.html"><span>Home</span></a>
-                                     </li>
-                                     <li class="trail-item">
+                            <nav class="breadcrumb-trail breadcrumbs">
+                                <ul class="breadcrumb-menu">
+                                    <li class="breadcrumb-trail">
+                                        <a href="{% url 'home' %}"><span>Home</span></a>
+                                    </li>
+                                    <li class="trail-item">
                                         <span>My account</span>
-                                     </li>
-                                  </ul>
-                               </nav> 
+                                    </li>
+                                </ul>
                             </nav>
                         </div>
                     </div>
@@ -40,26 +60,57 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <h5>Register your account, it just few click</h5>
-
+                    <h5>Register your account, it just takes a few clicks</h5>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="basic-login">
-
                         <h5>Register</h5>
-
                         <form action="{% url 'registration_view' %}" method='POST'>
                             {% csrf_token %}
-
-                            {{form.as_p}}
-
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        {{ form.email.label_tag }} {{ form.email }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.first_name.label_tag }} {{ form.first_name }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.last_name.label_tag }} {{ form.last_name }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.mobile.label_tag }} {{ form.mobile }}
+                                    </div>
+                                    <div class="form-group" id="id_account_type">
+                                        {{ form.account_type.label_tag }} {{ form.account_type }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div id="particular-fields" style="display: none;">
+                                        <div class="form-group">
+                                            {{ form.particular_info.label_tag }} {{ form.particular_info }}
+                                        </div>
+                                    </div>
+                                    <div id="business-fields" style="display: none;">
+                                        <div class="form-group">
+                                            {{ form.business_name.label_tag }} {{ form.business_name }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form.business_address.label_tag }} {{ form.business_address }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.password1.label_tag }} {{ form.password1 }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.password2.label_tag }} {{ form.password2 }}
+                                    </div>
+                                </div>
+                            </div>
                             <input class="tp-in-btn w-100" type="submit" value="Register">
                         </form>
-
                     </div>
-
-                    
                 </div>
             </div>
         </div>
@@ -89,7 +140,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="cta-item mb-30">
                         <h5 class="cta-title">Sign Up To Newsletter</h5>
-                        <p>Join 60.000+ subscribers and get a new discount coupon  on every Saturday.</p>
+                        <p>Join 60.000+ subscribers and get a new discount coupon on every Saturday.</p>
                         <div class="subscribe__form">
                             <form action="#">
                                 <input type="email" placeholder="Enter your email here...">
@@ -104,18 +155,15 @@
                         <p>DukaMarket App is now available on App Store & Google Play. Get it now.</p>
                         <div class="cta-apps">
                             <div class="apps-store">
-                                <a href="#"><img src="assets/img/brand/app_ios.png" alt=""></a>
-                                <a href="#"><img src="assets/img/brand/app_android.png" alt=""></a>
+                                <a href="#"><img src="{% static 'assets/img/brand/app_ios.png' %}" alt=""></a>
+                                <a href="#"><img src="{% static 'assets/img/brand/app_android.png' %}" alt=""></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
     <!-- cta-area-end -->
-
 </main>
 {% endblock bodycontent %}
-    

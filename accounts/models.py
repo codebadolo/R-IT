@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
-from django.db import models
 from django.utils import timezone
 
 
@@ -32,23 +31,28 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ('3', 'Vendor'),
     ]
     
-    #here we should enable to signup part to let the
-    #user decide whether it is a particular or a business
-    # 
+    ACCOUNT_TYPE = [
+        ('particular', 'Particular'),
+        ('business', 'Business'),
+    ]
+
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     mobile = models.PositiveIntegerField()
-    user_role = models.CharField(choices=USER_ROLE, default=1, max_length=20)
+    user_role = models.CharField(choices=USER_ROLE, default='1', max_length=20)
+    account_type = models.CharField(choices=ACCOUNT_TYPE, max_length=10 , default='particular')
+    business_name = models.CharField(max_length=100, blank=True, null=True)
+    business_address = models.CharField(max_length=255, blank=True, null=True)
+    particular_info = models.TextField(blank=True, null=True)
     date_joined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
 
-
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name','mobile']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'mobile']
 
     def __str__(self):
         return self.email

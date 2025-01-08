@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'Vendors',
     'ckeditor',
     'payments',
+     'crispy_forms',
+    'crispy_bootstrap5',
 
      
     
@@ -348,3 +350,7 @@ JAZZMIN_UI_TWEAKS = {
     "actions_sticky_top": True
 }
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

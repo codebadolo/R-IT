@@ -10,18 +10,19 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def registration_view(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,'Your account created successfully!!!')
+            messages.success(request, 'Your account has been created successfully!')
             return redirect('user_login')
     else:
         form = RegistrationForm()
+
     context = {
-        'form':form
+        'form': form
     }
-    return render(request,'accounts/user/registration.html', context)
+    return render(request, 'accounts/user/registration.html', context)
 
 def login_view(request):
     if request.method == 'POST':
