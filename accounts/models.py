@@ -31,6 +31,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ('2', 'Editor'),
         ('3', 'Vendor'),
     ]
+    
+    #here we should enable to signup part to let the
+    #user decide whether it is a particular or a business
+    # 
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)

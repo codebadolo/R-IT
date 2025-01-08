@@ -38,90 +38,12 @@
         href="{% static 'assets/css/font-awesome-pro.css' %}"
       />
       <link rel="stylesheet" href="{% static 'assets/css/default.css' %}" />
+
       <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
 
       {% block header-style %} {% endblock header-style %}
     </head>
-    <style>
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-      }
-      
-      .modal-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-      }
-      
-      .close-btn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-      }
-      
-      .close-btn:hover,
-      .close-btn:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-      }
-      
-      .hidden {
-        display: none;
-      }
-      
-      .parent-categories,
-      .sub-categories,
-      .sub-sub-categories {
-        list-style: none;
-        padding: 0;
-      }
-      
-      .parent-category > a,
-      .sub-category > a,
-      .sub-sub-category > a {
-        text-decoration: none;
-        color: #333;
-      }
-      
-      .parent-category > a {
-        font-weight: bold;
-      }
-      
-      .sub-categories {
-        margin-left: 20px;
-      }
-      
-      .sub-sub-categories {
-        margin-left: 20px;
-      }
-      
-      /* Add styles for the megamenu */
-      .mega-menu {
-        display: none;
-        position: absolute;
-        background-color: white;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-      }
-      
-      .parent-category:hover .mega-menu {
-        display: block;
-      }
-
-     
-    </style>
+   
     <body>
       <!--[if lte IE 9]>
         <p class="browserupgrade">
@@ -332,6 +254,7 @@
                   <div class="header-inner-end text-md-end">
                     <div class="ovic-menu-wrapper">
                       <ul>
+                        <li><a href="{% url 'registration_view' %}">Sign Up</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="{% url 'user_dashboard' %}">Order Tracking</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
@@ -523,62 +446,85 @@
         </div>
         <div class="header__bottom">
           <div class="container">
-            <div class="row g-0 align-items-center">
-       
-              <div class="col-lg-12">
-                <div class="header__bottom-left d-flex align-items-center">
-                  <div class="side-menu d-lg-none ">
-                    <button type="button" class="side-menu-btn offcanvas-toggle-btn">
+            <div class="row g-0 align-items-center ">
+              <div class="col-lg-6">
+                <div class="cat__menu-wrapper side-border d-none d-lg-block">
+                  <div class="cat-toggle">
+                    <button type="button" class="cat-toggle-btn cat-toggle-btn-1 w-20">
+                      <i class="fal fa-bars"></i> Shop by department
+                    </button>
+                    <div class="cat__menu">
+                      <nav id="mobile-menu" style="display: block">
+                        <ul>
+                          {% for i in industry %}
+  
+                          <li>
+                            <a href=""
+                              >{{i.name}} <i class="far fa-angle-down"></i
+                            ></a>
+                            <ul class="mega-menu mega-menu-2">
+                              <li>
+                                {% for categories in i.categories_set.all %}
+                                <a
+                                  href="{% url 'display_categories_post' categories.id %}"
+                                  >{{categories.name}}</a
+                                >
+                                <ul class="mega-item">
+                                  {% for subcate in categories.subcategories_set.all %}
+                                  <li>
+                                    <a href="#">{{subcate.name}}</a>
+                                  </li>
+                                  {% endfor %}
+                                </ul>
+  
+                                {% endfor %}
+                              </li>
+                            </ul>
+                          </li>
+  
+                          {% endfor %}
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-3">
+                <div
+                  class="header__bottom-left d-flex d-xl-block align-items-center"
+                >
+                  <div class="side-menu d-lg-none mr-20">
+                    <button
+                      type="button"
+                      class="side-menu-btn offcanvas-toggle-btn"
+                    >
                       <i class="fas fa-bars"></i>
                     </button>
                   </div>
                   <div class="main-menu d-none d-lg-block">
                     <ul>
-                      <li>
-                        <a href="">Home <i class="far fa-angle-down"></i></a>
-                        <ul class="megamenu-1">
-                          <li>
-                            <a href="#">Categories</a>
-                            <ul class="mega-item industry-list d-flex flex-wrap">
-                              {% for parent in industry %}
-                              <li>
-                                <a href="#">{{ parent.name }}</a>
-                                <ul class="sub-categories">
-                                  {% for category in parent.categories_set.all %}
-                                  <li>
-                                    <a href="{% url 'display_categories_post' category.id %}">{{ category.name }}</a>
-                                    <ul class="sub-sub-categories">
-                                      {% for subcategory in category.subcategories_set.all %}
-                                      <li>
-                                        <a href="#">{{ subcategory.name }}</a>
-                                      </li>
-                                      {% endfor %}
-                                    </ul>
-                                  </li>
-                                  {% endfor %}
-                                </ul>
-                              </li>
-                              {% endfor %}
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                       
+                    
+                      
                 
-                        {% for industry in top_industries %}
-                        <li class="industry-item"><a href="#">{{ industry.name }}</a></li>
-                        {% endfor %}
-                      </ul>
-               
-              
+                   
+                      {% for industry in top_industries %}
+                      <li ><a href="#">{{ industry.name }}</a></li>
+                      {% endfor %}
+                     
+                    </ul>
                   </div>
                 </div>
               </div>
+
+               
+                </div>
+              </div>
+             
             </div>
           </div>
-        </div>
-       
-           </div>
+            </div>
+        
+          
       </header>
       <!-- header-end -->
 

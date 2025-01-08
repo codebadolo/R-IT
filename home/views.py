@@ -39,7 +39,7 @@ def home(request):
     top_industries = Industry.objects.annotate(
         num_categories=Count('categories'),
         num_brands=Count('categories__product__brand')
-    ).order_by('-num_categories', '-num_brands')[:8]
+    ).order_by('-num_categories', '-num_brands')[:4]
     context = {
         "carts": carts,
         "sub_total": format(sub_total, ".2f"),
