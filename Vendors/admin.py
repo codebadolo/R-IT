@@ -56,7 +56,7 @@ class CustomVendorAdminSite(admin.AdminSite):
 vendor_admin_site = CustomVendorAdminSite(name='vendor_admin_site')
 
 # ModelAdmin For VendorStore
-class VendorStoreModelAdmin(ModelAdmin):
+class VendorStoreModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'user', 'created_at')
     fieldsets = (
         (None, {'fields': ('name', 'slug', 'logo', 'cover_photo')}),
@@ -76,16 +76,16 @@ class VendorStoreModelAdmin(ModelAdmin):
             return redirect('/vendor-dashboard/Vendors/vendorstore/')
 
 # TabularInline For Product Model
-class ProductImageTabular(TabularInline):
+class ProductImageTabular(admin.TabularInline):
     model = ProductImage
     extra = 0
 
-class ProductAditonalInformationTabular(TabularInline):
+class ProductAditonalInformationTabular(admin.TabularInline):
     model = ProductAditionalInformation
     extra = 0
 
 # ModelAdmin For Product Model
-class ProductModelAdmin(ModelAdmin):
+class ProductModelAdmin(admin.ModelAdmin):
     form = ProductModelAdminForm
     inlines = (ProductImageTabular, ProductAditonalInformationTabular)
     list_display = ('title', 'formated_stoc', 'discounted_price', 'categories', 'vendor_stores', 'sort_descriptions')
@@ -136,12 +136,12 @@ vendor_admin_site.register(VendorStore, VendorStoreModelAdmin)
 vendor_admin_site.register(Product, ProductModelAdmin)
 
 # Register order models
-class PlacedOrderModelAdmin(ModelAdmin):
+class PlacedOrderModelAdmin(admin.ModelAdmin):
     list_display = ('order_number', 'user', 'status', 'shipping_status', 'placed_date')
     list_filter = ('status', 'shipping_status', 'placed_date')
     search_fields = ('order_number', 'user__email')
 
-class CompletedOrderModelAdmin(ModelAdmin):
+class CompletedOrderModelAdmin(admin.ModelAdmin):
     list_display = ('oder_number', 'user', 'status', 'complete_date')
     list_filter = ('status', 'complete_date')
     search_fields = ('oder_number', 'user__email')

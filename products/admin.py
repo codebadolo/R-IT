@@ -8,7 +8,7 @@ from django.urls import path
 from django.http import JsonResponse
 from unfold.sites import UnfoldAdminSite
 # Super Admin Site Customization
-class SuperAdminSite(UnfoldAdminSite):
+class SuperAdminSite(admin.Adminsite):
     site_header = 'Super Admin Dashboard'
     site_title = 'Super Admin Panel'
     index_title = 'Manage Your Store'
@@ -20,17 +20,17 @@ super_admin_site = SuperAdminSite(name='superadminsite')
 
 # Industry Management
 @admin.register(Industry)
-class IndustryAdmin(ModelAdmin):
+class IndustryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'created_at')
     prepopulated_fields = {'slug': ('name',)}
 
 # Category & Subcategory
-class SubCategoryInline(TabularInline):
+class SubCategoryInline(admin.TabularInline):
     model = SubCategories
     extra = 1
 
 @admin.register(Categories)
-class CategoriesAdmin(ModelAdmin):
+class CategoriesAdmin(admin.ModelAdmin):
     list_display = ('name', 'industry', 'created_at')
     list_filter = ('industry',)
     prepopulated_fields = {'slug': ('name',)}
@@ -40,7 +40,7 @@ class CategoriesAdmin(ModelAdmin):
 super_admin_site.register(Categories, CategoriesAdmin)  # Register with super_admin_site
 
 @admin.register(SubCategories)
-class SubCategoriesAdmin(ModelAdmin):
+class SubCategoriesAdmin(admin.ModelAdmin):
     list_display = ('name', 'categories', 'created_at')
     list_filter = ('categories__industry', 'categories')
     prepopulated_fields = {'slug': ('name',)}
@@ -49,36 +49,36 @@ class SubCategoriesAdmin(ModelAdmin):
 super_admin_site.register(SubCategories, SubCategoriesAdmin)  # Register with super_admin_site
 
 # Product Attribute Management
-class AttributeValueInline(TabularInline):
+class AttributeValueInline(admin.TabularInline):
     model = AttributeValue
     extra = 1
 
 @admin.register(Attribute)
-class AttributeAdmin(ModelAdmin):
+class AttributeAdmin(admin.ModelAdmin):
     inlines = [AttributeValueInline]
 
-class ProductTypeAttributeInline(TabularInline):
+class ProductTypeAttributeInline(admin.TabularInline):
     model = ProductTypeAttribute
     extra = 1
 
 @admin.register(ProductType)
-class ProductTypeAdmin(ModelAdmin):
+class ProductTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at')
     inlines = [ProductTypeAttributeInline]
 
 # Product Inventory Management
-class ProductInventoryAdmin(ModelAdmin):
+class ProductInventoryAdmin(admin.ModelAdmin):
     list_display = ['product', 'total_quantity', 'available_quantity', 'created_at']
     search_fields = ['product__title']
 
 super_admin_site.register(ProductInventory, ProductInventoryAdmin)
 
 # Product Management
-class ProductImages(TabularInline):
+class ProductImages(admin.TabularInline):
     model = ProductImage
     extra = 1
 
-class ProductAditionalInformations(TabularInline):
+class ProductAditionalInformations(admin.TabularInline):
     model = ProductAditionalInformation
     extra = 1
     

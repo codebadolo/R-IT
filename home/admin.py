@@ -6,22 +6,22 @@ from . models import SliderArea, DisplayHotProductInCategories, PopularCategorie
 # Register your models here.
 from unfold.admin import ModelAdmin  , TabularInline
 # Register New Models for Admin
-class NewArrivalAdmin(ModelAdmin):
+class NewArrivalAdmin(admin.ModelAdmin):
     list_display = ('product', 'arrival_date')
 
-class CustomerReviewAdmin(ModelAdmin):
+class CustomerReviewAdmin(admin.ModelAdmin):
     list_display = ('product', 'user', 'rating', 'created_at')
 
-class FlashSaleAdmin(ModelAdmin):
+class FlashSaleAdmin(admin.ModelAdmin):
     list_display = ('product', 'discount_percentage', 'start_date', 'end_date')
 
-class FeaturedCategoryAdmin(ModelAdmin):
+class FeaturedCategoryAdmin(admin.ModelAdmin):
     list_display = ('category', 'featured_date')
 
-class BlogHighlightAdmin(ModelAdmin):
+class BlogHighlightAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at')
 
-class NewsletterSignupAdmin(ModelAdmin):
+class NewsletterSignupAdmin(admin.ModelAdmin):
     list_display = ('email', 'signup_date')
 
 super_admin_site.register(NewArrival, NewArrivalAdmin)
