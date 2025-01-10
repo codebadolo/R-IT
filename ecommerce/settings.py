@@ -31,14 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-     "unfold",  # before django.contrib.admin
-    "unfold.contrib.filters",  # optional, if special filters are needed
-    "unfold.contrib.forms",  # optional, if special form elements are needed
-    "unfold.contrib.inlines",  # optional, if special inlines are needed
-    "unfold.contrib.import_export",  # optional, if django-import-export package is used
-    "unfold.contrib.guardian",  # optional, if django-guardian package is used
-    "unfold.contrib.simple_history", 
-     'widget_tweaks',
+    "jazzmin",  # before django.contrib.admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'home',
- 
     'accounts',
     'products.apps.ProductsConfig',
     'AdminPanel',
@@ -183,7 +175,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 APPEND_SLASH=False
-'''
+
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Library Admin",
@@ -358,118 +350,7 @@ JAZZMIN_UI_TWEAKS = {
     "actions_sticky_top": True
 }
 X_FRAME_OPTIONS = 'SAMEORIGIN'
-'''
+
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-from django.templatetags.static import static
-from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
-from products.admin import super_admin_site
-UNFOLD = {
-    "SITE_TITLE": "ROH Store",
-    "SITE_HEADER": "ROH Store",
-    "SITE_URL": "/",
- 
-    "SHOW_HISTORY": True,
-    "SHOW_VIEW_ON_SITE": True,
-    "THEME": "light",
-  
-
-    "COLORS": {
-        "primary": {
-            "50": "240 253 244",
-            "100": "220 252 231",
-            "200": "187 247 208",
-            "300": "134 239 172",
-            "400": "74 222 128",
-            "500": "34 197 94",
-            "600": "22 163 74",
-            "700": "21 128 61",
-            "800": "22 101 52",
-            "900": "20 83 45",
-            "950": "14 59 34",
-        },
-        "background": {
-            "light": "255 255 255",
-            "dark": "0 0 0",
-        },
-        "font": {
-            "default-light": "75 85 99",
-            "default-dark": "209 213 219",
-            "important-light": "0 128 0",
-            "important-dark": "255 255 255",
-        },
-    },
-    "EXTENSIONS": {
-        "modeltranslation": {
-            "flags": {
-                "en": "🇬🇧",
-                "fr": "🇫🇷",
-            },
-        },
-    }
-    , "SIDEBAR": {
-        "show_search": False,  # Search in applications and models names
-        "show_all_applications": True,  # Dropdown with all applications and models
-        "navigation": [
-            {
-                "title": "Navigation",
-                "separator": True,  # Top border
-                "collapsible": True,  # Collapsible group of links
-                "items": [
-                    {
-                        "title": "Dashboard",
-                        "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
-                        "link": reverse_lazy("admin:index"),
-                        "badge": "admin.badge_callback",
-                        "permission": lambda request: request.user.is_superuser,
-                    },
-                   
-                    {
-                        "title": "Products",
-                        "icon": "inventory",
-                        "link": reverse_lazy("admin:products_product_changelist"),
-                         "permission": lambda request: request.user.is_superuser, 
-                    },
-                 
-                     {
-                        "title": "Products",
-                        "icon": "inventory",
-                        "link": reverse_lazy("admin:products_product_changelist"),
-                    },
-                       {
-                        "title": "Products",
-                        "icon": "inventory",
-                        "link": reverse_lazy("admin:products_attributeadmin_changelist"),
-                    },
-                
-                ],
-            },
-        ],
-    },
-    "TABS": [
-        {
-            "models": [
-                "products.product",
-                "products.categories",
-                "AdminPanel.placedoder",
-                "Vendors.vendor",
-            ],
-            "items": [
-                {
-                    "title": "Products",
-                    "link": reverse_lazy("admin:products_product_changelist"),
-                },
-        
-              {
-                    "title": "Products",
-                    "link": reverse_lazy("admin:products_categories_changelist"),
-                },
-        
-          
-           
-            ],
-        },
-    ],
-}
