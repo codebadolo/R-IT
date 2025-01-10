@@ -4,24 +4,24 @@ from django.contrib import admin
 from .models import  NewArrival, CustomerReview, FlashSale, FeaturedCategory, BlogHighlight, NewsletterSignup
 from . models import SliderArea, DisplayHotProductInCategories, PopularCategories
 # Register your models here.
-# 
+from unfold.admin import ModelAdmin  , TabularInline
 # Register New Models for Admin
-class NewArrivalAdmin(admin.ModelAdmin):
+class NewArrivalAdmin(ModelAdmin):
     list_display = ('product', 'arrival_date')
 
-class CustomerReviewAdmin(admin.ModelAdmin):
+class CustomerReviewAdmin(ModelAdmin):
     list_display = ('product', 'user', 'rating', 'created_at')
 
-class FlashSaleAdmin(admin.ModelAdmin):
+class FlashSaleAdmin(ModelAdmin):
     list_display = ('product', 'discount_percentage', 'start_date', 'end_date')
 
-class FeaturedCategoryAdmin(admin.ModelAdmin):
+class FeaturedCategoryAdmin(ModelAdmin):
     list_display = ('category', 'featured_date')
 
-class BlogHighlightAdmin(admin.ModelAdmin):
+class BlogHighlightAdmin(ModelAdmin):
     list_display = ('title', 'created_at')
 
-class NewsletterSignupAdmin(admin.ModelAdmin):
+class NewsletterSignupAdmin(ModelAdmin):
     list_display = ('email', 'signup_date')
 
 super_admin_site.register(NewArrival, NewArrivalAdmin)

@@ -1,12 +1,14 @@
 from django.contrib import admin
 from .models import *
+from unfold.admin import ModelAdmin  , TabularInline
 from .forms import ProductFormAdmin, AttributeValueInlineForm
 from django.contrib.auth.models import Group
 from django.utils.html import format_html
 from django.urls import path
 from django.http import JsonResponse
+from unfold.sites import UnfoldAdminSite
 # Super Admin Site Customization
-class SuperAdminSite(admin.AdminSite):
+class SuperAdminSite(UnfoldAdminSite):
     site_header = 'Super Admin Dashboard'
     site_title = 'Super Admin Panel'
     index_title = 'Manage Your Store'
@@ -18,17 +20,17 @@ super_admin_site = SuperAdminSite(name='superadminsite')
 
 # Industry Management
 @admin.register(Industry)
-class IndustryAdmin(admin.ModelAdmin):
+class IndustryAdmin(ModelAdmin):
     list_display = ('name', 'slug', 'created_at')
     prepopulated_fields = {'slug': ('name',)}
 
 # Category & Subcategory
-class SubCategoryInline(admin.TabularInline):
+class SubCategoryInline(TabularInline):
     model = SubCategories
     extra = 1
 
 @admin.register(Categories)
-class CategoriesAdmin(admin.ModelAdmin):
+class CategoriesAdmin(ModelAdmin):
     list_display = ('name', 'industry', 'created_at')
     list_filter = ('industry',)
     prepopulated_fields = {'slug': ('name',)}
@@ -38,7 +40,7 @@ class CategoriesAdmin(admin.ModelAdmin):
 super_admin_site.register(Categories, CategoriesAdmin)  # Register with super_admin_site
 
 @admin.register(SubCategories)
-class SubCategoriesAdmin(admin.ModelAdmin):
+class SubCategoriesAdmin(ModelAdmin):
     list_display = ('name', 'categories', 'created_at')
     list_filter = ('categories__industry', 'categories')
     prepopulated_fields = {'slug': ('name',)}
@@ -47,42 +49,42 @@ class SubCategoriesAdmin(admin.ModelAdmin):
 super_admin_site.register(SubCategories, SubCategoriesAdmin)  # Register with super_admin_site
 
 # Product Attribute Management
-class AttributeValueInline(admin.TabularInline):
+class AttributeValueInline(TabularInline):
     model = AttributeValue
     extra = 1
 
 @admin.register(Attribute)
-class AttributeAdmin(admin.ModelAdmin):
+class AttributeAdmin(ModelAdmin):
     inlines = [AttributeValueInline]
 
-class ProductTypeAttributeInline(admin.TabularInline):
+class ProductTypeAttributeInline(TabularInline):
     model = ProductTypeAttribute
     extra = 1
 
 @admin.register(ProductType)
-class ProductTypeAdmin(admin.ModelAdmin):
+class ProductTypeAdmin(ModelAdmin):
     list_display = ('name', 'created_at')
     inlines = [ProductTypeAttributeInline]
 
 # Product Inventory Management
-class ProductInventoryAdmin(admin.ModelAdmin):
+class ProductInventoryAdmin(ModelAdmin):
     list_display = ['product', 'total_quantity', 'available_quantity', 'created_at']
     search_fields = ['product__title']
 
 super_admin_site.register(ProductInventory, ProductInventoryAdmin)
 
 # Product Management
-class ProductImages(admin.TabularInline):
+class ProductImages(TabularInline):
     model = ProductImage
     extra = 1
 
-class ProductAditionalInformations(admin.TabularInline):
+class ProductAditionalInformations(TabularInline):
     model = ProductAditionalInformation
     extra = 1
     
 
         
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ModelAdmin):
     form = ProductFormAdmin
     inlines = [ProductImages, ProductAditionalInformations, AttributeValueInline, ProductTypeAttributeInline]
     list_display = ['thumbnail', 'title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
@@ -117,7 +119,7 @@ class ProductAdmin(admin.ModelAdmin):
 super_admin_site.register(Product, ProductAdmin)
 
 # Miscellaneous
-class CartModelAdmin(admin.ModelAdmin):
+class CartModelAdmin(ModelAdmin):
     list_display = ['product_thumbnail', 'product', 'user']
     readonly_fields = ['product_thumbnail','product', 'user']
 
@@ -133,13 +135,13 @@ from django.contrib import admin
 from .models import *
 
 # Customize the Admin panel
-class CustomerAddressAdmin(admin.ModelAdmin):
+class CustomerAddressAdmin(ModelAdmin):
     list_display = ['user', 'street_address', 'city', 'state', 'zip_code', 'country', 'mobile', 'is_shipping', 'is_billing']
     search_fields = ['user__username', 'city', 'state']
     list_filter = ['is_shipping', 'is_billing']
 
 @admin.register(PlacedOder)
-class PlacedOderAdmin(admin.ModelAdmin):
+class PlacedOderAdmin(ModelAdmin):
     list_display = ['order_number', 'user', 'status', 'shipping_address', 'tracking_number', 'estimated_delivery_date', 'sub_total_price', 'paid', 'placed_date']
     search_fields = ['order_number', 'user__username', 'status', 'tracking_number']
     list_filter = ['status', 'paid']

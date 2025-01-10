@@ -10,7 +10,7 @@ from django.urls import path
 from django.template.response import TemplateResponse
 from datetime import datetime, timedelta
 from products.models import Cart, PlacedOder, CompletedOder
-
+from unfold.admin import ModelAdmin  , TabularInline
 # Vendor Admin Site# Vendor Admin Site
 class CustomVendorAdminSite(admin.AdminSite):
     site_header = 'MVEC Seller Dashboard'
@@ -56,7 +56,7 @@ class CustomVendorAdminSite(admin.AdminSite):
 vendor_admin_site = CustomVendorAdminSite(name='vendor_admin_site')
 
 # ModelAdmin For VendorStore
-class VendorStoreModelAdmin(admin.ModelAdmin):
+class VendorStoreModelAdmin(ModelAdmin):
     list_display = ('name', 'user', 'created_at')
     fieldsets = (
         (None, {'fields': ('name', 'slug', 'logo', 'cover_photo')}),
@@ -76,16 +76,16 @@ class VendorStoreModelAdmin(admin.ModelAdmin):
             return redirect('/vendor-dashboard/Vendors/vendorstore/')
 
 # TabularInline For Product Model
-class ProductImageTabular(admin.TabularInline):
+class ProductImageTabular(TabularInline):
     model = ProductImage
     extra = 0
 
-class ProductAditonalInformationTabular(admin.TabularInline):
+class ProductAditonalInformationTabular(TabularInline):
     model = ProductAditionalInformation
     extra = 0
 
 # ModelAdmin For Product Model
-class ProductModelAdmin(admin.ModelAdmin):
+class ProductModelAdmin(ModelAdmin):
     form = ProductModelAdminForm
     inlines = (ProductImageTabular, ProductAditonalInformationTabular)
     list_display = ('title', 'formated_stoc', 'discounted_price', 'categories', 'vendor_stores', 'sort_descriptions')
@@ -136,12 +136,12 @@ vendor_admin_site.register(VendorStore, VendorStoreModelAdmin)
 vendor_admin_site.register(Product, ProductModelAdmin)
 
 # Register order models
-class PlacedOrderModelAdmin(admin.ModelAdmin):
+class PlacedOrderModelAdmin(ModelAdmin):
     list_display = ('order_number', 'user', 'status', 'shipping_status', 'placed_date')
     list_filter = ('status', 'shipping_status', 'placed_date')
     search_fields = ('order_number', 'user__email')
 
-class CompletedOrderModelAdmin(admin.ModelAdmin):
+class CompletedOrderModelAdmin(ModelAdmin):
     list_display = ('oder_number', 'user', 'status', 'complete_date')
     list_filter = ('status', 'complete_date')
     search_fields = ('oder_number', 'user__email')
