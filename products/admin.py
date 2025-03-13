@@ -1,14 +1,14 @@
 from django.contrib import admin
 from .models import *
-from unfold.admin import ModelAdmin  , TabularInline
+
 from .forms import ProductFormAdmin, AttributeValueInlineForm
 from django.contrib.auth.models import Group
 from django.utils.html import format_html
 from django.urls import path
 from django.http import JsonResponse
-from unfold.sites import UnfoldAdminSite
+
 # Super Admin Site Customization
-class SuperAdminSite(admin.Adminsite):
+class SuperAdminSite(admin.AdminSite):
     site_header = 'Super Admin Dashboard'
     site_title = 'Super Admin Panel'
     index_title = 'Manage Your Store'
@@ -84,7 +84,7 @@ class ProductAditionalInformations(admin.TabularInline):
     
 
         
-class ProductAdmin(ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     form = ProductFormAdmin
     inlines = [ProductImages, ProductAditionalInformations, AttributeValueInline, ProductTypeAttributeInline]
     list_display = ['thumbnail', 'title', 'regular_price', 'discounted_price', 'brand', 'product_type', 'categories']
@@ -119,7 +119,7 @@ class ProductAdmin(ModelAdmin):
 super_admin_site.register(Product, ProductAdmin)
 
 # Miscellaneous
-class CartModelAdmin(ModelAdmin):
+class CartModelAdmin(admin.ModelAdmin):
     list_display = ['product_thumbnail', 'product', 'user']
     readonly_fields = ['product_thumbnail','product', 'user']
 
@@ -135,13 +135,13 @@ from django.contrib import admin
 from .models import *
 
 # Customize the Admin panel
-class CustomerAddressAdmin(ModelAdmin):
+class CustomerAddressAdmin(admin.ModelAdmin):
     list_display = ['user', 'street_address', 'city', 'state', 'zip_code', 'country', 'mobile', 'is_shipping', 'is_billing']
     search_fields = ['user__username', 'city', 'state']
     list_filter = ['is_shipping', 'is_billing']
 
 @admin.register(PlacedOder)
-class PlacedOderAdmin(ModelAdmin):
+class PlacedOderAdmin(admin.ModelAdmin):
     list_display = ['order_number', 'user', 'status', 'shipping_address', 'tracking_number', 'estimated_delivery_date', 'sub_total_price', 'paid', 'placed_date']
     search_fields = ['order_number', 'user__username', 'status', 'tracking_number']
     list_filter = ['status', 'paid']
